@@ -2,8 +2,8 @@
 import { site } from '../data/site';
 
 const items = [
-  site.specialty,
-  site.address.city + ' · PR',
+  site.specialtyShort,
+  `${site.address.city} · PR`,
   site.crm,
   'Consultas longas',
   'Saúde integral',
@@ -11,15 +11,24 @@ const items = [
   'Longevidade',
   'Teleconsulta',
 ];
-const loop = [...items, ...items];
 ---
 
-<div class="overflow-hidden border-y border-rose-soft/80 bg-rose py-3 text-surface" data-marquee aria-hidden="true">
-  <div class="flex w-max" data-marquee-track>
-    <div class="flex shrink-0 items-center gap-8 pr-8" data-marquee-inner>
+<div class="marquee-band overflow-hidden border-y border-line bg-gold py-3 text-surface" data-marquee aria-hidden="true">
+  <div class="motion-track motion-track--rtl" data-motion-track="marquee">
+    <div class="motion-group items-center gap-8 pr-8">
       {
-        loop.map((item) => (
-          <span class="text-xs font-medium uppercase tracking-[0.35em] md:text-sm">
+        items.map((item) => (
+          <span class="whitespace-nowrap text-xs font-medium uppercase tracking-[0.35em] md:text-sm">
+            {item}
+            <span class="mx-4 text-gold-soft">◆</span>
+          </span>
+        ))
+      }
+    </div>
+    <div class="motion-group items-center gap-8 pr-8" aria-hidden="true">
+      {
+        items.map((item) => (
+          <span class="whitespace-nowrap text-xs font-medium uppercase tracking-[0.35em] md:text-sm">
             {item}
             <span class="mx-4 text-gold-soft">◆</span>
           </span>

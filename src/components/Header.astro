@@ -1,5 +1,7 @@
 ---
 import { nav, site } from '../data/site';
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
@@ -9,16 +11,10 @@ function isActive(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-40 border-b border-rose-soft/80 bg-brand-cream" data-site-header>
+<header class="sticky top-0 z-40 border-b border-line/80 marble-surface backdrop-blur-md" data-site-header>
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
   <div class="container-site flex min-h-16 items-center justify-between gap-4 py-3">
-    <a href="/" class="group max-w-[14rem] sm:max-w-none" data-header-logo>
-      <span class="block font-display text-xl leading-none text-ink sm:text-2xl">
-        Dra. Ligiana Maffini
-      </span>
-      <span class="mt-1 block text-[0.65rem] uppercase tracking-[0.18em] text-rose-deep sm:text-xs">
-        Medicina de família · Curitiba
-      </span>
-    </a>
+    <Logo />
 
     <nav class="hidden items-center gap-8 md:flex" aria-label="Principal">
       {
@@ -35,31 +31,35 @@ function isActive(href: string) {
       }
     </nav>
 
-    <a
-      href={site.whatsapp}
-      class="btn-primary hidden text-sm md:inline-flex"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-header-cta
-    >
-      Agendar consulta
-    </a>
+    <div class="flex items-center gap-2 md:gap-3">
+      <ThemeToggle />
 
-    <details class="relative md:hidden" data-nav-item>
-      <summary class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-full border border-rose-soft bg-surface/90 backdrop-blur [&::-webkit-details-marker]:hidden">
+      <a
+        href={site.whatsapp}
+        class="btn-primary hidden text-sm md:inline-flex"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-header-cta
+        data-magnetic
+      >
+        Agendar consulta
+      </a>
+
+      <details class="relative md:hidden" data-nav-item>
+      <summary class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-full border border-line bg-surface/90 backdrop-blur [&::-webkit-details-marker]:hidden">
         <span class="sr-only">Abrir menu</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
         </svg>
       </summary>
-      <nav class="absolute right-0 mt-2 w-52 rounded-2xl border border-rose-soft bg-surface p-3 shadow-lg shadow-rose/10" aria-label="Menu mobile">
+      <nav class="absolute right-0 mt-2 w-52 rounded-2xl border border-line bg-surface p-3 shadow-lg shadow-ink/10" aria-label="Menu mobile">
         {
           nav.map((item) => (
             <a
               href={item.href}
               class:list={[
                 'block rounded-xl px-3 py-2.5 text-sm font-medium',
-                isActive(item.href) ? 'bg-rose-soft text-rose-deep' : 'text-ink-soft hover:bg-rose-blush',
+                isActive(item.href) ? 'bg-gold-soft text-gold-deep' : 'text-ink-soft hover:bg-rose-blush',
               ]}
             >
               {item.label}
@@ -71,5 +71,6 @@ function isActive(href: string) {
         </a>
       </nav>
     </details>
+    </div>
   </div>
 </header>

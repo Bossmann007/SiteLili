@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Photo from '../components/Photo.astro';
-import MotionPathDecor from '../components/MotionPathDecor.astro';
+import BrandPattern from '../components/BrandPattern.astro';
+import BrandImage from '../components/BrandImage.astro';
 import { site } from '../data/site';
-import clinicPhoto from '../assets/images/olhandoparaajanelacomcafe.jpg';
+import { photos } from '../data/photos';
 
 const description =
   'Abordagem médica centrada em estilo de vida, longevidade e saúde integral. Consultas longas, plano personalizado e acompanhamento contínuo em Curitiba.';
@@ -11,60 +12,151 @@ const description =
 const pillars = [
   {
     title: 'Escuta e tempo',
-    text: 'Consultas longas para compreender história, queixas, rotina e objetivos antes de definir condutas.',
+    description:
+      'Consultas longas para compreender história, queixas, rotina e objetivos antes de definir condutas.',
   },
   {
     title: 'Prevenção e longevidade',
-    text: 'Estratégias baseadas em evidências para envelhecimento saudável, rastreamento e hábitos sustentáveis.',
+    description:
+      'Estratégias baseadas em evidências para envelhecimento saudável, rastreamento e hábitos sustentáveis.',
   },
   {
     title: 'Saúde integral',
-    text: 'Integração de sono, alimentação, movimento, saúde emocional e condições clínicas em um plano coerente.',
+    description:
+      'Integração de sono, alimentação, movimento, saúde emocional e condições clínicas em um plano coerente.',
   },
   {
     title: 'Continuidade',
-    text: 'Acompanhamento próximo entre consultas, com teleconsulta quando fizer sentido para a sua rotina.',
+    description:
+      'Acompanhamento próximo entre consultas, com teleconsulta quando fizer sentido para a sua rotina.',
+  },
+];
+
+const steps = [
+  {
+    title: 'Primeira conversa',
+    text: 'Tempo dedicado para ouvir queixas, histórico de saúde, rotina e o que você espera alcançar.',
+  },
+  {
+    title: 'Avaliação clínica',
+    text: 'Exame físico, revisão de exames e leitura integrada de sono, alimentação, movimento e bem-estar.',
+  },
+  {
+    title: 'Plano personalizado',
+    text: 'Condutas compartilhadas, metas realistas e orientações de estilo de vida alinhadas à sua fase de vida.',
+  },
+  {
+    title: 'Acompanhamento',
+    text: 'Retornos programados e contato entre consultas para ajustes, dúvidas e continuidade do cuidado.',
   },
 ];
 ---
 
 <BaseLayout title="Abordagem" description={description} path="/abordagem">
-  <section class="hero-glow relative overflow-hidden border-b border-rose-soft/70" data-motion-section>
-    <MotionPathDecor pathId="abordagem-motion-path" />
-    <div class="container-site relative py-16 md:py-24">
-      <p class="eyebrow" data-hero-eyebrow>Abordagem</p>
-      <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>
-        Medicina de família com olhar para o longo prazo
-      </h1>
-      <p class="prose-site mt-6 max-w-2xl" data-hero-subtitle>
-        O cuidado começa pela relação médico-paciente: entender quem você é, como vive e o que
-        deseja preservar ou transformar na sua saúde.
-      </p>
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24">
+      <div>
+        <p class="eyebrow" data-hero-eyebrow>Abordagem</p>
+        <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>
+          Medicina de família com olhar para o <span class="text-gold-gradient">longo prazo</span>
+        </h1>
+        <p class="prose-site mt-6 max-w-2xl" data-hero-subtitle>
+          O cuidado começa pela relação médico-paciente: entender quem você é, como vive e o que
+          deseja preservar ou transformar na sua saúde.
+        </p>
+      </div>
+      <figure class="relative" data-hero-media>
+        <div class="photo-frame">
+          <div data-parallax>
+            <Photo
+              src={photos.consultation}
+              alt="Dra. Ligiana Maffini em consulta acolhedora"
+              aspect="portrait"
+              priority={true}
+            />
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="marble-surface relative overflow-hidden py-16 md:py-24" data-services-section>
+    <div class="service-spotlight" data-service-spotlight aria-hidden="true"></div>
+    <div class="container-site relative">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow" data-eyebrow>Os pilares</p>
+        <h2 class="heading-section mt-3" data-section-title>Como penso o cuidado contínuo</h2>
+        <p class="prose-site mt-4">
+          Mais de 25 anos de experiência clínica, incluindo SUS e Prefeitura, com foco atual em
+          medicina preventiva, estilo de vida e acompanhamento de longo prazo.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-5 sm:grid-cols-2" data-services-showcase>
+        {
+          pillars.map((pillar, index) => (
+            <article class="service-card group" data-service-card data-tilt-card>
+              <span class="service-card-shine" data-service-shine aria-hidden="true"></span>
+              <span class="relative font-display text-4xl text-gold/30" data-service-number>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div class="relative mb-4 mt-4 h-px w-10 origin-left bg-gold" data-line-accent></div>
+              <h3 class="relative font-display text-2xl text-ink" data-split-title>{pillar.title}</h3>
+              <p class="relative prose-site mt-3 text-base">{pillar.description}</p>
+              <a
+                href={site.whatsapp}
+                class="relative mt-5 inline-flex items-center gap-2 text-sm font-medium text-gold-deep"
+                data-service-cta
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agendar consulta
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </section>
 
   <section class="container-site py-16 md:py-24">
-    <div class="flip-grid-stack gap-5" data-flip-grid data-services-grid>
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow" data-eyebrow>Na prática</p>
+      <h2 class="heading-section mt-3" data-section-title>Como funciona a consulta</h2>
+      <p class="prose-site mt-4">
+        Cada encontro segue um ritmo acolhedor, com tempo suficiente para decisões compartilhadas
+        e um plano que respeita a sua rotina.
+      </p>
+    </div>
+
+    <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {
-        pillars.map((pillar) => (
-          <article class="card-soft w-full max-w-md sm:max-w-none" data-flip-item data-service-card>
-            <div class="mb-4 h-px w-10 origin-left bg-rose" data-line-accent></div>
-            <h2 class="font-display text-2xl text-ink" data-split-title>{pillar.title}</h2>
-            <p class="prose-site mt-3 text-base">{pillar.text}</p>
-          </article>
+        steps.map((step, index) => (
+          <li>
+            <div class="card-soft relative h-full" data-stagger-item>
+              <span class="font-display text-3xl text-gold/40">{String(index + 1).padStart(2, '0')}</span>
+              <div class="mb-4 mt-3 h-px w-10 bg-gold" data-line-accent></div>
+              <h3 class="font-display text-xl text-ink">{step.title}</h3>
+              <p class="prose-site mt-3 text-base">{step.text}</p>
+            </div>
+          </li>
         ))
       }
-    </div>
+    </ol>
   </section>
 
-  <section class="section-rose border-t border-rose-soft/70">
-    <div class="container-site grid gap-10 py-16 md:grid-cols-[1fr_1fr] md:items-center md:py-24">
-      <div class="order-2 overflow-hidden rounded-[2rem] border border-rose-soft shadow-md shadow-rose/10 md:order-1" data-reveal>
+  <section class="section-rose relative overflow-hidden border-y border-line/70">
+    <BrandPattern />
+    <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1fr_1fr] md:items-center md:py-24">
+      <div class="photo-frame order-2 md:order-1" data-reveal>
         <div data-parallax>
           <Photo
-            src={clinicPhoto}
-            alt="Dra. Ligiana Maffini no consultório, em ambiente acolhedor"
-            aspect="wide"
+            src={photos.lifestyle}
+            alt="Dra. Ligiana Maffini em retrato profissional acolhedor"
+            aspect="portrait"
+            class="object-[center_15%]"
           />
         </div>
       </div>
@@ -76,18 +168,25 @@ const pillars = [
           e da rotina. Também pessoas que buscam prevenção, reorganização de hábitos ou suporte
           clínico contínuo com uma médica de família.
         </p>
+        <ul class="prose-site mt-6 space-y-2 text-base">
+          <li>Transições hormonais e mudanças do metabolismo</li>
+          <li>Prevenção e rastreamento personalizado</li>
+          <li>Reorganização de sono, alimentação e movimento</li>
+          <li>Acompanhamento de condições crônicas com visão integral</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section class="container-site py-16 md:py-24">
     <div class="card-soft mx-auto max-w-2xl text-center" data-cta-block>
-      <h3 class="font-display text-2xl text-ink">Presencial e teleconsulta</h3>
+      <BrandImage variant="mark" class="h-14 w-14" />
+      <h3 class="mt-6 font-display text-2xl text-ink">Presencial e teleconsulta</h3>
       <p class="prose-site mt-3 text-base">
         Atendimento presencial na clínica em Curitiba, no bairro Cristo Rei, e teleconsulta para
         continuidade do cuidado quando indicado clinicamente.
       </p>
-      <a href={site.whatsapp} class="btn-primary mt-6 inline-flex" target="_blank" rel="noopener noreferrer">
+      <a href={site.whatsapp} class="btn-primary mt-6 inline-flex" target="_blank" rel="noopener noreferrer" data-magnetic>
         Agendar consulta
       </a>
     </div>

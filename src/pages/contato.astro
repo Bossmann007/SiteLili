@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BrandPattern from '../components/BrandPattern.astro';
+import BrandImage from '../components/BrandImage.astro';
 import { site } from '../data/site';
 
 const description =
@@ -27,12 +29,19 @@ const contactItems = [
     content: site.email,
     link: `mailto:${site.email}`,
   },
+  {
+    label: 'Instagram',
+    content: site.instagram.personalHandle,
+    link: site.instagram.personal,
+    external: true,
+  },
 ];
 ---
 
 <BaseLayout title="Contato" description={description} path="/contato">
-  <section class="hero-glow border-b border-rose-soft/70">
-    <div class="container-site py-16 md:py-20">
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative py-16 md:py-20">
       <p class="eyebrow" data-hero-eyebrow>Contato</p>
       <h1 class="heading-display mt-3 max-w-2xl" data-hero-title>Estamos em Curitiba</h1>
       <p class="prose-site mt-4 max-w-xl" data-hero-subtitle>
@@ -48,12 +57,12 @@ const contactItems = [
         <div class="space-y-6">
           {
             contactItems.map((item) => (
-              <div class="card-soft" data-stagger-item>
-                <h2 class="text-sm font-semibold uppercase tracking-widest text-rose-deep">{item.label}</h2>
+              <div class="card-soft" data-stagger-item data-card-interactive tabindex="0">
+                <h2 class="text-sm font-semibold uppercase tracking-widest text-gold-deep">{item.label}</h2>
                 {item.link ? (
                   <a
                     href={item.link}
-                    class="prose-site mt-2 block text-base hover:text-rose-deep"
+                    class="prose-site mt-2 block text-base hover:text-gold-deep"
                     target={item.external ? '_blank' : undefined}
                     rel={item.external ? 'noopener noreferrer' : undefined}
                   >
@@ -65,7 +74,7 @@ const contactItems = [
                 {item.linkText && (
                   <a
                     href={item.link}
-                    class="mt-2 inline-block text-sm font-medium text-rose-deep hover:underline"
+                    class="mt-2 inline-block text-sm font-medium text-gold-deep hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -75,37 +84,29 @@ const contactItems = [
               </div>
             ))
           }
-          <div class="card-soft" data-stagger-item>
-            <h2 class="text-sm font-semibold uppercase tracking-widest text-rose-deep">Instagram</h2>
-            <a href={site.instagram.personal} class="mt-2 block hover:text-rose-deep" target="_blank" rel="noopener noreferrer">
-              {site.instagram.personalHandle}
-            </a>
-            <a href={site.instagram.clinic} class="mt-1 block hover:text-rose-deep" target="_blank" rel="noopener noreferrer">
-              {site.instagram.clinicHandle}
-            </a>
+          <div class="card-soft" data-stagger-item data-card-interactive tabindex="0">
+            <h2 class="text-sm font-semibold uppercase tracking-widest text-gold-deep">Registro</h2>
+            <p class="prose-site mt-2 text-base">{site.crm} · {site.rqe}</p>
           </div>
         </div>
 
-        <a href={site.whatsapp} class="btn-primary mt-10 md:hidden" target="_blank" rel="noopener noreferrer" data-hero-cta>
+        <a href={site.whatsapp} class="btn-primary mt-10 md:hidden" target="_blank" rel="noopener noreferrer" data-hero-cta data-magnetic>
           Agendar pelo WhatsApp
         </a>
       </div>
 
       <div class="space-y-4" data-reveal>
-        <div class="overflow-hidden rounded-2xl border border-rose-soft bg-surface shadow-md shadow-rose/10">
+        <div class="overflow-hidden rounded-2xl border border-line bg-surface shadow-md shadow-ink/10">
           <iframe
             title="Mapa da clínica no bairro Cristo Rei, Curitiba"
             src={mapSrc}
             width="100%"
             height="420"
-            loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             class="block w-full border-0"
           ></iframe>
         </div>
-        <p class="text-xs text-ink-soft">
-          {site.crm} · {site.rqe}. Informações sujeitas a confirmação no agendamento.
-        </p>
+        <BrandImage variant="wordmark" />
       </div>
     </div>
   </section>

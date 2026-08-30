@@ -1,7 +1,8 @@
 ---
 import { getImage } from 'astro:assets';
 import { site } from '../data/site';
-import heroPhoto from '../assets/images/frentesorrindo.jpg';
+import { photos } from '../data/photos';
+const heroPhoto = photos.hero;
 
 interface Props {
   title: string;

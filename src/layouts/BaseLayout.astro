@@ -3,10 +3,12 @@ import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import SeoJsonLd from '../components/SeoJsonLd.astro';
 import { site } from '../data/site';
-import heroPhoto from '../assets/images/frentesorrindo.jpg';
+import { photos } from '../data/photos';
+const heroPhoto = photos.hero;
 
 interface Props {
   title: string;
@@ -49,6 +51,16 @@ const ogImage = new URL(ogImageAsset.src, site.url).href;
       rel="stylesheet"
     />
     <title>{fullTitle}</title>
+    <script is:inline>
+      (function () {
+        var key = 'sitelili-theme';
+        var stored = localStorage.getItem(key);
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
     <SeoJsonLd title={title} description={description} path={path} />
   </head>
   <body class="min-h-dvh">
@@ -56,13 +68,15 @@ const ogImage = new URL(ogImageAsset.src, site.url).href;
       Ir para o conteúdo
     </a>
     <Header />
-    <main id="conteudo" class="pt-16">
+    <main id="conteudo">
       <slot />
     </main>
+    <GoogleReviews />
     <Footer />
     <WhatsAppFloat />
     <script>
       import '../scripts/animations.ts';
+      import '../scripts/theme.ts';
     </script>
   </body>
 </html>

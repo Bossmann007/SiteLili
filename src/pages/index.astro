@@ -2,28 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Photo from '../components/Photo.astro';
 import MarqueeBand from '../components/MarqueeBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import BrandPattern from '../components/BrandPattern.astro';
+import BrandImage from '../components/BrandImage.astro';
 import { site, services } from '../data/site';
-import heroPhoto from '../assets/images/frentesorrindo.jpg';
-import clinicPhoto from '../assets/images/olhandoparaajanelacomcafe.jpg';
+import { photos, homeGallery } from '../data/photos';
 
 const description =
   'Clínica particular da Dra. Ligiana Maffini em Curitiba. Medicina de família, longevidade, saúde integral e atenção dedicada a mulheres 40+. Presencial e teleconsulta.';
 ---
 
 <BaseLayout title={site.name} description={description} path="/">
-  <section class="hero-glow relative overflow-hidden border-b border-rose-soft/70">
-    <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:py-24 lg:py-28">
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24 lg:py-28">
       <div>
-        <p class="eyebrow" data-hero-eyebrow>Curitiba · Medicina de família</p>
+        <p class="eyebrow" data-hero-eyebrow>Curitiba · Cristo Rei</p>
         <h1 class="heading-display mt-4 max-w-2xl" data-hero-title>
-          Cuidado médico integral, com tempo e escuta de verdade
+          <span class="text-gold-gradient">{site.doctorTitle}</span> Ligiana Maffini
         </h1>
         <p class="prose-site mt-6 max-w-xl" data-hero-subtitle>
-          {site.doctor} acompanha mulheres 40+ em estilo de vida, longevidade e saúde integral,
-          com consultas longas, presenciais em Curitiba e teleconsulta.
+          {site.specialtyShort}. Consultas longas, longevidade e saúde integral para mulheres 40+,
+          presencialmente em Curitiba e por teleconsulta.
         </p>
         <div class="mt-8 flex flex-wrap gap-3" data-hero-cta>
-          <a href={site.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer">
+          <a href={site.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer" data-magnetic>
             Agendar pelo WhatsApp
           </a>
           <a href="/abordagem" class="btn-secondary">Conhecer a abordagem</a>
@@ -31,11 +34,11 @@ const description =
       </div>
 
       <figure class="relative" data-hero-media>
-        <div class="overflow-hidden rounded-[2rem] border border-rose-soft bg-surface shadow-md shadow-rose/10">
+        <div class="photo-frame">
           <div data-parallax>
             <Photo
-              src={heroPhoto}
-              alt="Dra. Ligiana Maffini, médica de família em Curitiba, sorrindo em retrato profissional"
+              src={photos.hero}
+              alt="Dra. Ligiana Maffini, médica de família em Curitiba, em retrato profissional"
               priority={true}
             />
           </div>
@@ -46,37 +49,74 @@ const description =
 
   <MarqueeBand />
 
-  <section class="container-site py-16 md:py-24">
-    <div class="max-w-2xl" data-reveal>
-      <p class="eyebrow" data-eyebrow>Como posso ajudar</p>
-      <h2 class="heading-section mt-3" data-section-title>Atendimento pensado para a sua fase de vida</h2>
-      <p class="prose-site mt-4">
-        Mais de 20 anos de experiência clínica, incluindo SUS e Prefeitura, com foco atual em
-        medicina preventiva, estilo de vida e acompanhamento contínuo.
-      </p>
-    </div>
+  <section class="marble-surface relative overflow-hidden py-16 md:py-24" data-services-section>
+    <div class="service-spotlight" data-service-spotlight aria-hidden="true"></div>
+    <div class="container-site relative">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow" data-eyebrow>Como posso ajudar</p>
+        <h2 class="heading-section mt-3" data-section-title>Atendimento pensado para a sua fase de vida</h2>
+        <p class="prose-site mt-4">
+          Mais de 25 anos de experiência clínica, incluindo SUS e Prefeitura, com foco atual em
+          medicina preventiva, estilo de vida e acompanhamento contínuo.
+        </p>
+      </div>
 
-    <div class="mt-10 flip-grid-stack gap-5" data-flip-grid data-services-grid>
-      {
-        services.map((service) => (
-          <article class="card-soft w-full max-w-md sm:max-w-none" data-flip-item data-service-card>
-            <div class="mb-4 h-px w-10 origin-left bg-rose" data-line-accent></div>
-            <h3 class="font-display text-2xl text-ink" data-split-title>{service.title}</h3>
-            <p class="prose-site mt-3 text-base">{service.description}</p>
-          </article>
-        ))
-      }
+      <div class="mt-10 grid gap-5 sm:grid-cols-2" data-services-showcase>
+        {
+          services.map((service, index) => (
+            <article
+              class="service-card group"
+              data-service-card
+              data-tilt-card
+              data-service-expand
+            >
+              <span class="service-card-shine" data-service-shine aria-hidden="true"></span>
+              <span class="relative font-display text-4xl text-gold/30" data-service-number>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div class="relative mb-4 mt-4 h-px w-10 origin-left bg-gold" data-line-accent></div>
+              <h3 class="relative font-display text-2xl text-ink" data-split-title>{service.title}</h3>
+              <p class="relative prose-site mt-3 text-base" data-service-description>{service.description}</p>
+              <button
+                type="button"
+                class="relative mt-5 inline-flex items-center gap-2 text-sm font-medium text-gold-deep"
+                data-service-toggle
+                aria-expanded="false"
+              >
+                Saiba mais
+                <span aria-hidden="true">→</span>
+              </button>
+              <a
+                href={site.whatsapp}
+                class="relative mt-3 inline-flex translate-y-2 items-center gap-2 text-sm font-medium text-gold-deep opacity-0 transition-[opacity,transform] duration-300"
+                data-service-cta
+                target="_blank"
+                rel="noopener noreferrer"
+                tabindex="-1"
+                hidden
+              >
+                Agendar consulta
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </section>
 
-  <section class="section-rose border-y border-rose-soft/70">
-    <div class="container-site grid gap-8 py-16 md:grid-cols-2 md:items-center md:py-20">
-      <div class="overflow-hidden rounded-[2rem] border border-rose-soft shadow-md shadow-rose/10" data-reveal>
+  <PhotoStrip title="Retratos de cuidado e presença" items={homeGallery} />
+
+  <section class="section-rose relative overflow-hidden border-y border-line/70">
+    <BrandPattern />
+    <div class="container-site relative grid gap-8 py-16 md:grid-cols-2 md:items-center md:py-20">
+      <div class="photo-frame" data-reveal>
         <div data-parallax>
           <Photo
-            src={clinicPhoto}
-            alt="Dra. Ligiana Maffini no consultório, em momento de reflexão"
-            aspect="wide"
+            src={photos.seated}
+            alt="Dra. Ligiana Maffini em retrato profissional no consultório"
+            aspect="portrait"
+            class="object-[center_20%]"
           />
         </div>
       </div>
@@ -94,14 +134,14 @@ const description =
   </section>
 
   <section class="container-site py-16 md:py-24">
-    <div class="text-center" data-cta-block>
-      <p class="eyebrow" data-eyebrow>Próximo passo</p>
+    <div class="card-soft mx-auto max-w-3xl text-center" data-cta-block>
+      <BrandImage variant="mark" />
+      <p class="eyebrow mt-6" data-eyebrow>Próximo passo</p>
       <h2 class="heading-section mx-auto mt-3 max-w-xl" data-section-title>Agende sua consulta com calma e atenção</h2>
       <p class="prose-site mx-auto mt-4 max-w-lg">
-        Entre em contato pelo WhatsApp para combinar presencial ou teleconsulta. A equipe orienta
-        sobre documentos e preparo para o primeiro encontro.
+        WhatsApp {site.phone} · {site.instagram.personalHandle} · {site.address.neighborhood}, {site.address.city}
       </p>
-      <a href={site.whatsapp} class="btn-primary mt-8" target="_blank" rel="noopener noreferrer">
+      <a href={site.whatsapp} class="btn-primary mt-8" target="_blank" rel="noopener noreferrer" data-magnetic>
         Falar no WhatsApp
       </a>
     </div>

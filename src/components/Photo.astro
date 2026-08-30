@@ -8,7 +8,7 @@ interface Props {
   class?: string;
   loading?: 'eager' | 'lazy';
   priority?: boolean;
-  aspect?: 'portrait' | 'square' | 'wide';
+  aspect?: 'portrait' | 'square' | 'wide' | 'fill';
 }
 
 const {
@@ -21,7 +21,13 @@ const {
 } = Astro.props;
 
 const aspectClass =
-  aspect === 'square' ? 'aspect-square' : aspect === 'wide' ? 'aspect-[16/10]' : 'aspect-[4/5]';
+  aspect === 'fill'
+    ? 'h-full w-full'
+    : aspect === 'square'
+      ? 'aspect-square'
+      : aspect === 'wide'
+        ? 'aspect-[16/10]'
+        : 'aspect-[4/5]';
 ---
 
 <Image
@@ -30,7 +36,8 @@ const aspectClass =
   widths={[480, 640, 960, 1280]}
   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
   class:list={[aspectClass, 'h-full w-full object-cover', className]}
-  loading={priority ? 'eager' : loading}
+  priority={priority}
+  loading={priority ? undefined : loading}
   decoding="async"
   format="webp"
   quality={82}

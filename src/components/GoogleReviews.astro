@@ -1,0 +1,45 @@
+---
+import { site } from '../data/site';
+import { googleReviews } from '../data/reviews';
+
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${site.mapQuery}`;
+---
+
+<section class="section-marble border-t border-line/70 py-16 md:py-20" aria-labelledby="reviews-title">
+  <div class="container-site">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow" data-eyebrow>Avaliações</p>
+      <h2 id="reviews-title" class="heading-section mt-3" data-section-title>O que dizem no Google</h2>
+      <p class="prose-site mt-4">
+        Depoimentos de pacientes publicados no Google. Nomes omitidos para preservar a privacidade.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-5 md:grid-cols-2" data-reviews-grid>
+      {
+        googleReviews.map((review) => (
+          <blockquote class="card-soft flex h-full flex-col" data-stagger-item>
+            <div class="flex gap-0.5 text-gold" aria-label={`${review.rating} de 5 estrelas`}>
+              {Array.from({ length: review.rating }).map(() => (
+                <span aria-hidden="true">★</span>
+              ))}
+            </div>
+            <p class="prose-site mt-4 flex-1 text-base leading-relaxed">"{review.text}"</p>
+            <footer class="mt-4 text-xs uppercase tracking-[0.18em] text-ink-soft">Google Reviews</footer>
+          </blockquote>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center">
+      <a
+        href={mapsLink}
+        class="btn-secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Ver no Google Maps
+      </a>
+    </p>
+  </div>
+</section>

@@ -2,8 +2,10 @@ export const site = {
   name: 'Clínica Dra. Ligiana Maffini',
   shortName: 'Dra. Ligiana Maffini',
   doctor: 'Dra. Ligiana Maffini',
+  doctorTitle: 'Doutora',
   fullName: 'Ligiana Maffini Romanus',
-  specialty: 'Médica de Família e Comunidade',
+  specialty: 'Médica de Família e Medicina do Estilo de Vida',
+  specialtyShort: 'Medicina de Família · Medicina do Estilo de Vida',
   url: 'https://www.draligianamaffini.com.br',
   phone: '(41) 99510-4424',
   phoneTel: '+5541995104424',
@@ -31,6 +33,8 @@ export const site = {
   logo: {
     horizontal: '/logo/logo-horizontal.png',
     icon: '/logo/logo-icon.png',
+    mark: '/logo/logo-mark.png',
+    wordmark: '/logo/logo-wordmark.png',
   },
 } as const;
 

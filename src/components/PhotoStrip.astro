@@ -1,0 +1,64 @@
+---
+import Photo from './Photo.astro';
+import type { ImageMetadata } from 'astro';
+
+interface StripItem {
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  items: readonly StripItem[];
+}
+
+const { title, eyebrow = 'Na clínica', items } = Astro.props;
+---
+
+<section class="section-marble relative overflow-hidden border-y border-line py-16 md:py-24" data-photo-strip>
+  <div class="container-site relative z-10 mb-10">
+    <p class="eyebrow" data-eyebrow>{eyebrow}</p>
+    <h2 class="heading-section mt-3 max-w-2xl" data-section-title>{title}</h2>
+  </div>
+
+  <div class="relative z-10 overflow-hidden">
+    <div class="motion-track motion-track--ltr-slow items-start gap-5 pl-5 sm:pl-8 md:gap-6" data-motion-track="gallery">
+      <div class="motion-group items-start gap-5 md:gap-6">
+        {
+          items.map((item) => (
+            <figure class="group w-[68vw] shrink-0 sm:w-[260px] md:w-[280px]" data-gallery-item>
+              <div class="gallery-frame">
+                <Photo
+                  src={item.src}
+                  alt={item.alt}
+                  aspect="fill"
+                  class="object-[center_18%] transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+              </div>
+              <figcaption class="mt-3 text-xs uppercase tracking-[0.22em] text-gold-deep">{item.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <div class="motion-group items-start gap-5 md:gap-6" aria-hidden="true">
+        {
+          items.map((item) => (
+            <figure class="group w-[68vw] shrink-0 sm:w-[260px] md:w-[280px]">
+              <div class="gallery-frame">
+                <Photo
+                  src={item.src}
+                  alt=""
+                  aspect="fill"
+                  class="object-[center_18%]"
+                />
+              </div>
+              <figcaption class="mt-3 text-xs uppercase tracking-[0.22em] text-gold-deep">{item.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
