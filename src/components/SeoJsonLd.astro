@@ -22,6 +22,15 @@ const pageUrl = new URL(path || '/', site.url).href;
 const optimized = await getImage({ src: photos.hero, width: 1200, format: 'jpg', quality: 85 });
 const imageUrl = new URL(optimized.src, site.url).href;
 
+const postalAddress = {
+  '@type': 'PostalAddress',
+  streetAddress: `${site.address.street}, ${site.address.neighborhood}`,
+  addressLocality: site.address.city,
+  addressRegion: site.address.state,
+  postalCode: site.address.zip,
+  addressCountry: site.address.country,
+};
+
 const physician = {
   '@context': 'https://schema.org',
   '@type': 'Physician',
@@ -46,14 +55,7 @@ const physician = {
       name: 'Medicina de Família e Comunidade, SBMFC (2024)',
     },
   ],
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.address.street,
-    addressLocality: site.address.city,
-    addressRegion: site.address.state,
-    postalCode: site.address.zip,
-    addressCountry: site.address.country,
-  },
+  address: postalAddress,
   sameAs: site.sameAs,
   worksFor: {
     '@type': 'MedicalClinic',
@@ -72,14 +74,7 @@ const medicalClinic = {
   email: site.email,
   image: imageUrl,
   logo: new URL(site.logo.horizontal, site.url).href,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.address.street,
-    addressLocality: site.address.city,
-    addressRegion: site.address.state,
-    postalCode: site.address.zip,
-    addressCountry: site.address.country,
-  },
+  address: postalAddress,
   sameAs: site.sameAs,
   founder: {
     '@type': 'Physician',

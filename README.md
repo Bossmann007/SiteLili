@@ -19,52 +19,55 @@ Abra http://localhost:4321
 
 ## Build de produção
 
+Requisito: **Node.js >= 22.12** (ver `engines` em `package.json`).
+
 ```bash
+npm install
 npm run build
 ```
 
-A pasta `dist/` é gerada pronta para publicação estática.
+A pasta `dist/` é gerada pronta para publicação estática (HTML por rota, incluindo especialidades).
 
 ```bash
 npm run preview
 ```
 
-## Deploy no Cloudflare Pages
+## Publicação
 
-1. Conecte este repositório no [Cloudflare Pages](https://pages.cloudflare.com/)
+Dois caminhos válidos. O site é **100% estático** — não há backend, banco ou `npm` na hospedagem.
+
+### A) Cloudflare Pages (recomendado)
+
+1. Conecte o repositório [SiteLili](https://github.com/Bossmann007/SiteLili) no [Cloudflare Pages](https://pages.cloudflare.com/)
 2. Configuração de build:
    - **Framework preset:** Astro
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
    - **Node.js:** 22 ou superior
-3. Publique. O Cloudflare fornecerá uma URL `*.pages.dev`
+3. Publique. O Cloudflare fornece uma URL `*.pages.dev`
+4. Headers de segurança: `public/_headers` (copiado para `dist/` no build)
+5. Redirecionamentos opcionais: `public/_redirects`
 
-## DNS no Registro.br
+**DNS no Registro.br**
 
-Após o deploy, aponte o domínio **www.draligianamaffini.com.br** para o Cloudflare Pages.
+| Tipo  | Nome | Destino                   |
+|-------|------|---------------------------|
+| CNAME | www  | `<seu-projeto>.pages.dev` |
 
-### Registro CNAME (recomendado)
+- **Não** aponte para `cname.greatpages.com.br` ou hosts antigos
+- No Cloudflare, adicione o domínio customizado `www.draligianamaffini.com.br`
+- Domínio raiz (`@`): redirecione para `www` ou use os registros A/AAAA indicados pelo Cloudflare
+- HTTPS é provisionado automaticamente pelo Cloudflare
 
-No painel do Registro.br, em **DNS**, crie:
+**`astro.config.mjs`:** `site: https://www.draligianamaffini.com.br`, `output: 'static'`, integração `@astrojs/sitemap` ativa.
 
-| Tipo  | Nome | Destino                          |
-|-------|------|----------------------------------|
-| CNAME | www  | `<seu-projeto>.pages.dev`        |
+### B) Hostinger (hospedagem estática / public_html)
 
-Substitua `<seu-projeto>` pelo subdomínio exibido no Cloudflare Pages após o primeiro deploy.
-
-### Domínio raiz (opcional)
-
-O Registro.br não aceita CNAME na raiz (`@`). Opções:
-
-- Redirecionar `@` → `www` no Registro.br ou no Cloudflare
-- Usar os registros A/AAAA que o Cloudflare indicar ao adicionar o domínio customizado
-
-### Importante
-
-- **Não** aponte o domínio para `cname.greatpages.com.br` ou outros hosts antigos
-- No Cloudflare Pages, adicione o domínio customizado `www.draligianamaffini.com.br` e siga a validação indicada
-- Mantenha HTTPS ativo (Cloudflare provisiona certificado automaticamente)
+1. Na sua máquina (Node >= 22.12): `npm install` && `npm run build`
+2. Envie **apenas o conteúdo interno** de `dist/` para `public_html` (FTP, Gerenciador de Arquivos ou Git deploy se disponível)
+3. **Não** rode `npm install` nem `npm run build` no plano compartilhado Hostinger
+4. O arquivo `public/.htaccess` vai para `dist/.htaccess` no build — força HTTPS e `DirectoryIndex index.html`
+5. Estrutura esperada em `public_html`: `index.html`, `sobre/`, `especialidades/`, `medicina-de-familia/`, `_astro/`, etc.
 
 ## Estrutura do site
 
@@ -96,7 +99,7 @@ O Registro.br não aceita CNAME na raiz (`@`). Opções:
 - Política LGPD em `/privacidade`
 - Headers HTTP via `public/_headers` (Cloudflare Pages): CSP, HSTS, X-Frame-Options, etc.
 - Tipografia autohospedada em `public/fonts/` (Cormorant Garamond, Source Sans 3) — sem Google Fonts
-- **CSP `script-src`:** apenas `'self'`. O bootstrap de tema está em `public/theme-init.js`. Se o build passar a exigir `'unsafe-inline'` em scripts, documente aqui antes de afrouxar a política.
+- **CSP `script-src`:** `'self' 'unsafe-inline'` — necessário para JSON-LD inline (`application/ld+json`) e leitura pelo Google; scripts de app vêm de `/_astro/` e `theme-init.js`
 - Pasta `Logos/` (PDFs de timbrado, cartão, envelope) ignorada no git — não vai para o Pages
 
 ## Conteúdo e conformidade
