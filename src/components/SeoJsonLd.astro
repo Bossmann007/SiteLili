@@ -1,5 +1,4 @@
 ---
-import { getImage } from 'astro:assets';
 import { site, bio } from '../data/site';
 import { photos } from '../data/photos';
 
@@ -19,8 +18,7 @@ interface Props {
 
 const { description, path = '', faqItems, includeMedicalWebPage = false } = Astro.props;
 const pageUrl = new URL(path || '/', site.url).href;
-const optimized = await getImage({ src: photos.hero, width: 1200, format: 'jpg', quality: 85 });
-const imageUrl = new URL(optimized.src, site.url).href;
+const imageUrl = new URL(photos.hero.src, site.url).href;
 
 const postalAddress = {
   '@type': 'PostalAddress',
