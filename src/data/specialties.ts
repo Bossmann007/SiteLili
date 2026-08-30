@@ -290,6 +290,11 @@ export function getSpecialty(slug: string): Specialty | undefined {
   return specialties.find((item) => item.slug === slug);
 }
 
+/** Coloca Longevidade na 2ª coluna (abaixo de Menopausa) no grid lg de 3 colunas. */
+export function specialtyGridItemClass(slug: string): string {
+  return slug === 'longevidade' ? 'lg:col-start-2' : '';
+}
+
 export function getOtherSpecialties(currentSlug: string): Specialty[] {
   return specialties.filter((item) => item.slug !== currentSlug);
 }

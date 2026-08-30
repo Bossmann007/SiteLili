@@ -414,6 +414,81 @@ function initTiltCards() {
   });
 }
 
+function initServiceCardExpand() {
+  document.querySelectorAll<HTMLElement>('[data-services-showcase]').forEach((showcase) => {
+    const cards = showcase.querySelectorAll<HTMLElement>('[data-service-card][data-service-expand]');
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      const toggle = card.querySelector<HTMLButtonElement>('[data-service-toggle]');
+      if (!toggle) return;
+
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isExpanded = card.classList.contains('is-expanded');
+        const allCards = showcase.querySelectorAll<HTMLElement>('[data-service-card]');
+        const useFlip = !prefersReducedMotion();
+
+        const resetCards = () => {
+          allCards.forEach((other) => {
+            other.classList.remove('is-expanded', 'is-active', 'is-dimmed');
+            other.querySelector<HTMLButtonElement>('[data-service-toggle]')?.setAttribute('aria-expanded', 'false');
+            const otherCta = other.querySelector<HTMLElement>('[data-service-cta]');
+            otherCta?.setAttribute('hidden', '');
+            otherCta?.setAttribute('tabindex', '-1');
+          });
+        };
+
+        if (isExpanded) {
+          if (useFlip) {
+            const state = Flip.getState(Array.from(allCards));
+            resetCards();
+            Flip.from(state, { duration: 0.4, ease: 'power2.inOut' });
+          } else {
+            resetCards();
+          }
+          return;
+        }
+
+        const state = useFlip ? Flip.getState(Array.from(allCards)) : null;
+        resetCards();
+
+        card.classList.add('is-expanded', 'is-active');
+        toggle.setAttribute('aria-expanded', 'true');
+        allCards.forEach((other) => {
+          if (other !== card) other.classList.add('is-dimmed');
+        });
+
+        const line = card.querySelector<HTMLElement>('[data-line-accent]');
+        const cta = card.querySelector<HTMLElement>('[data-service-cta]');
+        if (cta) {
+          cta.removeAttribute('hidden');
+          cta.setAttribute('tabindex', '0');
+        }
+
+        const revealExtras = () => {
+          if (line) {
+            gsap.fromTo(line, { scaleX: 0.35 }, { scaleX: 1, duration: 0.55, ease: 'power3.out' });
+          }
+          if (cta) {
+            gsap.fromTo(cta, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' });
+          }
+        };
+
+        if (state) {
+          Flip.from(state, {
+            duration: 0.55,
+            ease: 'power3.out',
+            onComplete: revealExtras,
+          });
+        } else {
+          revealExtras();
+        }
+      });
+    });
+  });
+}
+
 function initServiceShowcase() {
   const section = document.querySelector<HTMLElement>('[data-services-section]');
   const showcase = document.querySelector<HTMLElement>('[data-services-showcase]');
@@ -447,8 +522,6 @@ function initServiceShowcase() {
 
   cards.forEach((card) => {
     const shine = card.querySelector<HTMLElement>('[data-service-shine]');
-    const toggle = card.querySelector<HTMLButtonElement>('[data-service-toggle]');
-    const expandable = card.hasAttribute('data-service-expand');
 
     card.addEventListener('pointermove', (event) => {
       if (!shine) return;
@@ -467,52 +540,6 @@ function initServiceShowcase() {
     card.addEventListener('pointerleave', () => {
       if (shine) gsap.to(shine, { opacity: 0, duration: 0.4 });
     });
-
-    if (!expandable || !toggle) return;
-
-    const toggleExpand = () => {
-      const isExpanded = card.classList.contains('is-expanded');
-      const state = Flip.getState(Array.from(cards));
-
-      cards.forEach((other) => {
-        other.classList.remove('is-expanded', 'is-active', 'is-dimmed');
-        other.querySelector<HTMLButtonElement>('[data-service-toggle]')?.setAttribute('aria-expanded', 'false');
-        const otherCta = other.querySelector<HTMLElement>('[data-service-cta]');
-        otherCta?.setAttribute('tabindex', '-1');
-        otherCta?.setAttribute('hidden', '');
-      });
-
-      if (!isExpanded) {
-        card.classList.add('is-expanded', 'is-active');
-        toggle.setAttribute('aria-expanded', 'true');
-        cards.forEach((other) => {
-          if (other !== card) other.classList.add('is-dimmed');
-        });
-
-        Flip.from(state, {
-          duration: 0.55,
-          ease: 'power3.out',
-          absolute: true,
-          nested: true,
-          onComplete: () => {
-            const line = card.querySelector<HTMLElement>('[data-line-accent]');
-            const cta = card.querySelector<HTMLElement>('[data-service-cta]');
-            if (line) {
-              gsap.fromTo(line, { scaleX: 0.35 }, { scaleX: 1, duration: 0.55, ease: 'power3.out' });
-            }
-            if (cta) {
-              cta.removeAttribute('hidden');
-              cta.setAttribute('tabindex', '0');
-              gsap.fromTo(cta, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' });
-            }
-          },
-        });
-      } else {
-        Flip.from(state, { duration: 0.4, ease: 'power2.inOut', absolute: true, nested: true });
-      }
-    };
-
-    toggle.addEventListener('click', toggleExpand);
   });
 
   gsap.from(cards, {
@@ -719,6 +746,7 @@ export function initAnimations(): () => void {
   initEssentialMotion();
   initFaqAccordion();
   initFormationTimelineInteractive();
+  initServiceCardExpand();
   initMevSegmentToggle();
 
   const mm = gsap.matchMedia();

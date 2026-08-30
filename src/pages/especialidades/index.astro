@@ -1,14 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandPattern from '../../components/BrandPattern.astro';
-import { specialties } from '../../data/specialties';
+import { specialties, specialtyGridItemClass } from '../../data/specialties';
 import { site } from '../../data/site';
 
 const description =
   'Especialidades da Dra. Ligiana Maffini em Curitiba: medicina de família, estilo de vida, prevenção, saúde da mulher, menopausa, emagrecimento clínico e longevidade. CRM/PR 17731.';
-
-const gridSpecialties = specialties.filter((item) => item.slug !== 'longevidade');
-const longevidade = specialties.find((item) => item.slug === 'longevidade')!;
 ---
 
 <BaseLayout title="Especialidades" description={description} path="/especialidades" faqItems={null}>
@@ -27,10 +24,10 @@ const longevidade = specialties.find((item) => item.slug === 'longevidade')!;
   </section>
 
   <section class="container-site py-16 md:py-24">
-    <ul class="grid gap-5 sm:grid-cols-2">
+    <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {
-        gridSpecialties.map((item) => (
-          <li>
+        specialties.map((item) => (
+          <li class:list={[specialtyGridItemClass(item.slug)]}>
             <a href={`/${item.slug}`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
               <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{item.title}</h2>
               <p class="prose-site mt-3">{item.shortDescription}</p>
@@ -40,13 +37,6 @@ const longevidade = specialties.find((item) => item.slug === 'longevidade')!;
         ))
       }
     </ul>
-    <div class="mx-auto mt-5 max-w-xl">
-      <a href={`/${longevidade.slug}`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
-        <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{longevidade.title}</h2>
-        <p class="prose-site mt-3">{longevidade.shortDescription}</p>
-        <span class="mt-4 inline-block text-sm font-medium text-gold-deep">Ler página completa →</span>
-      </a>
-    </div>
     <p class="prose-site mt-10">
       <a href="/pilares" class="font-medium text-gold-deep hover:underline">Seis pilares da Medicina do Estilo de Vida →</a>
     </p>

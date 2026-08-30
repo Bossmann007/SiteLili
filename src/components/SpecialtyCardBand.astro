@@ -1,5 +1,5 @@
 ---
-import { specialties } from '../data/specialties';
+import { specialties, specialtyGridItemClass } from '../data/specialties';
 
 interface Props {
   title?: string;
@@ -24,7 +24,7 @@ const {
     <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         specialties.map((item) => (
-          <li>
+          <li class:list={[specialtyGridItemClass(item.slug)]}>
             <a
               href={`/${item.slug}`}
               class="card-soft group flex h-full flex-col hover:border-gold/40"
