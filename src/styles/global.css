@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+
+  --color-brand-cream: #f5ede8;
+  --color-cream: oklch(0.97 0.028 15);
+  --color-cream-deep: oklch(0.945 0.038 12);
+  --color-rose-blush: oklch(0.96 0.04 12);
+  --color-ink: oklch(0.28 0.02 30);
+  --color-ink-soft: oklch(0.45 0.02 30);
+  --color-rose: oklch(0.58 0.16 8);
+  --color-rose-soft: oklch(0.93 0.05 10);
+  --color-rose-deep: oklch(0.48 0.14 8);
+  --color-gold: oklch(0.72 0.11 85);
+  --color-gold-soft: oklch(0.88 0.06 85);
+  --color-gold-deep: oklch(0.58 0.1 80);
+  --color-surface: oklch(0.995 0.012 12);
+  --color-line: oklch(0.88 0.04 12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-cream text-ink font-body antialiased;
+  }
+
+  ::selection {
+    @apply bg-rose-soft text-ink;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.22em] text-rose-deep;
+  }
+
+  .heading-display {
+    @apply font-display text-4xl leading-[1.05] font-medium tracking-tight text-ink sm:text-5xl lg:text-6xl;
+  }
+
+  .heading-section {
+    @apply font-display text-3xl leading-tight font-medium text-ink sm:text-4xl;
+  }
+
+  .prose-site {
+    @apply text-base leading-relaxed text-ink-soft sm:text-lg;
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-rose px-6 py-3 text-sm font-medium text-surface shadow-sm shadow-rose/20 transition-[transform,opacity] hover:scale-[1.02] hover:opacity-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-rose-soft bg-surface/80 px-6 py-3 text-sm font-medium text-ink backdrop-blur-sm transition-colors hover:border-rose hover:bg-rose-blush focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose;
+  }
+
+  .card-soft {
+    @apply rounded-2xl border border-rose-soft/70 bg-surface p-6 shadow-sm shadow-rose/5 sm:p-8;
+  }
+
+  .link-nav {
+    @apply text-sm font-medium text-ink-soft transition-colors hover:text-rose-deep;
+  }
+
+  .link-nav-active {
+    @apply text-rose-deep;
+  }
+
+  .section-rose {
+    @apply bg-rose-blush;
+  }
+
+  .hero-glow {
+    background:
+      radial-gradient(circle at 88% 8%, oklch(0.9 0.07 10 / 0.55), transparent 48%),
+      radial-gradient(circle at 8% 92%, oklch(0.93 0.05 85 / 0.45), transparent 50%),
+      linear-gradient(180deg, var(--color-brand-cream) 0%, var(--color-cream) 100%);
+  }
+
+  .flip-grid-stack {
+    @apply flex flex-col items-center gap-4;
+  }
+
+  @media (min-width: 640px) {
+    .flip-grid-stack.is-flipped {
+      @apply grid grid-cols-2 items-stretch gap-5;
+    }
+  }
+
+  .flip-gallery-stack {
+    @apply flex flex-col items-center gap-4;
+  }
+
+  @media (min-width: 640px) {
+    .flip-gallery-stack.is-flipped {
+      @apply grid grid-cols-3 items-stretch gap-4;
+    }
+  }
+}

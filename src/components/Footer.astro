@@ -1,0 +1,49 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="border-t border-rose-soft bg-brand-cream">
+  <div class="container-site grid gap-10 py-12 md:grid-cols-[1.4fr_1fr] md:py-16">
+    <div data-footer-reveal>
+      <p class="font-display text-2xl text-ink">{site.name}</p>
+      <p class="mt-2 max-w-md prose-site text-sm">
+        Medicina de família e comunidade com foco em estilo de vida, longevidade e saúde integral para mulheres 40+.
+      </p>
+      <p class="mt-4 text-sm text-ink-soft">
+        {site.crm} · {site.rqe}
+      </p>
+    </div>
+
+    <div class="space-y-4 text-sm text-ink-soft" data-footer-reveal>
+      <p>
+        <span class="block font-medium text-ink">Endereço</span>
+        {site.address.full}
+      </p>
+      <p>
+        <span class="block font-medium text-ink">Contato</span>
+        <a href={`tel:${site.phoneTel}`} class="hover:text-rose-deep">{site.phone}</a>
+        <br />
+        <a href={`mailto:${site.email}`} class="hover:text-rose-deep">{site.email}</a>
+      </p>
+      <p>
+        <span class="block font-medium text-ink">Redes</span>
+        <a href={site.instagram.personal} class="hover:text-rose-deep" target="_blank" rel="noopener noreferrer">
+          {site.instagram.personalHandle}
+        </a>
+        <br />
+        <a href={site.instagram.clinic} class="hover:text-rose-deep" target="_blank" rel="noopener noreferrer">
+          {site.instagram.clinicHandle}
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="border-t border-rose-soft/80">
+    <div class="container-site flex flex-col gap-2 py-6 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between" data-footer-reveal>
+      <p>© {new Date().getFullYear()} {site.shortName}. Todos os direitos reservados.</p>
+      <p>
+        As informações deste site têm caráter informativo e não substituem consulta médica.
+      </p>
+    </div>
+  </div>
+</footer>

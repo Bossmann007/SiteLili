@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Photo from '../components/Photo.astro';
+import MarqueeBand from '../components/MarqueeBand.astro';
+import { site, services } from '../data/site';
+import heroPhoto from '../assets/images/frentesorrindo.jpg';
+import clinicPhoto from '../assets/images/olhandoparaajanelacomcafe.jpg';
+
+const description =
+  'Clínica particular da Dra. Ligiana Maffini em Curitiba. Medicina de família, longevidade, saúde integral e atenção dedicada a mulheres 40+. Presencial e teleconsulta.';
+---
+
+<BaseLayout title={site.name} description={description} path="/">
+  <section class="hero-glow relative overflow-hidden border-b border-rose-soft/70">
+    <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:py-24 lg:py-28">
+      <div>
+        <p class="eyebrow" data-hero-eyebrow>Curitiba · Medicina de família</p>
+        <h1 class="heading-display mt-4 max-w-2xl" data-hero-title>
+          Cuidado médico integral, com tempo e escuta de verdade
+        </h1>
+        <p class="prose-site mt-6 max-w-xl" data-hero-subtitle>
+          {site.doctor} acompanha mulheres 40+ em estilo de vida, longevidade e saúde integral,
+          com consultas longas, presenciais em Curitiba e teleconsulta.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3" data-hero-cta>
+          <a href={site.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer">
+            Agendar pelo WhatsApp
+          </a>
+          <a href="/abordagem" class="btn-secondary">Conhecer a abordagem</a>
+        </div>
+      </div>
+
+      <figure class="relative" data-hero-media>
+        <div class="overflow-hidden rounded-[2rem] border border-rose-soft bg-surface shadow-md shadow-rose/10">
+          <div data-parallax>
+            <Photo
+              src={heroPhoto}
+              alt="Dra. Ligiana Maffini, médica de família em Curitiba, sorrindo em retrato profissional"
+              priority={true}
+            />
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <MarqueeBand />
+
+  <section class="container-site py-16 md:py-24">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow" data-eyebrow>Como posso ajudar</p>
+      <h2 class="heading-section mt-3" data-section-title>Atendimento pensado para a sua fase de vida</h2>
+      <p class="prose-site mt-4">
+        Mais de 20 anos de experiência clínica, incluindo SUS e Prefeitura, com foco atual em
+        medicina preventiva, estilo de vida e acompanhamento contínuo.
+      </p>
+    </div>
+
+    <div class="mt-10 flip-grid-stack gap-5" data-flip-grid data-services-grid>
+      {
+        services.map((service) => (
+          <article class="card-soft w-full max-w-md sm:max-w-none" data-flip-item data-service-card>
+            <div class="mb-4 h-px w-10 origin-left bg-rose" data-line-accent></div>
+            <h3 class="font-display text-2xl text-ink" data-split-title>{service.title}</h3>
+            <p class="prose-site mt-3 text-base">{service.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section-rose border-y border-rose-soft/70">
+    <div class="container-site grid gap-8 py-16 md:grid-cols-2 md:items-center md:py-20">
+      <div class="overflow-hidden rounded-[2rem] border border-rose-soft shadow-md shadow-rose/10" data-reveal>
+        <div data-parallax>
+          <Photo
+            src={clinicPhoto}
+            alt="Dra. Ligiana Maffini no consultório, em momento de reflexão"
+            aspect="wide"
+          />
+        </div>
+      </div>
+      <div data-reveal>
+        <p class="eyebrow" data-eyebrow>Por que escolher</p>
+        <h2 class="heading-section mt-3" data-section-title>Consultas longas, decisões compartilhadas</h2>
+        <p class="prose-site mt-4">
+          A clínica particular, aberta em 2024, nasceu da vontade de oferecer tempo, continuidade
+          e uma relação médico-paciente mais próxima. Cada encontro considera rotina, sono,
+          alimentação, movimento, saúde emocional e objetivos de longo prazo.
+        </p>
+        <a href="/sobre" class="btn-secondary mt-6">Sobre a Dra. Ligiana</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site py-16 md:py-24">
+    <div class="text-center" data-cta-block>
+      <p class="eyebrow" data-eyebrow>Próximo passo</p>
+      <h2 class="heading-section mx-auto mt-3 max-w-xl" data-section-title>Agende sua consulta com calma e atenção</h2>
+      <p class="prose-site mx-auto mt-4 max-w-lg">
+        Entre em contato pelo WhatsApp para combinar presencial ou teleconsulta. A equipe orienta
+        sobre documentos e preparo para o primeiro encontro.
+      </p>
+      <a href={site.whatsapp} class="btn-primary mt-8" target="_blank" rel="noopener noreferrer">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
+</BaseLayout>

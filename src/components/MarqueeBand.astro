@@ -1,0 +1,30 @@
+---
+import { site } from '../data/site';
+
+const items = [
+  site.specialty,
+  site.address.city + ' · PR',
+  site.crm,
+  'Consultas longas',
+  'Saúde integral',
+  'Mulheres 40+',
+  'Longevidade',
+  'Teleconsulta',
+];
+const loop = [...items, ...items];
+---
+
+<div class="overflow-hidden border-y border-rose-soft/80 bg-rose py-3 text-surface" data-marquee aria-hidden="true">
+  <div class="flex w-max" data-marquee-track>
+    <div class="flex shrink-0 items-center gap-8 pr-8" data-marquee-inner>
+      {
+        loop.map((item) => (
+          <span class="text-xs font-medium uppercase tracking-[0.35em] md:text-sm">
+            {item}
+            <span class="mx-4 text-gold-soft">◆</span>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</div>

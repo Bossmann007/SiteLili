@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Photo from '../components/Photo.astro';
+import MotionPathDecor from '../components/MotionPathDecor.astro';
+import { site } from '../data/site';
+import clinicPhoto from '../assets/images/olhandoparaajanelacomcafe.jpg';
+
+const description =
+  'Abordagem médica centrada em estilo de vida, longevidade e saúde integral. Consultas longas, plano personalizado e acompanhamento contínuo em Curitiba.';
+
+const pillars = [
+  {
+    title: 'Escuta e tempo',
+    text: 'Consultas longas para compreender história, queixas, rotina e objetivos antes de definir condutas.',
+  },
+  {
+    title: 'Prevenção e longevidade',
+    text: 'Estratégias baseadas em evidências para envelhecimento saudável, rastreamento e hábitos sustentáveis.',
+  },
+  {
+    title: 'Saúde integral',
+    text: 'Integração de sono, alimentação, movimento, saúde emocional e condições clínicas em um plano coerente.',
+  },
+  {
+    title: 'Continuidade',
+    text: 'Acompanhamento próximo entre consultas, com teleconsulta quando fizer sentido para a sua rotina.',
+  },
+];
+---
+
+<BaseLayout title="Abordagem" description={description} path="/abordagem">
+  <section class="hero-glow relative overflow-hidden border-b border-rose-soft/70" data-motion-section>
+    <MotionPathDecor pathId="abordagem-motion-path" />
+    <div class="container-site relative py-16 md:py-24">
+      <p class="eyebrow" data-hero-eyebrow>Abordagem</p>
+      <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>
+        Medicina de família com olhar para o longo prazo
+      </h1>
+      <p class="prose-site mt-6 max-w-2xl" data-hero-subtitle>
+        O cuidado começa pela relação médico-paciente: entender quem você é, como vive e o que
+        deseja preservar ou transformar na sua saúde.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-site py-16 md:py-24">
+    <div class="flip-grid-stack gap-5" data-flip-grid data-services-grid>
+      {
+        pillars.map((pillar) => (
+          <article class="card-soft w-full max-w-md sm:max-w-none" data-flip-item data-service-card>
+            <div class="mb-4 h-px w-10 origin-left bg-rose" data-line-accent></div>
+            <h2 class="font-display text-2xl text-ink" data-split-title>{pillar.title}</h2>
+            <p class="prose-site mt-3 text-base">{pillar.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section-rose border-t border-rose-soft/70">
+    <div class="container-site grid gap-10 py-16 md:grid-cols-[1fr_1fr] md:items-center md:py-24">
+      <div class="order-2 overflow-hidden rounded-[2rem] border border-rose-soft shadow-md shadow-rose/10 md:order-1" data-reveal>
+        <div data-parallax>
+          <Photo
+            src={clinicPhoto}
+            alt="Dra. Ligiana Maffini no consultório, em ambiente acolhedor"
+            aspect="wide"
+          />
+        </div>
+      </div>
+      <div class="order-1 md:order-2" data-reveal>
+        <p class="eyebrow" data-eyebrow>Para quem</p>
+        <h2 class="heading-section" data-section-title>Para quem é este cuidado</h2>
+        <p class="prose-site mt-4">
+          Mulheres 40+ que desejam acompanhamento médico atento às mudanças do corpo, da energia
+          e da rotina. Também pessoas que buscam prevenção, reorganização de hábitos ou suporte
+          clínico contínuo com uma médica de família.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site py-16 md:py-24">
+    <div class="card-soft mx-auto max-w-2xl text-center" data-cta-block>
+      <h3 class="font-display text-2xl text-ink">Presencial e teleconsulta</h3>
+      <p class="prose-site mt-3 text-base">
+        Atendimento presencial na clínica em Curitiba, no bairro Cristo Rei, e teleconsulta para
+        continuidade do cuidado quando indicado clinicamente.
+      </p>
+      <a href={site.whatsapp} class="btn-primary mt-6 inline-flex" target="_blank" rel="noopener noreferrer">
+        Agendar consulta
+      </a>
+    </div>
+  </section>
+</BaseLayout>

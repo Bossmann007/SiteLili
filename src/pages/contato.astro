@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const description =
+  'Entre em contato com a Clínica Dra. Ligiana Maffini em Curitiba. Endereço no Cristo Rei, WhatsApp, e-mail e mapa para consultas presenciais e teleconsulta.';
+
+const mapSrc = `https://maps.google.com/maps?q=${site.mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+const mapLink = `https://www.google.com/maps/search/?api=1&query=${site.mapQuery}`;
+
+const contactItems = [
+  {
+    label: 'Endereço',
+    content: site.address.full,
+    link: mapLink,
+    linkText: 'Abrir no Google Maps',
+    external: true,
+  },
+  {
+    label: 'WhatsApp',
+    content: site.phone,
+    link: site.whatsapp,
+    external: true,
+  },
+  {
+    label: 'E-mail',
+    content: site.email,
+    link: `mailto:${site.email}`,
+  },
+];
+---
+
+<BaseLayout title="Contato" description={description} path="/contato">
+  <section class="hero-glow border-b border-rose-soft/70">
+    <div class="container-site py-16 md:py-20">
+      <p class="eyebrow" data-hero-eyebrow>Contato</p>
+      <h1 class="heading-display mt-3 max-w-2xl" data-hero-title>Estamos em Curitiba</h1>
+      <p class="prose-site mt-4 max-w-xl" data-hero-subtitle>
+        Para agendar consulta presencial ou teleconsulta, fale conosco pelo WhatsApp. A equipe
+        orienta sobre documentos, preparo e disponibilidade.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-site py-16 md:py-24">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+      <div>
+        <div class="space-y-6">
+          {
+            contactItems.map((item) => (
+              <div class="card-soft" data-stagger-item>
+                <h2 class="text-sm font-semibold uppercase tracking-widest text-rose-deep">{item.label}</h2>
+                {item.link ? (
+                  <a
+                    href={item.link}
+                    class="prose-site mt-2 block text-base hover:text-rose-deep"
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noopener noreferrer' : undefined}
+                  >
+                    {item.content}
+                  </a>
+                ) : (
+                  <p class="prose-site mt-2 text-base">{item.content}</p>
+                )}
+                {item.linkText && (
+                  <a
+                    href={item.link}
+                    class="mt-2 inline-block text-sm font-medium text-rose-deep hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.linkText}
+                  </a>
+                )}
+              </div>
+            ))
+          }
+          <div class="card-soft" data-stagger-item>
+            <h2 class="text-sm font-semibold uppercase tracking-widest text-rose-deep">Instagram</h2>
+            <a href={site.instagram.personal} class="mt-2 block hover:text-rose-deep" target="_blank" rel="noopener noreferrer">
+              {site.instagram.personalHandle}
+            </a>
+            <a href={site.instagram.clinic} class="mt-1 block hover:text-rose-deep" target="_blank" rel="noopener noreferrer">
+              {site.instagram.clinicHandle}
+            </a>
+          </div>
+        </div>
+
+        <a href={site.whatsapp} class="btn-primary mt-10 md:hidden" target="_blank" rel="noopener noreferrer" data-hero-cta>
+          Agendar pelo WhatsApp
+        </a>
+      </div>
+
+      <div class="space-y-4" data-reveal>
+        <div class="overflow-hidden rounded-2xl border border-rose-soft bg-surface shadow-md shadow-rose/10">
+          <iframe
+            title="Mapa da clínica no bairro Cristo Rei, Curitiba"
+            src={mapSrc}
+            width="100%"
+            height="420"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="block w-full border-0"
+          ></iframe>
+        </div>
+        <p class="text-xs text-ink-soft">
+          {site.crm} · {site.rqe}. Informações sujeitas a confirmação no agendamento.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

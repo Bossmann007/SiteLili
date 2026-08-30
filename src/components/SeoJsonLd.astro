@@ -1,0 +1,80 @@
+---
+import { getImage } from 'astro:assets';
+import { site } from '../data/site';
+import heroPhoto from '../assets/images/frentesorrindo.jpg';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+}
+
+const { title, description, path = '' } = Astro.props;
+const canonical = new URL(path, site.url).href;
+const optimized = await getImage({ src: heroPhoto, width: 1200, format: 'jpg', quality: 85 });
+const imageUrl = new URL(optimized.src, site.url).href;
+---
+
+<!-- JSON-LD: Physician -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Physician',
+  name: site.fullName,
+  alternateName: site.doctor,
+  medicalSpecialty: 'Family Medicine',
+  description,
+  url: canonical,
+  image: imageUrl,
+  telephone: site.phoneTel,
+  email: site.email,
+  identifier: [
+    { '@type': 'PropertyValue', name: 'CRM', value: site.crm },
+    { '@type': 'PropertyValue', name: 'RQE', value: site.rqe },
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.state,
+    postalCode: site.address.zip,
+    addressCountry: site.address.country,
+  },
+  sameAs: [site.instagram.personal, site.instagram.clinic],
+  worksFor: {
+    '@type': 'MedicalClinic',
+    name: site.name,
+    url: site.url,
+  },
+})} />
+
+<!-- JSON-LD: MedicalClinic -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'MedicalClinic',
+  name: site.name,
+  description,
+  url: site.url,
+  telephone: site.phoneTel,
+  email: site.email,
+  image: imageUrl,
+  logo: new URL(site.logo.horizontal, site.url).href,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.state,
+    postalCode: site.address.zip,
+    addressCountry: site.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -25.4284,
+    longitude: -49.2733,
+  },
+  openingHoursSpecification: [],
+  sameAs: [site.instagram.personal, site.instagram.clinic],
+  founder: {
+    '@type': 'Physician',
+    name: site.fullName,
+  },
+})} />
