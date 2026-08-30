@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Photo from '../components/Photo.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import BrandImage from '../components/BrandImage.astro';
+import SpecialtyCardBand from '../components/SpecialtyCardBand.astro';
+import MevPillarsBand from '../components/MevPillarsBand.astro';
 import { site } from '../data/site';
 import { photos } from '../data/photos';
 
@@ -120,6 +122,10 @@ const steps = [
       </div>
     </div>
   </section>
+
+  <SpecialtyCardBand title="Áreas de atuação" showAllLink={true} />
+
+  <MevPillarsBand title="Pilares clínicos do estilo de vida" />
 
   <section class="container-site py-16 md:py-24">
     <div class="max-w-2xl" data-reveal>

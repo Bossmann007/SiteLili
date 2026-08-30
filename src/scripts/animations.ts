@@ -93,6 +93,247 @@ function initScrollProgress() {
   });
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function animatePanelOpen(panel: HTMLElement, icon?: HTMLElement | null) {
+  if (prefersReducedMotion()) {
+    panel.hidden = false;
+    panel.style.height = 'auto';
+    panel.style.opacity = '1';
+    if (icon) icon.textContent = '−';
+    return;
+  }
+
+  panel.hidden = false;
+  gsap.set(panel, { height: 'auto', opacity: 0 });
+  const height = panel.offsetHeight;
+  gsap.fromTo(
+    panel,
+    { height: 0, opacity: 0 },
+    {
+      height,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power3.out',
+      onComplete: () => gsap.set(panel, { height: 'auto' }),
+    },
+  );
+  if (icon) gsap.to(icon, { rotate: 45, duration: 0.25 });
+}
+
+function animatePanelClose(panel: HTMLElement, icon?: HTMLElement | null) {
+  if (prefersReducedMotion()) {
+    panel.hidden = true;
+    panel.style.height = '';
+    panel.style.opacity = '';
+    if (icon) icon.textContent = '+';
+    return;
+  }
+
+  gsap.to(panel, {
+    height: 0,
+    opacity: 0,
+    duration: 0.35,
+    ease: 'power3.inOut',
+    onComplete: () => {
+      panel.hidden = true;
+      gsap.set(panel, { height: '', opacity: '' });
+    },
+  });
+  if (icon) gsap.to(icon, { rotate: 0, duration: 0.25 });
+}
+
+function initFaqAccordion() {
+  const accordion = document.querySelector('[data-faq-accordion]');
+  if (!accordion) return;
+
+  const triggers = accordion.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]');
+
+  triggers.forEach((trigger) => {
+    const item = trigger.closest('[data-faq-item]');
+    const panel = item?.querySelector<HTMLElement>('[data-faq-panel]');
+    const icon = trigger.querySelector<HTMLElement>('[data-faq-icon]');
+    if (!panel) return;
+
+    const close = () => {
+      trigger.setAttribute('aria-expanded', 'false');
+      animatePanelClose(panel, icon);
+    };
+
+    const open = () => {
+      triggers.forEach((other) => {
+        if (other === trigger) return;
+        if (other.getAttribute('aria-expanded') === 'true') {
+          const otherItem = other.closest('[data-faq-item]');
+          const otherPanel = otherItem?.querySelector<HTMLElement>('[data-faq-panel]');
+          const otherIcon = other.querySelector<HTMLElement>('[data-faq-icon]');
+          other.setAttribute('aria-expanded', 'false');
+          if (otherPanel) animatePanelClose(otherPanel, otherIcon);
+        }
+      });
+      trigger.setAttribute('aria-expanded', 'true');
+      animatePanelOpen(panel, icon);
+    };
+
+    trigger.addEventListener('click', () => {
+      if (trigger.getAttribute('aria-expanded') === 'true') close();
+      else open();
+    });
+
+    trigger.addEventListener('keydown', (event) => {
+      const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+      if (!keys.includes(event.key)) return;
+      event.preventDefault();
+      const list = Array.from(triggers);
+      const index = list.indexOf(trigger);
+      let next = index;
+      if (event.key === 'ArrowDown') next = (index + 1) % list.length;
+      if (event.key === 'ArrowUp') next = (index - 1 + list.length) % list.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = list.length - 1;
+      list[next]?.focus();
+    });
+  });
+}
+
+function initFormationTimelineInteractive() {
+  const root = document.querySelector('[data-formation-timeline]');
+  if (!root) return;
+
+  const items = root.querySelectorAll<HTMLElement>('[data-formation-item]');
+
+  items.forEach((item) => {
+    const trigger = item.querySelector<HTMLButtonElement>('[data-formation-trigger]');
+    const panel = item.querySelector<HTMLElement>('[data-formation-panel]');
+    if (!trigger || !panel) return;
+
+    const toggle = (open: boolean) => {
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        panel.hidden = false;
+        panel.dataset.open = 'true';
+        if (prefersReducedMotion()) {
+          panel.style.height = 'auto';
+          panel.style.opacity = '1';
+          return;
+        }
+        gsap.set(panel, { height: 'auto', opacity: 0 });
+        const height = panel.offsetHeight;
+        gsap.fromTo(
+          panel,
+          { height: 0, opacity: 0 },
+          {
+            height,
+            opacity: 1,
+            duration: 0.35,
+            ease: 'power2.out',
+            onComplete: () => gsap.set(panel, { height: 'auto' }),
+          },
+        );
+      } else {
+        panel.dataset.open = 'false';
+        if (prefersReducedMotion()) {
+          panel.hidden = true;
+          return;
+        }
+        gsap.to(panel, {
+          height: 0,
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            panel.hidden = true;
+            gsap.set(panel, { height: '', opacity: '' });
+          },
+        });
+      }
+    };
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      items.forEach((other) => {
+        if (other === item) return;
+        const otherTrigger = other.querySelector('[data-formation-trigger]');
+        const otherPanel = other.querySelector('[data-formation-panel]');
+        if (otherTrigger?.getAttribute('aria-expanded') === 'true' && otherPanel) {
+          otherTrigger.setAttribute('aria-expanded', 'false');
+          otherPanel.dataset.open = 'false';
+          if (prefersReducedMotion()) otherPanel.hidden = true;
+          else
+            gsap.to(otherPanel, {
+              height: 0,
+              opacity: 0,
+              duration: 0.25,
+              onComplete: () => {
+                otherPanel.hidden = true;
+              },
+            });
+        }
+      });
+      toggle(!isOpen);
+    });
+
+    trigger.addEventListener('pointerenter', () => {
+      if (trigger.getAttribute('aria-expanded') !== 'true') toggle(true);
+    });
+  });
+}
+
+function initFormationTimelineScroll() {
+  const root = document.querySelector('[data-formation-timeline]');
+  if (!root) return;
+
+  const line = root.querySelector<HTMLElement>('[data-formation-line]');
+  const items = root.querySelectorAll<HTMLElement>('[data-formation-item]');
+  const dots = root.querySelectorAll<HTMLElement>('[data-formation-dot]');
+
+  if (line) {
+    gsap.fromTo(
+      line,
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: 'none',
+        transformOrigin: 'top center',
+        scrollTrigger: {
+          trigger: root,
+          start: 'top 80%',
+          end: 'bottom 70%',
+          scrub: 0.6,
+        },
+      },
+    );
+  }
+
+  gsap.from(items, {
+    opacity: 0,
+    x: -24,
+    duration: 0.65,
+    ease: 'power3.out',
+    stagger: 0.12,
+    scrollTrigger: {
+      trigger: root,
+      start: 'top 78%',
+      once: true,
+    },
+  });
+
+  gsap.from(dots, {
+    scale: 0,
+    opacity: 0,
+    duration: 0.5,
+    ease: 'back.out(2)',
+    stagger: 0.12,
+    scrollTrigger: {
+      trigger: root,
+      start: 'top 78%',
+      once: true,
+    },
+  });
+}
+
 function initMagneticButtons() {
   document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((button) => {
     const strength = 14;
@@ -206,8 +447,6 @@ function initServiceShowcase() {
 
   cards.forEach((card) => {
     const shine = card.querySelector<HTMLElement>('[data-service-shine]');
-    const line = card.querySelector<HTMLElement>('[data-line-accent]');
-    const cta = card.querySelector<HTMLElement>('[data-service-cta]');
     const toggle = card.querySelector<HTMLButtonElement>('[data-service-toggle]');
     const expandable = card.hasAttribute('data-service-expand');
 
@@ -233,6 +472,7 @@ function initServiceShowcase() {
 
     const toggleExpand = () => {
       const isExpanded = card.classList.contains('is-expanded');
+      const state = Flip.getState(Array.from(cards));
 
       cards.forEach((other) => {
         other.classList.remove('is-expanded', 'is-active', 'is-dimmed');
@@ -249,22 +489,26 @@ function initServiceShowcase() {
           if (other !== card) other.classList.add('is-dimmed');
         });
 
-        if (line) {
-          gsap.fromTo(line, { scaleX: 0.35 }, { scaleX: 1, duration: 0.55, ease: 'power3.out' });
-        }
-
-        if (cta) {
-          cta.removeAttribute('hidden');
-          cta.setAttribute('tabindex', '0');
-          gsap.fromTo(cta, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' });
-        }
-
-        gsap.to(card, {
-          scale: 1.01,
-          duration: 0.45,
-          ease: 'power2.out',
-          overwrite: true,
+        Flip.from(state, {
+          duration: 0.55,
+          ease: 'power3.out',
+          absolute: true,
+          nested: true,
+          onComplete: () => {
+            const line = card.querySelector<HTMLElement>('[data-line-accent]');
+            const cta = card.querySelector<HTMLElement>('[data-service-cta]');
+            if (line) {
+              gsap.fromTo(line, { scaleX: 0.35 }, { scaleX: 1, duration: 0.55, ease: 'power3.out' });
+            }
+            if (cta) {
+              cta.removeAttribute('hidden');
+              cta.setAttribute('tabindex', '0');
+              gsap.fromTo(cta, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' });
+            }
+          },
         });
+      } else {
+        Flip.from(state, { duration: 0.4, ease: 'power2.inOut', absolute: true, nested: true });
       }
     };
 
@@ -389,6 +633,78 @@ function initGalleryItems() {
   });
 }
 
+function initMevSegmentToggle() {
+  document.querySelectorAll<HTMLElement>('[data-mev-segment]').forEach((segment) => {
+    const indicator = segment.querySelector<HTMLElement>('[data-mev-segment-indicator]');
+    const options = segment.querySelectorAll<HTMLAnchorElement>('[data-mev-segment-option]');
+    if (!indicator || !options.length) return;
+
+    const setActiveStyles = (activeOption: HTMLAnchorElement) => {
+      options.forEach((option) => {
+        const isActive = option === activeOption;
+        option.classList.toggle('text-surface', isActive);
+        option.classList.toggle('text-ink-soft', !isActive);
+        option.classList.toggle('hover:text-ink', !isActive);
+        if (isActive) option.setAttribute('aria-current', 'page');
+        else option.removeAttribute('aria-current');
+      });
+    };
+
+    const moveIndicator = (option: HTMLAnchorElement, animate: boolean) => {
+      const segmentRect = segment.getBoundingClientRect();
+      const optionRect = option.getBoundingClientRect();
+      const x = optionRect.left - segmentRect.left;
+      const width = optionRect.width;
+
+      setActiveStyles(option);
+
+      if (prefersReducedMotion() || !animate) {
+        gsap.set(indicator, { left: x, width });
+        return;
+      }
+
+      gsap.to(indicator, {
+        left: x,
+        width,
+        duration: 0.35,
+        ease: 'power3.out',
+      });
+    };
+
+    const initial =
+      segment.querySelector<HTMLAnchorElement>('[data-mev-segment-option][aria-current="page"]') ??
+      options[0];
+    moveIndicator(initial, false);
+
+    options.forEach((option) => {
+      option.addEventListener('click', (event) => {
+        if (option.getAttribute('aria-current') === 'page') {
+          event.preventDefault();
+          return;
+        }
+        event.preventDefault();
+        moveIndicator(option, true);
+        const href = option.getAttribute('href');
+        window.setTimeout(() => {
+          if (href) window.location.href = href;
+        }, prefersReducedMotion() ? 0 : 280);
+      });
+
+      option.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        option.click();
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const current =
+        segment.querySelector<HTMLAnchorElement>('[data-mev-segment-option][aria-current="page"]') ??
+        options[0];
+      moveIndicator(current, false);
+    });
+  });
+}
+
 function safeSplitText(element: HTMLElement, vars: ConstructorParameters<typeof SplitText.create>[1]) {
   try {
     const split = SplitText.create(element, vars);
@@ -401,6 +717,9 @@ function safeSplitText(element: HTMLElement, vars: ConstructorParameters<typeof 
 
 export function initAnimations(): () => void {
   initEssentialMotion();
+  initFaqAccordion();
+  initFormationTimelineInteractive();
+  initMevSegmentToggle();
 
   const mm = gsap.matchMedia();
 
@@ -414,7 +733,7 @@ export function initAnimations(): () => void {
 
       if (reduceMotion) {
         gsap.set(
-          '[data-animate], [data-reveal], [data-service-card], [data-nav-item], [data-header-logo], [data-hero-media], [data-hero-cta] > *, [data-cta-block] > *, [data-stagger-item], [data-line-accent], [data-motion-dot], [data-flip-item], [data-parallax], [data-gallery-item], [data-scroll-progress], [data-magnetic], [data-h-scroll-track], [data-tilt-card], [data-service-number]',
+          '[data-animate], [data-reveal], [data-service-card], [data-nav-item], [data-header-logo], [data-hero-media], [data-hero-cta] > *, [data-cta-block] > *, [data-stagger-item], [data-line-accent], [data-motion-dot], [data-flip-item], [data-parallax], [data-gallery-item], [data-scroll-progress], [data-magnetic], [data-h-scroll-track], [data-tilt-card], [data-service-number], [data-formation-item], [data-formation-line], [data-formation-dot]',
           { opacity: 1, clearProps: 'transform' },
         );
         document.querySelectorAll('[data-flip-grid]').forEach((grid) => grid.classList.add('is-flipped'));
@@ -469,6 +788,7 @@ export function initAnimations(): () => void {
       initServiceShowcase();
       initMotionPaths();
       initGalleryItems();
+      initFormationTimelineScroll();
 
       document.querySelectorAll<HTMLElement>('[data-section-title]').forEach((el) => {
         if (el.hasAttribute('data-hero-title')) return;

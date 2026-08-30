@@ -1,0 +1,48 @@
+---
+interface Props {
+  active: 'pilares' | 'mev';
+}
+
+const { active } = Astro.props;
+---
+
+<nav
+  class="mev-segment relative inline-flex max-w-full rounded-full border border-line bg-surface/90 p-1 shadow-sm"
+  data-mev-segment
+  aria-label="Navegação entre pilares MEV e medicina do estilo de vida"
+>
+  <span
+    class="mev-segment-indicator pointer-events-none absolute top-1 bottom-1 rounded-full bg-ink"
+    data-mev-segment-indicator
+    aria-hidden="true"
+  ></span>
+  <a
+    href="/pilares"
+    class:list={[
+      'mev-segment-option relative z-10 rounded-full px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors duration-300',
+      active === 'pilares' ? 'text-surface' : 'text-ink-soft hover:text-ink',
+    ]}
+    data-mev-segment-option
+    aria-current={active === 'pilares' ? 'page' : undefined}
+  >
+    Página dos pilares MEV
+  </a>
+  <a
+    href="/medicina-do-estilo-de-vida"
+    class:list={[
+      'mev-segment-option relative z-10 rounded-full px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors duration-300',
+      active === 'mev' ? 'text-surface' : 'text-ink-soft hover:text-ink',
+    ]}
+    data-mev-segment-option
+    aria-current={active === 'mev' ? 'page' : undefined}
+  >
+    Medicina do estilo de vida
+  </a>
+</nav>
+
+<style>
+  .mev-segment-indicator {
+    left: 0;
+    width: 0;
+  }
+</style>

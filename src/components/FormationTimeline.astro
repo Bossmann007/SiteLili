@@ -1,0 +1,50 @@
+---
+import { formation } from '../data/site';
+
+type FormationItem = (typeof formation)[number];
+
+interface Props {
+  items: readonly FormationItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="formation-timeline relative" data-formation-timeline>
+  <div
+    class="formation-timeline__line absolute bottom-0 left-[0.65rem] top-0 w-px origin-top bg-line md:left-4"
+    data-formation-line
+    aria-hidden="true"
+  ></div>
+  <ol class="relative space-y-6">
+    {
+      items.map((item, index) => (
+        <li class="formation-timeline__item relative pl-10 md:pl-12" data-formation-item>
+          <span
+            class="absolute left-0 top-1.5 h-3 w-3 rounded-full border-2 border-gold bg-surface"
+            data-formation-dot
+            aria-hidden="true"
+          ></span>
+          <button
+            type="button"
+            class="formation-timeline__trigger w-full text-left"
+            data-formation-trigger
+            aria-expanded="false"
+          >
+            <span class="font-display text-lg text-ink md:text-xl">{item.title}</span>
+            <span class="mt-1 block text-sm text-gold-deep">{item.institution}</span>
+          </button>
+          <div class="formation-timeline__panel overflow-hidden" data-formation-panel hidden>
+            <p class="prose-site pt-3 text-base">{item.context}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style is:global>
+  .formation-timeline__panel[data-open='true'] {
+    display: block;
+  }
+</style>

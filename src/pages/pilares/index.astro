@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandPattern from '../../components/BrandPattern.astro';
+import MevPillarsBand from '../../components/MevPillarsBand.astro';
+import { site } from '../../data/site';
+
+const description =
+  'Seis pilares da Medicina do Estilo de Vida com a Dra. Ligiana Maffini em Curitiba: alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos. CRM/PR 17731.';
+---
+
+<BaseLayout title="Pilares MEV" description={description} path="/pilares" faqItems={null}>
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative py-16 md:py-20">
+      <p class="eyebrow" data-hero-eyebrow>Medicina do Estilo de Vida</p>
+      <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>
+        Seis pilares da Medicina do Estilo de Vida em Curitiba com a Dra. Ligiana Maffini. {site.crm}.
+      </h1>
+      <p class="prose-site mt-4 max-w-2xl" data-hero-subtitle>
+        Alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos —
+        integrados à consulta médica no Cristo Rei. {site.fullName}. Agende: WhatsApp {site.phone}.
+      </p>
+    </div>
+  </section>
+
+  <MevPillarsBand
+    useAccordion={true}
+    segmentActive="pilares"
+    title="Os seis pilares na prática clínica"
+    subtitle="Clique em cada pilar para ler o significado clínico e como entra na consulta."
+  />
+
+  <section class="section-marble border-t border-line/70 py-16 md:py-20">
+    <div class="container-site max-w-2xl text-center" data-cta-block>
+      <p class="prose-site">
+        Conteúdo educativo — não substitui consulta. {site.crm} · {site.rqe}
+      </p>
+      <a href={site.whatsapp} class="btn-primary mt-6" target="_blank" rel="noopener noreferrer" data-magnetic>
+        Agendar pelo WhatsApp
+      </a>
+      <p class="mt-6">
+        <a href="/especialidades" class="link-nav">Todas as especialidades</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

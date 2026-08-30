@@ -2,10 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import BrandImage from '../components/BrandImage.astro';
-import { site } from '../data/site';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { site, faq } from '../data/site';
 
 const description =
-  'Entre em contato com a Clínica Dra. Ligiana Maffini em Curitiba. Endereço no Cristo Rei, WhatsApp, e-mail e mapa para consultas presenciais e teleconsulta.';
+  'Contato da Dra. Ligiana Maffini em Curitiba: Rua Zeila Moura dos Santos, 101, sala 503, Cristo Rei. CRM/PR 17731. WhatsApp (41) 99510-4424.';
 
 const mapSrc = `https://maps.google.com/maps?q=${site.mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 const mapLink = `https://www.google.com/maps/search/?api=1&query=${site.mapQuery}`;
@@ -38,15 +39,14 @@ const contactItems = [
 ];
 ---
 
-<BaseLayout title="Contato" description={description} path="/contato">
+<BaseLayout title="Contato" description={description} path="/contato" faqItems={faq}>
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative py-16 md:py-20">
       <p class="eyebrow" data-hero-eyebrow>Contato</p>
       <h1 class="heading-display mt-3 max-w-2xl" data-hero-title>Estamos em Curitiba</h1>
       <p class="prose-site mt-4 max-w-xl" data-hero-subtitle>
-        Para agendar consulta presencial ou teleconsulta, fale conosco pelo WhatsApp. A equipe
-        orienta sobre documentos, preparo e disponibilidade.
+        {site.fullName} · {site.crm} · Cristo Rei, Curitiba - PR
       </p>
     </div>
   </section>
@@ -57,7 +57,7 @@ const contactItems = [
         <div class="space-y-6">
           {
             contactItems.map((item) => (
-              <div class="card-soft" data-stagger-item data-card-interactive tabindex="0">
+              <div class="card-soft" data-stagger-item data-magnetic>
                 <h2 class="text-sm font-semibold uppercase tracking-widest text-gold-deep">{item.label}</h2>
                 {item.link ? (
                   <a
@@ -84,7 +84,7 @@ const contactItems = [
               </div>
             ))
           }
-          <div class="card-soft" data-stagger-item data-card-interactive tabindex="0">
+          <div class="card-soft" data-stagger-item data-magnetic>
             <h2 class="text-sm font-semibold uppercase tracking-widest text-gold-deep">Registro</h2>
             <p class="prose-site mt-2 text-base">{site.crm} · {site.rqe}</p>
           </div>
@@ -107,6 +107,16 @@ const contactItems = [
           ></iframe>
         </div>
         <BrandImage variant="wordmark" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-marble border-t border-line/70 py-16 md:py-24">
+    <div class="container-site max-w-3xl">
+      <p class="eyebrow" data-eyebrow>Perguntas frequentes</p>
+      <h2 class="heading-section mt-3" data-section-title>Dúvidas comuns</h2>
+      <div class="mt-8">
+        <FaqAccordion items={faq} />
       </div>
     </div>
   </section>

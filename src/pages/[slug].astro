@@ -1,0 +1,19 @@
+---
+import SpecialtyPage from '../components/SpecialtyPage.astro';
+import { specialties } from '../data/specialties';
+
+export function getStaticPaths() {
+  return specialties.map((specialty) => ({
+    params: { slug: specialty.slug },
+    props: { specialty },
+  }));
+}
+
+interface Props {
+  specialty: (typeof specialties)[number];
+}
+
+const { specialty } = Astro.props;
+---
+
+<SpecialtyPage specialty={specialty} />

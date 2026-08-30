@@ -9,7 +9,7 @@ import Logo from './Logo.astro';
     <div data-footer-reveal>
       <Logo variant="footer" />
       <p class="mt-4 max-w-md prose-site text-sm">
-        Medicina de família e comunidade com foco em estilo de vida, longevidade e saúde integral para mulheres 40+.
+        {site.fullName} · {site.specialtyShort}. Consultório particular no Cristo Rei, Curitiba.
       </p>
       <p class="mt-4 text-sm text-ink-soft">
         {site.crm} · {site.rqe}
@@ -43,8 +43,10 @@ import Logo from './Logo.astro';
   <div class="border-t border-line/80">
     <div class="container-site flex flex-col gap-2 py-6 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between" data-footer-reveal>
       <p>© {new Date().getFullYear()} {site.shortName}. Todos os direitos reservados.</p>
-      <p>
-        As informações deste site têm caráter informativo e não substituem consulta médica.
+      <p class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <a href="/privacidade" class="hover:text-gold-deep">Privacidade (LGPD)</a>
+        <span aria-hidden="true">·</span>
+        <span>As informações deste site têm caráter informativo e não substituem consulta médica.</span>
       </p>
     </div>
   </div>

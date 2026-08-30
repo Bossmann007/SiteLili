@@ -1,36 +1,50 @@
 ---
 import { getImage } from 'astro:assets';
-import { site } from '../data/site';
+import { site, bio } from '../data/site';
 import { photos } from '../data/photos';
-const heroPhoto = photos.hero;
+
+type FaqItem = {
+  question: string;
+  answer: string;
+};
 
 interface Props {
   title: string;
   description: string;
   path?: string;
+  /** When set, replaces global FAQ schema. Use `null` to omit FAQPage. */
+  faqItems?: readonly FaqItem[] | null;
+  includeMedicalWebPage?: boolean;
 }
 
-const { title, description, path = '' } = Astro.props;
-const canonical = new URL(path, site.url).href;
-const optimized = await getImage({ src: heroPhoto, width: 1200, format: 'jpg', quality: 85 });
+const { description, path = '', faqItems, includeMedicalWebPage = false } = Astro.props;
+const pageUrl = new URL(path || '/', site.url).href;
+const optimized = await getImage({ src: photos.hero, width: 1200, format: 'jpg', quality: 85 });
 const imageUrl = new URL(optimized.src, site.url).href;
----
 
-<!-- JSON-LD: Physician -->
-<script type="application/ld+json" set:html={JSON.stringify({
+const physician = {
   '@context': 'https://schema.org',
   '@type': 'Physician',
   name: site.fullName,
   alternateName: site.doctor,
-  medicalSpecialty: 'Family Medicine',
-  description,
-  url: canonical,
+  medicalSpecialty: ['Family Medicine', 'Lifestyle Medicine'],
+  description: bio,
+  url: site.url,
   image: imageUrl,
   telephone: site.phoneTel,
   email: site.email,
-  identifier: [
-    { '@type': 'PropertyValue', name: 'CRM', value: site.crm },
-    { '@type': 'PropertyValue', name: 'RQE', value: site.rqe },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Faculdade Evangélica de Medicina do Paraná',
+  },
+  hasCredential: [
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'CRM', name: site.crm },
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'RQE', name: site.rqe },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Título de Especialista',
+      name: 'Medicina de Família e Comunidade, SBMFC (2024)',
+    },
   ],
   address: {
     '@type': 'PostalAddress',
@@ -40,16 +54,15 @@ const imageUrl = new URL(optimized.src, site.url).href;
     postalCode: site.address.zip,
     addressCountry: site.address.country,
   },
-  sameAs: [site.instagram.personal, site.instagram.clinic],
+  sameAs: site.sameAs,
   worksFor: {
     '@type': 'MedicalClinic',
     name: site.name,
     url: site.url,
   },
-})} />
+};
 
-<!-- JSON-LD: MedicalClinic -->
-<script type="application/ld+json" set:html={JSON.stringify({
+const medicalClinic = {
   '@context': 'https://schema.org',
   '@type': 'MedicalClinic',
   name: site.name,
@@ -67,15 +80,51 @@ const imageUrl = new URL(optimized.src, site.url).href;
     postalCode: site.address.zip,
     addressCountry: site.address.country,
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: -25.4284,
-    longitude: -49.2733,
-  },
-  openingHoursSpecification: [],
-  sameAs: [site.instagram.personal, site.instagram.clinic],
+  sameAs: site.sameAs,
   founder: {
     '@type': 'Physician',
     name: site.fullName,
+    url: site.url,
   },
-})} />
+};
+
+const medicalWebPage = includeMedicalWebPage
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'MedicalWebPage',
+      name: Astro.props.title,
+      description,
+      url: pageUrl,
+      inLanguage: 'pt-BR',
+      isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+      author: {
+        '@type': 'Physician',
+        name: site.fullName,
+        url: site.url,
+      },
+      lastReviewed: '2026-08-30',
+    }
+  : null;
+
+const resolvedFaq = faqItems === undefined ? null : faqItems;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(physician)} />
+<script type="application/ld+json" set:html={JSON.stringify(medicalClinic)} />
+{medicalWebPage && <script type="application/ld+json" set:html={JSON.stringify(medicalWebPage)} />}
+{
+  resolvedFaq && resolvedFaq.length > 0 && (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: resolvedFaq.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      })}
+    />
+  )
+}

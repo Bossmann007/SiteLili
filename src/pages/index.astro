@@ -5,11 +5,13 @@ import MarqueeBand from '../components/MarqueeBand.astro';
 import PhotoStrip from '../components/PhotoStrip.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import BrandImage from '../components/BrandImage.astro';
+import SpecialtyCardBand from '../components/SpecialtyCardBand.astro';
+import MevPillarsBand from '../components/MevPillarsBand.astro';
 import { site, services } from '../data/site';
 import { photos, homeGallery } from '../data/photos';
 
 const description =
-  'Clínica particular da Dra. Ligiana Maffini em Curitiba. Medicina de família, longevidade, saúde integral e atenção dedicada a mulheres 40+. Presencial e teleconsulta.';
+  'Dra. Ligiana Maffini, médica de família e medicina do estilo de vida em Curitiba (Cristo Rei). CRM/PR 17731. Consultas presenciais e teleconsulta.';
 ---
 
 <BaseLayout title={site.name} description={description} path="/">
@@ -18,8 +20,8 @@ const description =
     <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24 lg:py-28">
       <div>
         <p class="eyebrow" data-hero-eyebrow>Curitiba · Cristo Rei</p>
-        <h1 class="heading-display mt-4 max-w-2xl" data-hero-title>
-          <span class="text-gold-gradient">{site.doctorTitle}</span> Ligiana Maffini
+        <h1 class="heading-display mt-4 max-w-2xl text-balance" data-hero-title>
+          Dra. Ligiana Maffini — médica de família e medicina do estilo de vida em Curitiba — {site.crm}.
         </h1>
         <p class="prose-site mt-6 max-w-xl" data-hero-subtitle>
           {site.specialtyShort}. Consultas longas, longevidade e saúde integral para mulheres 40+,
@@ -106,6 +108,10 @@ const description =
   </section>
 
   <PhotoStrip title="Retratos de cuidado e presença" items={homeGallery} />
+
+  <SpecialtyCardBand />
+
+  <MevPillarsBand />
 
   <section class="section-rose relative overflow-hidden border-y border-line/70">
     <BrandPattern />

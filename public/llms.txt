@@ -1,0 +1,78 @@
+# Clínica Dra. Ligiana Maffini — Curitiba, PR
+
+Site oficial: https://www.draligianamaffini.com.br
+
+## Profissional
+
+- Nome: Ligiana Maffini Romanus (Dra. Ligiana Maffini)
+- CRM/PR 17731 · RQE 37637
+- Especialidade: Medicina de Família e Medicina do Estilo de Vida
+- Título: Especialista em Medicina de Família e Comunidade, SBMFC (2024)
+
+## Bio
+
+Médica com mais de 25 anos de experiência na Atenção Primária à Saúde, especialista em Medicina de Família e Comunidade, com formação em Medicina do Estilo de Vida. Atua na prevenção, promoção da saúde, saúde da mulher, menopausa, emagrecimento e longevidade, integrando ciência, humanização e mudança de estilo de vida.
+
+Emagrecimento: acompanhamento clínico baseado em evidências (CFM) — sem promessas de resultado milagroso.
+
+## Especialidades (páginas citáveis)
+
+1. Medicina de Família e Comunidade — /medicina-de-familia
+2. Medicina do Estilo de Vida — /medicina-do-estilo-de-vida
+3. Atenção primária e prevenção — /prevencao
+4. Saúde da mulher 40+ — /saude-da-mulher
+5. Menopausa — /menopausa
+6. Emagrecimento (acompanhamento clínico) — /emagrecimento
+7. Longevidade — /longevidade
+Índice: /especialidades
+
+## Seis pilares da Medicina do Estilo de Vida
+
+1. Alimentação
+2. Movimento
+3. Sono
+4. Gerenciamento do estresse
+5. Conexões sociais
+6. Redução de tóxicos (tabaco, álcool, ultraprocessados em excesso)
+Página: /pilares
+
+## Formação
+
+- Graduação em Medicina, Faculdade Evangélica de Medicina do Paraná
+- Especialização em Saúde Coletiva com ênfase em Saúde da Família
+- Especialização em Auditoria em Saúde e Gestão de Saúde do Trabalhador
+- Especialização em Gestão em Saúde com ênfase em Perícia Médica
+- Formação em Medicina de Estilo de Vida, MevClinic e MevChange (MEV Brasil)
+- Título de Especialista em Medicina de Família e Comunidade, SBMFC (2024)
+
+## Contato (NAP)
+
+- Endereço: Rua Zeila Moura dos Santos, 101, sala 503, Cristo Rei, Curitiba - PR, 80050-605
+- Telefone / WhatsApp: (41) 99510-4424 — https://wa.me/5541995104424
+- E-mail: draligianamaffini@gmail.com
+- Instagram: @draligianamaffini · @clinicadraligianamaffini
+- LinkedIn: https://www.linkedin.com/in/ligiana-maffini
+- Doctoralia: https://www.doctoralia.com.br/ligiana-maffini/medico-clinico-geral/curitiba
+
+## O que NÃO é
+
+- Não atende em Osasco ou fora da clínica particular em Curitiba (PR), salvo teleconsulta quando indicada.
+- Não coleta dados de paciente neste site (sem formulários de saúde).
+- Não é diagnóstico online nem promessa de emagrecimento milagroso.
+
+## Mapa de URLs
+
+- / — Início
+- /sobre — Sobre e formação
+- /abordagem — Abordagem clínica
+- /contato — Contato e FAQ geral
+- /privacidade — Política LGPD
+- /especialidades — Índice das especialidades
+- /pilares — Seis pilares MEV
+- /medicina-de-familia
+- /medicina-do-estilo-de-vida
+- /prevencao
+- /saude-da-mulher
+- /menopausa
+- /emagrecimento
+- /longevidade

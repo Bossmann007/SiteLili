@@ -2,11 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Photo from '../components/Photo.astro';
 import BrandPattern from '../components/BrandPattern.astro';
-import { site } from '../data/site';
+import FormationTimeline from '../components/FormationTimeline.astro';
+import DoctoraliaReview from '../components/DoctoraliaReview.astro';
+import { site, bio, bioNote, formation } from '../data/site';
 import { photos, aboutGallery } from '../data/photos';
 
 const description =
-  'Conheça a Dra. Ligiana Maffini Romanus, médica de família e comunidade em Curitiba, com mais de 25 anos de experiência clínica e clínica particular desde 2024.';
+  'Ligiana Maffini Romanus, CRM/PR 17731 — médica de família e medicina do estilo de vida em Curitiba. Mais de 25 anos na Atenção Primária à Saúde. Formação e clínica no Cristo Rei.';
 ---
 
 <BaseLayout title="Sobre" description={description} path="/sobre">
@@ -16,7 +18,7 @@ const description =
       <p class="eyebrow" data-hero-eyebrow>Sobre</p>
       <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>Dra. Ligiana Maffini</h1>
       <p class="mt-3 max-w-2xl text-sm text-ink-soft" data-hero-subtitle>
-        {site.fullName} · {site.specialty}
+        {site.fullName} · {site.crm} · {site.address.neighborhood}, {site.address.city}
       </p>
     </div>
   </section>
@@ -36,36 +38,33 @@ const description =
       </figure>
 
       <div data-reveal>
-        <p class="prose-site">
-          Médica de família e comunidade, a Dra. Ligiana construiu sua trajetória ao longo de mais
-          de 25 anos de prática clínica em Curitiba, com experiência em atenção primária,
-          incluindo atuação no SUS e na Prefeitura.
-        </p>
+        <p class="prose-site">{bio}</p>
+        <p class="prose-site mt-4 text-sm text-ink-soft">{bioNote}</p>
         <p class="prose-site mt-4">
-          Formada pela Universidade Mackenzie e com especialização pela Evangélica do Paraná, une
-          rigor técnico a uma escuta atenta. Em 2024, inaugurou sua clínica particular para
-          aprofundar o cuidado em estilo de vida, longevidade e saúde integral.
-        </p>
-        <p class="prose-site mt-4">
-          Seu consultório no bairro Cristo Rei recebe pacientes que buscam consultas longas,
-          continuidade no acompanhamento e uma abordagem que considera corpo, mente e rotina,
-          com especial atenção às mulheres a partir dos 40 anos.
+          Consultório particular no bairro Cristo Rei, Curitiba, com consultas longas e
+          acompanhamento contínuo em prevenção, saúde da mulher e longevidade.
         </p>
 
         <dl class="mt-10 grid gap-4 sm:grid-cols-2">
-          <div class="card-soft" data-stagger-item data-card-interactive tabindex="0">
+          <div class="card-soft" data-stagger-item>
             <dt class="text-xs uppercase tracking-widest text-gold-deep">Registro</dt>
             <dd class="mt-2 font-medium text-ink">{site.crm}</dd>
           </div>
-          <div class="card-soft" data-stagger-item data-card-interactive tabindex="0">
+          <div class="card-soft" data-stagger-item>
             <dt class="text-xs uppercase tracking-widest text-gold-deep">Especialidade</dt>
             <dd class="mt-2 font-medium text-ink">{site.rqe}</dd>
           </div>
-          <div class="card-soft sm:col-span-2" data-stagger-item data-card-interactive tabindex="0">
-            <dt class="text-xs uppercase tracking-widest text-gold-deep">Formação</dt>
-            <dd class="mt-2 font-medium text-ink">Universidade Mackenzie · Evangélica do Paraná</dd>
-          </div>
         </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-marble border-y border-line/70 py-16 md:py-24">
+    <div class="container-site">
+      <p class="eyebrow" data-eyebrow>Formação</p>
+      <h2 class="heading-section mt-3 max-w-xl" data-section-title>Trajetória acadêmica e títulos</h2>
+      <div class="mt-10 max-w-2xl">
+        <FormationTimeline items={formation} />
       </div>
     </div>
   </section>
@@ -75,10 +74,10 @@ const description =
     <div class="container-site relative py-16 md:py-20">
       <p class="eyebrow" data-eyebrow>Na clínica</p>
       <h2 class="heading-section mt-3 max-w-xl" data-section-title>Um ambiente pensado para acolher</h2>
-      <div class="mt-8 flip-gallery-stack" data-flip-grid data-services-grid>
+      <div class="mt-8 flip-gallery-stack" data-flip-grid>
         {
           aboutGallery.map((item) => (
-            <figure class="photo-frame w-full max-w-sm sm:max-w-none" data-flip-item data-service-card data-gallery-item>
+            <figure class="photo-frame w-full max-w-sm sm:max-w-none" data-flip-item data-gallery-item>
               <Photo src={item.src} alt={item.alt} aspect="square" />
             </figure>
           ))
@@ -86,4 +85,6 @@ const description =
       </div>
     </div>
   </section>
+
+  <DoctoraliaReview />
 </BaseLayout>

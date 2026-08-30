@@ -1,0 +1,24 @@
+---
+import { doctoraliaReview } from '../data/site';
+---
+
+<aside class="section-marble border-t border-line/70 py-12 md:py-16" aria-labelledby="doctoralia-title">
+  <div class="container-site max-w-2xl">
+    <p class="eyebrow">Depoimento verificado</p>
+    <h2 id="doctoralia-title" class="heading-section mt-3">Doctoralia</h2>
+    <blockquote class="card-soft mt-6">
+      <p class="prose-site text-base leading-relaxed">"{doctoraliaReview.text}"</p>
+      <footer class="mt-4 text-sm text-ink-soft">
+        {doctoraliaReview.authorInitials} · {doctoraliaReview.date} ·{' '}
+        <a
+          href={doctoraliaReview.url}
+          class="font-medium text-gold-deep hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {doctoraliaReview.source}
+        </a>
+      </footer>
+    </blockquote>
+  </div>
+</aside>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrandPattern from '../components/BrandPattern.astro';
+import { site } from '../data/site';
+
+const description =
+  'Política de privacidade (LGPD) do site da Dra. Ligiana Maffini. Site informativo, sem cadastro de pacientes. Contato: draligianamaffini@gmail.com';
+---
+
+<BaseLayout title="Privacidade" description={description} path="/privacidade">
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative py-16 md:py-20">
+      <p class="eyebrow">Privacidade</p>
+      <h1 class="heading-display mt-3 max-w-2xl">Política de privacidade</h1>
+      <p class="prose-site mt-4 max-w-xl text-sm text-ink-soft">
+        Última atualização: agosto de 2026 · Lei Geral de Proteção de Dados (LGPD)
+      </p>
+    </div>
+  </section>
+
+  <section class="container-site max-w-3xl py-16 md:py-24">
+    <div class="prose-site space-y-8 text-base">
+      <div>
+        <h2 class="heading-section text-2xl">Responsável</h2>
+        <p class="mt-3">
+          {site.fullName}, {site.crm}, titular do tratamento de dados relacionados a este site
+          institucional. Contato para privacidade e exercício de direitos (LGPD):
+          <a href={`mailto:${site.email}`} class="font-medium text-gold-deep hover:underline">{site.email}</a>.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="heading-section text-2xl">O que este site faz — e o que não faz</h2>
+        <p class="mt-3">
+          Este site é informativo. <strong>Não cadastra pacientes</strong>, não possui área logada e
+          <strong>não coleta nome, CPF, queixa clínica, exames ou qualquer dado de saúde</strong>.
+          Não há formulário de contato no site.
+        </p>
+        <p class="mt-3">
+          Agendamento e conversas clínicas ocorrem fora deste site — em geral pelo WhatsApp ({site.phone})
+          ou e-mail — e seguem a política de privacidade desses serviços (Meta/WhatsApp, provedor de e-mail).
+        </p>
+      </div>
+
+      <div>
+        <h2 class="heading-section text-2xl">Dados exibidos no site</h2>
+        <p class="mt-3">
+          Apenas informações públicas e institucionais: fotos profissionais, NAP (nome, endereço, telefone,
+          e-mail), CRM/RQE e textos sobre a clínica. Nenhum dado sensível de pacientes é publicado.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="heading-section text-2xl">Terceiros</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5">
+          <li>
+            <strong>Google Maps</strong> — mapa incorporado na página de contato (iframe). Ao interagir,
+            o Google pode processar dados conforme sua política.
+          </li>
+          <li>
+            <strong>WhatsApp / Meta</strong> — links de agendamento levam ao aplicativo ou web do WhatsApp.
+          </li>
+          <li>
+            <strong>Cloudflare Pages</strong> — hospedagem estática; logs técnicos de acesso podem ser
+            gerados pelo provedor.
+          </li>
+        </ul>
+        <p class="mt-3 text-sm text-ink-soft">
+          Tipografia autohospedada (sem Google Fonts). Não usamos cookies de rastreamento ou analytics
+          de terceiros neste site.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="heading-section text-2xl">Seus direitos</h2>
+        <p class="mt-3">
+          Você pode solicitar informações, correção ou exclusão de dados pessoais tratados em relação a
+          este site pelo e-mail acima. Para dados de atendimento médico, o canal é o consultório.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

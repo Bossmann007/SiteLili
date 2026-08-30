@@ -1,0 +1,81 @@
+---
+import { mevPillars } from '../data/mev-pillars';
+import MevSegmentToggle from './MevSegmentToggle.astro';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  useAccordion?: boolean;
+  segmentActive?: 'pilares' | 'mev';
+}
+
+const {
+  title = 'Seis pilares da Medicina do Estilo de Vida',
+  subtitle = 'Eixos clínicos integrados à consulta — alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos.',
+  useAccordion = false,
+  segmentActive = 'pilares',
+} = Astro.props;
+---
+
+<section class="container-site py-16 md:py-24">
+  <div class="max-w-2xl" data-reveal>
+    <p class="eyebrow" data-eyebrow>Medicina do Estilo de Vida</p>
+    <h2 class="heading-section mt-3" data-section-title>{title}</h2>
+    <p class="prose-site mt-4">{subtitle}</p>
+  </div>
+
+  {
+    useAccordion ? (
+      <div class="faq-accordion mt-10 max-w-3xl space-y-3" data-faq-accordion>
+        {mevPillars.map((pillar, index) => (
+          <div class="card-soft overflow-hidden" data-faq-item>
+            <h3>
+              <button
+                type="button"
+                id={`pillar-trigger-${index}`}
+                class="flex w-full items-center justify-between gap-4 py-1 text-left font-display text-lg text-ink"
+                data-faq-trigger
+                aria-expanded="false"
+                aria-controls={`pillar-panel-${index}`}
+              >
+                <span>{pillar.title}</span>
+                <span class="text-gold-deep transition-transform duration-300" data-faq-icon aria-hidden="true">
+                  +
+                </span>
+              </button>
+            </h3>
+            <div
+              id={`pillar-panel-${index}`}
+              class="faq-panel overflow-hidden"
+              data-faq-panel
+              role="region"
+              aria-labelledby={`pillar-trigger-${index}`}
+              hidden
+            >
+              <p class="prose-site pt-3 text-base">{pillar.clinical}</p>
+              <p class="prose-site pb-1 pt-3 text-base">
+                <strong class="text-ink">Na consulta:</strong> {pillar.consultation}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {mevPillars.map((pillar) => (
+          <li>
+            <a href="/pilares" class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
+              <h3 class="font-display text-xl text-ink group-hover:text-gold-deep">{pillar.title}</h3>
+              <p class="prose-site mt-3 text-sm">{pillar.clinical}</p>
+              <span class="mt-4 inline-block text-sm font-medium text-gold-deep">Ver detalhes →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <div class="mt-8 flex flex-wrap justify-center sm:justify-start">
+    <MevSegmentToggle active={segmentActive} />
+  </div>
+</section>

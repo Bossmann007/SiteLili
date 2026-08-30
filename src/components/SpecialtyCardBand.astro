@@ -1,0 +1,49 @@
+---
+import { specialties } from '../data/specialties';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  showAllLink?: boolean;
+}
+
+const {
+  title = 'Especialidades',
+  subtitle = 'Áreas de atuação clínica em Curitiba — cada tema com página própria para consulta de informação.',
+  showAllLink = true,
+} = Astro.props;
+---
+
+<section class="section-marble border-y border-line/70 py-16 md:py-24">
+  <div class="container-site">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow" data-eyebrow>Especialidades</p>
+      <h2 class="heading-section mt-3" data-section-title>{title}</h2>
+      <p class="prose-site mt-4">{subtitle}</p>
+    </div>
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        specialties.map((item) => (
+          <li>
+            <a
+              href={`/${item.slug}`}
+              class="card-soft group flex h-full flex-col hover:border-gold/40"
+              data-stagger-item
+            >
+              <h3 class="font-display text-xl text-ink group-hover:text-gold-deep">{item.title}</h3>
+              <p class="prose-site mt-3 flex-1 text-sm">{item.shortDescription}</p>
+              <span class="mt-4 text-sm font-medium text-gold-deep">Saiba mais →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      showAllLink && (
+        <p class="mt-8">
+          <a href="/especialidades" class="btn-secondary">Ver índice de especialidades</a>
+        </p>
+      )
+    }
+  </div>
+</section>

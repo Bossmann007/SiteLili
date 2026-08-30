@@ -1,0 +1,115 @@
+---
+import type { Specialty } from '../data/specialties';
+import { getOtherSpecialties } from '../data/specialties';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrandPattern from '../components/BrandPattern.astro';
+import MevPillarsBand from '../components/MevPillarsBand.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { site } from '../data/site';
+
+interface Props {
+  specialty: Specialty;
+}
+
+const { specialty } = Astro.props;
+const others = getOtherSpecialties(specialty.slug);
+const path = `/${specialty.slug}`;
+---
+
+<BaseLayout
+  title={specialty.metaTitle}
+  description={specialty.metaDescription}
+  path={path}
+  faqItems={specialty.faq}
+  includeMedicalWebPage={true}
+>
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative py-16 md:py-24">
+      <p class="eyebrow" data-hero-eyebrow>{specialty.title}</p>
+      <h1 class="heading-display mt-3 max-w-3xl text-balance" data-hero-title>{specialty.h1}</h1>
+      <p class="prose-site mt-6 max-w-2xl text-lg leading-relaxed" data-hero-subtitle>{specialty.lead}</p>
+      <p class="mt-4 text-sm text-ink-soft">
+        {site.fullName} · {site.crm} · {site.rqe} · {site.address.neighborhood}, {site.address.city}
+      </p>
+    </div>
+  </section>
+
+  <article class="container-site max-w-3xl py-16 md:py-24">
+    <div class="prose-site space-y-5 text-base leading-relaxed" data-reveal>
+      {specialty.body.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+
+    {
+      specialty.slug === 'medicina-do-estilo-de-vida' && (
+        <div class="mt-16 border-t border-line/70 pt-12">
+          <MevPillarsBand
+            useAccordion={true}
+            segmentActive="mev"
+            title="Seis pilares na Medicina do Estilo de Vida"
+            subtitle="Clique em cada pilar para entender o significado clínico e como entra na consulta."
+          />
+        </div>
+      )
+    }
+
+    {
+      specialty.slug !== 'medicina-do-estilo-de-vida' && (
+        <p class="prose-site mt-8">
+          <a href="/pilares" class="font-medium text-gold-deep hover:underline">
+            Conheça os seis pilares da Medicina do Estilo de Vida →
+          </a>
+        </p>
+      )
+    }
+
+    <section class="mt-16 border-t border-line/70 pt-12">
+      <p class="eyebrow">Perguntas frequentes</p>
+      <h2 class="heading-section mt-3 text-2xl">Dúvidas sobre {specialty.title.toLowerCase()}</h2>
+      <div class="mt-6">
+        <FaqAccordion items={specialty.faq} idPrefix={specialty.slug} />
+      </div>
+    </section>
+
+    <section class="mt-16 border-t border-line/70 pt-12">
+      <p class="eyebrow">Outras áreas de atuação</p>
+      <h2 class="heading-section mt-3 text-2xl">Especialidades relacionadas</h2>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {
+          others.map((item) => (
+            <li>
+              <a href={`/${item.slug}`} class="card-soft block hover:border-gold/40" data-stagger-item>
+                <span class="font-display text-lg text-ink">{item.title}</span>
+                <span class="prose-site mt-2 block text-sm">{item.shortDescription}</span>
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/pilares" class="card-soft block hover:border-gold/40" data-stagger-item>
+            <span class="font-display text-lg text-ink">Seis pilares MEV</span>
+            <span class="prose-site mt-2 block text-sm">Alimentação, movimento, sono, estresse, conexões e redução de tóxicos.</span>
+          </a>
+        </li>
+        <li>
+          <a href="/especialidades" class="card-soft block hover:border-gold/40" data-stagger-item>
+            <span class="font-display text-lg text-ink">Todas as especialidades</span>
+            <span class="prose-site mt-2 block text-sm">Índice completo das áreas de atuação em Curitiba.</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </article>
+
+  <section class="section-marble border-t border-line/70 py-16 md:py-20">
+    <div class="container-site max-w-2xl text-center" data-cta-block>
+      <h2 class="heading-section">Agendar consulta</h2>
+      <p class="prose-site mx-auto mt-4 max-w-lg">
+        Presencial no Cristo Rei ou teleconsulta quando indicado. WhatsApp {site.phone} · {site.crm}
+      </p>
+      <a href={site.whatsapp} class="btn-primary mt-8" target="_blank" rel="noopener noreferrer" data-magnetic>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
+</BaseLayout>

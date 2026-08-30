@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandPattern from '../../components/BrandPattern.astro';
+import { specialties } from '../../data/specialties';
+import { site } from '../../data/site';
+
+const description =
+  'Especialidades da Dra. Ligiana Maffini em Curitiba: medicina de família, estilo de vida, prevenção, saúde da mulher, menopausa, emagrecimento clínico e longevidade. CRM/PR 17731.';
+
+const gridSpecialties = specialties.filter((item) => item.slug !== 'longevidade');
+const longevidade = specialties.find((item) => item.slug === 'longevidade')!;
+---
+
+<BaseLayout title="Especialidades" description={description} path="/especialidades" faqItems={null}>
+  <section class="hero-glow relative overflow-hidden border-b border-line/70">
+    <BrandPattern />
+    <div class="container-site relative py-16 md:py-20">
+      <p class="eyebrow" data-hero-eyebrow>Atuação clínica</p>
+      <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>
+        Especialidades da Dra. Ligiana Maffini em Curitiba. {site.crm}.
+      </h1>
+      <p class="prose-site mt-4 max-w-2xl" data-hero-subtitle>
+        {site.fullName} · medicina de família e Medicina do Estilo de Vida · consultório no Cristo Rei.
+        Agende pelo WhatsApp {site.phone}.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-site py-16 md:py-24">
+    <ul class="grid gap-5 sm:grid-cols-2">
+      {
+        gridSpecialties.map((item) => (
+          <li>
+            <a href={`/${item.slug}`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
+              <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{item.title}</h2>
+              <p class="prose-site mt-3">{item.shortDescription}</p>
+              <span class="mt-4 inline-block text-sm font-medium text-gold-deep">Ler página completa →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mx-auto mt-5 max-w-xl">
+      <a href={`/${longevidade.slug}`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
+        <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{longevidade.title}</h2>
+        <p class="prose-site mt-3">{longevidade.shortDescription}</p>
+        <span class="mt-4 inline-block text-sm font-medium text-gold-deep">Ler página completa →</span>
+      </a>
+    </div>
+    <p class="prose-site mt-10">
+      <a href="/pilares" class="font-medium text-gold-deep hover:underline">Seis pilares da Medicina do Estilo de Vida →</a>
+    </p>
+  </section>
+</BaseLayout>

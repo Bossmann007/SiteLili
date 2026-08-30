@@ -2,6 +2,8 @@
 
 Site institucional estático da clínica particular da Dra. Ligiana Maffini (medicina de família e comunidade, Curitiba).
 
+**Este site não coleta dados de paciente** — sem formulários, cadastro ou envio de informações clínicas. Contato apenas via WhatsApp e e-mail.
+
 **Stack:** Astro 7 · Tailwind CSS 4 · GSAP 3 · deploy em Cloudflare Pages
 
 **URL canônica:** https://www.draligianamaffini.com.br
@@ -72,6 +74,30 @@ O Registro.br não aceita CNAME na raiz (`@`). Opções:
 | Sobre       | `/sobre`      |
 | Abordagem   | `/abordagem`  |
 | Contato     | `/contato`    |
+| Privacidade | `/privacidade`|
+| Especialidades | `/especialidades` |
+| Pilares MEV | `/pilares`    |
+
+### Páginas por especialidade (GEO)
+
+| Tema | Rota |
+|------|------|
+| Medicina de família | `/medicina-de-familia` |
+| Medicina do estilo de vida | `/medicina-do-estilo-de-vida` |
+| Prevenção | `/prevencao` |
+| Saúde da mulher 40+ | `/saude-da-mulher` |
+| Menopausa | `/menopausa` |
+| Emagrecimento clínico | `/emagrecimento` |
+| Longevidade | `/longevidade` |
+
+## Segurança e privacidade
+
+- Sem formulários que coletem dados de saúde ou identificação de paciente
+- Política LGPD em `/privacidade`
+- Headers HTTP via `public/_headers` (Cloudflare Pages): CSP, HSTS, X-Frame-Options, etc.
+- Tipografia autohospedada em `public/fonts/` (Cormorant Garamond, Source Sans 3) — sem Google Fonts
+- **CSP `script-src`:** apenas `'self'`. O bootstrap de tema está em `public/theme-init.js`. Se o build passar a exigir `'unsafe-inline'` em scripts, documente aqui antes de afrouxar a política.
+- Pasta `Logos/` (PDFs de timbrado, cartão, envelope) ignorada no git — não vai para o Pages
 
 ## Conteúdo e conformidade
 
@@ -101,9 +127,4 @@ O Astro gera WebP otimizado no build (de ~10 MB para poucos KB por tamanho).
 
 ## Logotipo
 
-Arquivos em `Logos/02 Logotipos/`:
-
-- `4.png` → header e footer (`public/logo/logo-horizontal.png`)
-- `6.png` → favicon (`public/logo/logo-icon.png`)
-
-Para trocar a versão do logo, substitua esses PNGs em `public/logo/` e rode `npm run build`.
+Arquivos de produção em `public/logo/`. A pasta `Logos/` na raiz (incluindo PDFs) fica fora do git — use-a só localmente como referência de marca.
