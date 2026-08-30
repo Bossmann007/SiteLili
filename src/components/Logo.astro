@@ -1,7 +1,5 @@
 ---
-import { Image } from 'astro:assets';
 import { site } from '../data/site';
-import { brandAssets } from '../data/brand';
 
 interface Props {
   variant?: 'header' | 'footer';
@@ -12,16 +10,15 @@ const isHeader = variant === 'header';
 ---
 
 <a href="/" class="group flex items-center gap-3" data-header-logo>
-  <Image
-    src={brandAssets.icon}
+  <img
+    src={site.logo.icon}
     alt=""
-    width={44}
-    height={44}
+    width="44"
+    height="44"
     class="h-10 w-10 shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11"
-    priority={isHeader}
-    loading={isHeader ? undefined : 'lazy'}
-    format="webp"
-    quality={90}
+    loading={isHeader ? 'eager' : 'lazy'}
+    decoding={isHeader ? 'sync' : 'async'}
+    fetchpriority={isHeader ? 'high' : undefined}
   />
   <span class="min-w-0">
     <span class="block font-display text-lg leading-none text-ink sm:text-xl">

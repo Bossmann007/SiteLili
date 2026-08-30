@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import { brandAssets } from '../data/brand';
+import { site } from '../data/site';
 
 interface Props {
   variant?: 'mark' | 'wordmark';
@@ -10,22 +9,20 @@ interface Props {
 
 const { variant = 'mark', class: className = '', priority = false } = Astro.props;
 
-const src = variant === 'wordmark' ? brandAssets.wordmark : brandAssets.mark;
+const src = variant === 'wordmark' ? site.logo.wordmark : site.logo.mark;
 const dimensions =
   variant === 'wordmark'
     ? { width: 640, height: 240, class: 'mx-auto max-h-28 w-full max-w-md object-contain opacity-95' }
     : { width: 64, height: 64, class: 'mx-auto h-16 w-16 object-contain opacity-90' };
 ---
 
-<Image
+<img
   src={src}
   alt={variant === 'wordmark' ? 'Identidade visual da Dra. Ligiana Maffini' : ''}
   width={dimensions.width}
   height={dimensions.height}
   class:list={[dimensions.class, className]}
-  priority={priority}
-  loading={priority ? undefined : 'lazy'}
+  loading={priority ? 'eager' : 'lazy'}
   decoding="async"
-  format="webp"
-  quality={90}
+  fetchpriority={priority ? 'high' : undefined}
 />

@@ -10,6 +10,12 @@ export default defineConfig({
   site: 'https://www.draligianamaffini.com.br',
   output: 'static',
 
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
