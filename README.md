@@ -1,3 +1,12 @@
+<!-- ENZO-PORTFOLIO-BRAND -->
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:111111,100:C2416C&height=165&section=header&text=Site%20Lili&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Institutional%20website%20for%20a%20family%20medicine%20clinic%20in%20Curitiba.&descAlignY=57&descSize=14" alt="Site Lili" />
+</p>
+
+<p align="center"><strong>Astro · Tailwind CSS · GSAP</strong></p>
+
+---
+
 # Clínica Dra. Ligiana Maffini
 
 Site institucional estático da clínica particular da Dra. Ligiana Maffini (medicina de família e comunidade, Curitiba).
@@ -131,3 +140,8 @@ O Astro gera WebP otimizado no build (de ~10 MB para poucos KB por tamanho).
 ## Logotipo
 
 Arquivos de produção em `public/logo/`. A pasta `Logos/` na raiz (incluindo PDFs) fica fora do git — use-a só localmente como referência de marca.
+
+<!-- ENZO-PORTFOLIO-BRAND-FOOTER -->
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:111111,100:C2416C&height=85&section=footer" alt="Footer" />
+</p>
