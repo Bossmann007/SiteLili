@@ -1,0 +1,9 @@
+{
+  "name": "verify-sitelili-helpers",
+  "private": true,
+  "type": "module",
+  "description": "Verification-only Playwright scaffolding for SiteLili. Not a production dependency.",
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}

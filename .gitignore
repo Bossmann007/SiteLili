@@ -28,3 +28,7 @@ Logos/
 
 # secrets
 *.pem
+
+# verify-sitelili runtime (evidence/ is kept; do not delete proofs)
+.cursor/skills/verify-sitelili/.run/
+.cursor/skills/verify-sitelili/helpers/node_modules/
