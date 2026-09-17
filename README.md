@@ -1,19 +1,21 @@
 <!-- ENZO-PORTFOLIO-BRAND -->
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:111111,100:C2416C&height=165&section=header&text=Site%20Lili&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Institutional%20website%20for%20a%20family%20medicine%20clinic%20in%20Curitiba.&descAlignY=57&descSize=14" alt="Site Lili" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:111111,100:C2416C&height=165&section=header&text=Dra.%20Ligiana%20Maffini&fontSize=36&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Site%20institucional%20%C2%B7%20medicina%20de%20fam%C3%ADlia%20em%20Curitiba&descAlignY=57&descSize=14" alt="site Dra. Ligiana Maffini" />
 </p>
 
 <p align="center"><strong>Astro · Tailwind CSS · GSAP</strong></p>
 
 ---
 
-# Clínica Dra. Ligiana Maffini
+# site Dra. Ligiana Maffini
 
-Site institucional estático da clínica particular da Dra. Ligiana Maffini (medicina de família e comunidade, Curitiba).
+Site institucional estático da clínica particular da Dra. Ligiana Maffini — **Medicina de Família e Comunidade** em Curitiba (Cristo Rei), com **abordagem em medicina do estilo de vida** (formação, não segunda especialidade anunciada).
+
+**Repositório:** [Bossmann007/site-Dra-Ligiana-Maffini](https://github.com/Bossmann007/site-Dra-Ligiana-Maffini)
 
 **Este site não coleta dados de paciente** — sem formulários, cadastro ou envio de informações clínicas. Contato apenas via WhatsApp e e-mail.
 
-**Stack:** Astro 7 · Tailwind CSS 4 · GSAP 3 · deploy em Cloudflare Pages
+**Stack:** Astro 7 · Tailwind CSS 4 · GSAP 3 · Cloudflare (Pages / Workers Assets)
 
 **URL canônica:** https://www.draligianamaffini.com.br
 
@@ -35,112 +37,110 @@ npm install
 npm run build
 ```
 
-A pasta `dist/` é gerada pronta para publicação estática (HTML por rota, incluindo especialidades).
+A pasta `dist/` é gerada pronta para publicação estática (HTML por rota).
 
 ```bash
 npm run preview
+npm run check:site   # astro check + build + verify-dist
 ```
 
 ## Publicação
 
-Dois caminhos válidos. O site é **100% estático** — não há backend, banco ou `npm` na hospedagem.
+O site é **100% estático** — sem backend, banco ou `npm` na hospedagem. Não use `@astrojs/cloudflare`.
 
 ### A) Cloudflare Pages / Workers Assets (recomendado)
 
-Site **estático** (`output: 'static'`). O repo inclui `wrangler.toml` com `[assets]` apontando para `dist/` — **não** use `@astrojs/cloudflare`.
+O repo inclui `wrangler.toml` com `[assets]` → `./dist` (404-page + trailing slash).
 
-1. Conecte o repositório [SiteLili](https://github.com/Bossmann007/SiteLili) no Cloudflare
-2. Configuração de build:
+1. Conecte o repositório [site-Dra-Ligiana-Maffini](https://github.com/Bossmann007/site-Dra-Ligiana-Maffini) no Cloudflare
+2. Build:
    - **Build command:** `npm run build`
-   - **Build output directory:** `dist` (Pages) / deploy via `npx wrangler deploy` (Workers Builds)
-   - **Node.js:** 22 ou superior
-3. Publique. Cloudflare fornece URL `*.pages.dev` ou `*.workers.dev`
-4. Headers de segurança: `public/_headers` (copiado para `dist/` no build; Pages)
-5. Redirecionamentos opcionais: `public/_redirects`
+   - **Output:** `dist` (Pages) · deploy `npx wrangler deploy` (Workers Builds)
+   - **Node.js:** 22+
+3. Domínio customizado: `www.draligianamaffini.com.br`
+4. Headers: `public/_headers` (Pages). Em Workers Assets, confirme se os headers aplicam ou use Transform Rules.
+5. Redirects opcionais: `public/_redirects`
 
-**DNS no Registro.br**
+**DNS**
 
-| Tipo  | Nome | Destino                   |
-|-------|------|---------------------------|
-| CNAME | www  | `<seu-projeto>.pages.dev` |
+| Tipo  | Nome | Destino |
+|-------|------|---------|
+| CNAME | www  | hostname do projeto Cloudflare |
 
-- **Não** aponte para `cname.greatpages.com.br` ou hosts antigos
-- No Cloudflare, adicione o domínio customizado `www.draligianamaffini.com.br`
-- Domínio raiz (`@`): redirecione para `www` ou use os registros A/AAAA indicados pelo Cloudflare
-- HTTPS é provisionado automaticamente pelo Cloudflare
+- Apex (`@`): redirect 301 para `www` (ou A/AAAA do Cloudflare)
+- Não apontar para hosts antigos (ex.: GreatPages)
 
-**`astro.config.mjs`:** `site: https://www.draligianamaffini.com.br`, `output: 'static'`, integração `@astrojs/sitemap` ativa.
+**`astro.config.mjs`:** `site: https://www.draligianamaffini.com.br`, `trailingSlash: 'always'`, `output: 'static'`, `@astrojs/sitemap`.
 
-### B) Hostinger (hospedagem estática / public_html)
+### B) Hostinger (estático / `public_html`)
 
-1. Na sua máquina (Node >= 22.12): `npm install` && `npm run build`
-2. Envie **apenas o conteúdo interno** de `dist/` para `public_html` (FTP, Gerenciador de Arquivos ou Git deploy se disponível)
-3. **Não** rode `npm install` nem `npm run build` no plano compartilhado Hostinger
-4. O arquivo `public/.htaccess` vai para `dist/.htaccess` no build — força HTTPS e `DirectoryIndex index.html`
-5. Estrutura esperada em `public_html`: `index.html`, `sobre/`, `especialidades/`, `medicina-de-familia/`, `_astro/`, etc.
+1. Localmente: `npm install` && `npm run build`
+2. Enviar só o conteúdo de `dist/` para `public_html`
+3. Não rodar `npm` no plano compartilhado
+4. `public/.htaccess` → `dist/.htaccess` no build
 
 ## Estrutura do site
 
-| Página      | Rota          |
-|-------------|---------------|
-| Home        | `/`           |
-| Sobre       | `/sobre/`     |
-| Abordagem   | `/abordagem/` |
-| Contato     | `/contato/`   |
+| Página | Rota |
+|--------|------|
+| Home | `/` |
+| Sobre | `/sobre/` |
+| Abordagem | `/abordagem/` |
+| Contato | `/contato/` |
 | Privacidade | `/privacidade/` |
-| Especialidades | `/especialidades/` |
-| Pilares MEV | `/pilares/`   |
+| Especialidades (índice) | `/especialidades/` |
+| Pilares MEV | `/pilares/` |
 
-### Páginas por especialidade (GEO)
+### Landings de atuação (GEO / Curitiba)
 
-| Tema | Rota |
-|------|------|
-| Medicina de família | `/medicina-de-familia/` |
-| Medicina do estilo de vida | `/medicina-do-estilo-de-vida/` |
-| Prevenção | `/prevencao/` |
-| Saúde da mulher 40+ | `/saude-da-mulher/` |
-| Menopausa | `/menopausa/` |
-| Emagrecimento clínico | `/emagrecimento/` |
-| Longevidade | `/longevidade/` |
+| Tema | Rota | Nota |
+|------|------|------|
+| Medicina de família | `/medicina-de-familia/` | Especialidade (SBMFC) |
+| Medicina do estilo de vida | `/medicina-do-estilo-de-vida/` | Abordagem / formação |
+| Prevenção | `/prevencao/` | |
+| Saúde da mulher 40+ | `/saude-da-mulher/` | |
+| Menopausa | `/menopausa/` | |
+| Emagrecimento clínico | `/emagrecimento/` | |
+| Longevidade | `/longevidade/` | |
+
+**Área de atendimento:** consultório presencial só no Cristo Rei, Curitiba. Pacientes da região metropolitana (ex.: São José dos Pinhais, Colombo, Pinhais, Araucária) se consultam nesse endereço; teleconsulta para continuidade quando indicada. Idiomas: português; teleconsulta também EN / IT / DE conforme disponibilidade.
 
 ## Segurança e privacidade
 
-- Sem formulários que coletem dados de saúde ou identificação de paciente
-- Política LGPD em `/privacidade`
-- Headers HTTP via `public/_headers` (Cloudflare Pages): CSP, HSTS, X-Frame-Options, etc.
-- Tipografia autohospedada em `public/fonts/` (Cormorant Garamond, Source Sans 3) — sem Google Fonts
-- **CSP `script-src`:** `'self'` only (JSON-LD `application/ld+json` não é script executável; app scripts vêm de `/_astro/` e `theme-init.js`). `style-src` mantém `'unsafe-inline'` por CSS do Astro/Tailwind.
-- Pasta `Logos/` (PDFs de timbrado, cartão, envelope) ignorada no git — não vai para o Pages
+- Sem formulários de dados de saúde
+- LGPD em `/privacidade/`
+- Headers em `public/_headers` (CSP, HSTS, X-Frame-Options, …)
+- Fontes autohospedadas em `public/fonts/` (Cormorant Garamond, Source Sans 3)
+- CSP `script-src 'self'` only; `style-src` com `'unsafe-inline'` (Astro/Tailwind)
+- Pasta `Logos/` (PDFs de marca) fora do git
 
 ## Conteúdo e conformidade
 
-- NAP, CRM e RQE centralizados em `src/data/site.ts`
-- JSON-LD `Physician` + `MedicalClinic` em todas as páginas
+- NAP, CRM, RQE, idiomas e `serviceArea` em `src/data/site.ts`
+- JSON-LD: `Physician` + `MedicalBusiness` (+ FAQ / breadcrumbs conforme a página)
 - Footer com endereço completo em toda página
-- Placeholder de foto em `public/images/dra-ligiana-placeholder.svg` (substituir pela foto real)
 - Sem preços, horários ou depoimentos inventados
+- YMYL: não inventar fontes de rodapé nem datas de revisão clínica sem confirmação da doutora
 
 ## Animações (GSAP)
 
-- Hero: SplitText no título (`power4.out`)
+- Hero: SplitText no título
 - Cards: stagger + ScrollTrigger (`once: true`)
-- Seções Sobre/reveal: `y` + `opacity`
 - `gsap.matchMedia()` respeita `prefers-reduced-motion`
-- Apenas `transform` e `opacity`; plugins registrados uma vez em `src/scripts/gsap-setup.ts`
+- Plugins em `src/scripts/gsap-setup.ts`
 
-## Substituir ou atualizar fotos
+## Fotos
 
-As fotos originais ficam em `imagens/` na raiz do projeto. Cópias para o site em `src/assets/images/`.
+Originais em `imagens/`; assets do site em `src/assets/images/` (inclui frames do consultório na home).
 
-1. Substitua ou adicione arquivos em `imagens/`
-2. Copie para `src/assets/images/`
-3. Atualize os imports nas páginas (`index.astro`, `sobre.astro`, `abordagem.astro`)
+1. Atualize `imagens/` e copie para `src/assets/images/`
+2. Ajuste imports / `photos.ts` conforme necessário
 
-O componente `Photo.astro` usa `astro:assets` `Image` e gera WebP com `srcset` responsivo no build.
+`Photo.astro` usa `astro:assets` `Image` (WebP + `srcset` no build).
 
 ## Logotipo
 
-Arquivos de produção em `public/logo/`. A pasta `Logos/` na raiz (incluindo PDFs) fica fora do git — use-a só localmente como referência de marca.
+Produção em `public/logo/`. `Logos/` na raiz fica fora do git (referência local).
 
 <!-- ENZO-PORTFOLIO-BRAND-FOOTER -->
 <p align="center">
