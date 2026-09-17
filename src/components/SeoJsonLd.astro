@@ -1,5 +1,5 @@
 ---
-import { site, bio } from '../data/site';
+import { site, bio, availableLanguages } from '../data/site';
 import { withTrailingSlash } from '../lib/paths';
 
 type FaqItem = {
@@ -70,6 +70,15 @@ const graph: Record<string, unknown>[] = [
     name: site.fullName,
     alternateName: site.doctor,
     medicalSpecialty: 'Family Medicine',
+    knowsLanguage: [...availableLanguages],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: site.phoneTel,
+      email: site.email,
+      contactType: 'customer service',
+      availableLanguage: [...availableLanguages],
+      areaServed: 'BR',
+    },
     description: bio,
     url: site.url,
     image: imageUrl,

@@ -46,6 +46,11 @@ export const site = {
   ],
 } as const;
 
+export const languagesNote =
+  'Consultas e teleconsultas em português. Teleconsulta também pode ser conduzida em inglês, italiano ou alemão, conforme disponibilidade e indicação clínica.';
+
+export const availableLanguages = ['pt-BR', 'en', 'it', 'de'] as const;
+
 export const bio =
   'Médica com mais de 25 anos de experiência na Atenção Primária à Saúde, especialista em Medicina de Família e Comunidade, com formação em Medicina do Estilo de Vida. Atua na prevenção, promoção da saúde, saúde da mulher, menopausa, emagrecimento e longevidade, integrando ciência, humanização e mudança de estilo de vida.';
 
@@ -97,12 +102,12 @@ export const faq = [
   {
     question: 'Quem é a Dra. Ligiana Maffini?',
     answer:
-      'Ligiana Maffini Romanus é médica de família e medicina do estilo de vida em Curitiba, com mais de 25 anos de experiência na Atenção Primária à Saúde. Atende na clínica particular no bairro Cristo Rei.',
+      'Ligiana Maffini Romanus é médica de família em Curitiba, com abordagem em medicina do estilo de vida e mais de 25 anos de experiência na Atenção Primária à Saúde. Atende na clínica particular no bairro Cristo Rei.',
   },
   {
     question: 'Qual a especialidade e o CRM?',
     answer:
-      'Medicina de Família e Medicina do Estilo de Vida. Registro: CRM/PR 17731 · RQE 37637. Título de Especialista em Medicina de Família e Comunidade, SBMFC (2024).',
+      'Medicina de Família e Comunidade. Registro: CRM/PR 17731 · RQE 37637. Título de Especialista em Medicina de Família e Comunidade, SBMFC (2024). Abordagem em medicina do estilo de vida (formação MevClinic / MevChange, MEV Brasil).',
   },
   {
     question: 'Onde fica o consultório?',
@@ -112,7 +117,7 @@ export const faq = [
   {
     question: 'Atende por teleconsulta?',
     answer:
-      'Sim, teleconsulta para continuidade do cuidado quando indicado clinicamente, além de consultas presenciais em Curitiba.',
+      `Sim, teleconsulta para continuidade do cuidado quando indicado clinicamente, além de consultas presenciais em Curitiba. ${languagesNote}`,
   },
   {
     question: 'Como agendar?',
@@ -138,7 +143,7 @@ export const services = [
   {
     title: 'Teleconsulta',
     description:
-      'Acompanhamento à distância com a mesma atenção clínica, ideal para continuidade do cuidado e orientações de estilo de vida.',
+      `Acompanhamento à distância com a mesma atenção clínica, para continuidade do cuidado. ${languagesNote}`,
   },
   {
     title: 'Longevidade e estilo de vida',

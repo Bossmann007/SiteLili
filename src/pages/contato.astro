@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import BrandImage from '../components/BrandImage.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import { site, faq } from '../data/site';
+import { site, faq, languagesNote } from '../data/site';
 
 const description =
   'Contato da Dra. Ligiana Maffini em Curitiba: Rua Zeila Moura dos Santos, 101, sala 503, Cristo Rei. CRM/PR 17731. WhatsApp (41) 99510-4424.';
@@ -84,6 +84,10 @@ const contactItems = [
               </div>
             ))
           }
+          <div class="card-soft" data-stagger-item data-magnetic>
+            <h2 class="text-sm font-semibold uppercase tracking-widest text-gold-deep">Idiomas</h2>
+            <p class="prose-site mt-2 text-base">{languagesNote}</p>
+          </div>
           <div class="card-soft" data-stagger-item data-magnetic>
             <h2 class="text-sm font-semibold uppercase tracking-widest text-gold-deep">Registro</h2>
             <p class="prose-site mt-2 text-base">{site.crm} · {site.rqe}</p>

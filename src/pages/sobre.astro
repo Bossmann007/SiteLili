@@ -4,11 +4,11 @@ import Photo from '../components/Photo.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import FormationTimeline from '../components/FormationTimeline.astro';
 import DoctoraliaReview from '../components/DoctoraliaReview.astro';
-import { site, bio, bioNote, formation } from '../data/site';
+import { site, bio, bioNote, formation, languagesNote } from '../data/site';
 import { photos, aboutGallery } from '../data/photos';
 
 const description =
-  'Ligiana Maffini Romanus, CRM/PR 17731 — médica de família e medicina do estilo de vida em Curitiba. Mais de 25 anos na Atenção Primária à Saúde. Formação e clínica no Cristo Rei.';
+  'Ligiana Maffini Romanus, CRM/PR 17731 — médica de família em Curitiba, com abordagem em medicina do estilo de vida. Mais de 25 anos na Atenção Primária à Saúde. Formação e clínica no Cristo Rei.';
 ---
 
 <BaseLayout title="Sobre" description={description} path="/sobre/">
@@ -53,6 +53,10 @@ const description =
           <div class="card-soft" data-stagger-item>
             <dt class="text-xs uppercase tracking-widest text-gold-deep">Especialidade</dt>
             <dd class="mt-2 font-medium text-ink">{site.rqe}</dd>
+          </div>
+          <div class="card-soft sm:col-span-2" data-stagger-item>
+            <dt class="text-xs uppercase tracking-widest text-gold-deep">Idiomas</dt>
+            <dd class="mt-2 font-medium text-ink">{languagesNote}</dd>
           </div>
         </dl>
       </div>

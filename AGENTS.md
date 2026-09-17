@@ -29,7 +29,7 @@ Consult these guides before working on related topics:
 - Do not deploy, change DNS, or edit Doctoralia without an explicit ask
 - Do not add on-site search (Pagefind/Algolia) while the site stays around a dozen pages
 - Clinic gallery frames must exclude patients, other people, documents, charts, screens, names, phones, or other personal data
-- Until the doctor confirms in writing: keep Medicina do Estilo de Vida as formação/abordagem (not a second announced specialty); do not invent YMYL footer sources or clinical review dates
+- Medicina do Estilo de Vida is formação/abordagem, not a second announced specialty (doctor-confirmed). Portuguese is primary; teleconsulta may also be English, Italian, or German when available and clinically indicated. No /en /it /de pages. Do not invent YMYL footer sources or clinical review dates
 
 ## Learned Workspace Facts
 

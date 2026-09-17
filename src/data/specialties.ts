@@ -96,12 +96,12 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba com formação em Medicina do Estilo de Vida (MevClinic e MevChange, MEV Brasil). Trabalha os seis pilares do estilo de vida dentro de consultas médicas presenciais no Cristo Rei. Agende pelo WhatsApp (41) 99510-4424.',
     metaTitle: 'Medicina do estilo de vida em Curitiba',
     metaDescription:
-      'Medicina do Estilo de Vida com a Dra. Ligiana Maffini em Curitiba. CRM/PR 17731. Seis pilares clínicos integrados à consulta no Cristo Rei.',
+      'Abordagem em medicina do estilo de vida com a Dra. Ligiana Maffini em Curitiba. CRM/PR 17731. Formação MevClinic/MevChange integrada à consulta de família no Cristo Rei.',
     sections: [
       {
         heading: 'O que é Medicina do Estilo de Vida',
         paragraphs: [
-          'Medicina do Estilo de Vida é uma abordagem clínica que utiliza mudanças de hábitos — alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos — como parte central do tratamento e da prevenção. Não se trata de coaching ou de promessas rápidas: é medicina, com avaliação, registro em prontuário e responsabilidade profissional.',
+          'Medicina do Estilo de Vida é uma abordagem clínica que utiliza mudanças de hábitos — alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos — como parte central do tratamento e da prevenção. Não se trata de coaching ou de promessas rápidas: é medicina, com avaliação, registro em prontuário e responsabilidade profissional. Na clínica da Dra. Ligiana, essa formação integra-se à medicina de família — não é uma segunda especialidade anunciada no CRM.',
         ],
       },
       {
@@ -136,7 +136,7 @@ export const specialties = [
       {
         question: 'O que é Medicina do Estilo de Vida?',
         answer:
-          'Abordagem médica que usa mudanças de hábitos (alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos) como parte do cuidado clínico. A Dra. Ligiana Maffini atua em Curitiba. CRM/PR 17731.',
+          'Abordagem em medicina do estilo de vida: mudanças de hábitos (alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos) como parte do cuidado clínico, integrada à medicina de família — não uma segunda especialidade no CRM. A Dra. Ligiana Maffini atua em Curitiba. CRM/PR 17731.',
       },
       {
         question: 'Medicina do estilo de vida substitui tratamento convencional?',
@@ -416,7 +416,7 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba e trabalha longevidade como envelhecimento saudável — prevenção, estilo de vida e acompanhamento contínuo. Consultório Cristo Rei. WhatsApp (41) 99510-4424.',
     metaTitle: 'Longevidade em Curitiba',
     metaDescription:
-      'Longevidade e envelhecimento saudável em Curitiba com a Dra. Ligiana Maffini. CRM/PR 17731. Medicina de família e estilo de vida no Cristo Rei.',
+      'Longevidade e envelhecimento saudável em Curitiba com a Dra. Ligiana Maffini. CRM/PR 17731. Medicina de família, com abordagem em estilo de vida, no Cristo Rei.',
     sections: [
       {
         heading: 'O que é longevidade na clínica',
