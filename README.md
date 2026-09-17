@@ -45,16 +45,17 @@ npm run preview
 
 Dois caminhos válidos. O site é **100% estático** — não há backend, banco ou `npm` na hospedagem.
 
-### A) Cloudflare Pages (recomendado)
+### A) Cloudflare Pages / Workers Assets (recomendado)
 
-1. Conecte o repositório [SiteLili](https://github.com/Bossmann007/SiteLili) no [Cloudflare Pages](https://pages.cloudflare.com/)
+Site **estático** (`output: 'static'`). O repo inclui `wrangler.toml` com `[assets]` apontando para `dist/` — **não** use `@astrojs/cloudflare`.
+
+1. Conecte o repositório [SiteLili](https://github.com/Bossmann007/SiteLili) no Cloudflare
 2. Configuração de build:
-   - **Framework preset:** Astro
    - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
+   - **Build output directory:** `dist` (Pages) / deploy via `npx wrangler deploy` (Workers Builds)
    - **Node.js:** 22 ou superior
-3. Publique. O Cloudflare fornece uma URL `*.pages.dev`
-4. Headers de segurança: `public/_headers` (copiado para `dist/` no build)
+3. Publique. Cloudflare fornece URL `*.pages.dev` ou `*.workers.dev`
+4. Headers de segurança: `public/_headers` (copiado para `dist/` no build; Pages)
 5. Redirecionamentos opcionais: `public/_redirects`
 
 **DNS no Registro.br**

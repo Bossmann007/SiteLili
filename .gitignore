@@ -31,3 +31,7 @@ Logos/
 
 # local scratch (video frame extraction)
 .tmp/
+
+# wrangler
+.wrangler/
+.dev.vars
