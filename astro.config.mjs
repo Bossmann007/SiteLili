@@ -8,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.draligianamaffini.com.br',
+  trailingSlash: 'always',
   output: 'static',
 
   vite: {

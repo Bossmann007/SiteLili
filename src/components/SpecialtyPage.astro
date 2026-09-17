@@ -1,19 +1,21 @@
 ---
 import type { Specialty } from '../data/specialties';
-import { getOtherSpecialties } from '../data/specialties';
+import { getRelatedSpecialties, showsMevPillarsCard } from '../data/specialties';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import MevPillarsBand from '../components/MevPillarsBand.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { site } from '../data/site';
+import { withTrailingSlash } from '../lib/paths';
 
 interface Props {
   specialty: Specialty;
 }
 
 const { specialty } = Astro.props;
-const others = getOtherSpecialties(specialty.slug);
-const path = `/${specialty.slug}`;
+const related = getRelatedSpecialties(specialty.slug);
+const showPilaresCard = showsMevPillarsCard(specialty.slug);
+const path = withTrailingSlash(`/${specialty.slug}`);
 ---
 
 <BaseLayout
@@ -36,8 +38,19 @@ const path = `/${specialty.slug}`;
   </section>
 
   <article class="container-site max-w-3xl py-16 md:py-24">
-    <div class="prose-site space-y-5 text-base leading-relaxed" data-reveal>
-      {specialty.body.map((paragraph) => <p>{paragraph}</p>)}
+    <div data-reveal>
+      {
+        specialty.sections.map((section) => (
+          <section class="mt-10 first:mt-0">
+            <h2 class="heading-section text-2xl">{section.heading}</h2>
+            <div class="prose-site mt-4 space-y-5 text-base leading-relaxed">
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
 
     {
@@ -50,16 +63,6 @@ const path = `/${specialty.slug}`;
             subtitle="Clique em cada pilar para entender o significado clínico e como entra na consulta."
           />
         </div>
-      )
-    }
-
-    {
-      specialty.slug !== 'medicina-do-estilo-de-vida' && (
-        <p class="prose-site mt-8">
-          <a href="/pilares" class="font-medium text-gold-deep hover:underline">
-            Conheça os seis pilares da Medicina do Estilo de Vida →
-          </a>
-        </p>
       )
     }
 
@@ -76,23 +79,27 @@ const path = `/${specialty.slug}`;
       <h2 class="heading-section mt-3 text-2xl">Especialidades relacionadas</h2>
       <ul class="mt-6 grid gap-3 sm:grid-cols-2">
         {
-          others.map((item) => (
+          related.map((item) => (
             <li>
-              <a href={`/${item.slug}`} class="card-soft block hover:border-gold/40" data-stagger-item>
+              <a href={`/${item.slug}/`} class="card-soft block hover:border-gold/40" data-stagger-item>
                 <span class="font-display text-lg text-ink">{item.title}</span>
                 <span class="prose-site mt-2 block text-sm">{item.shortDescription}</span>
               </a>
             </li>
           ))
         }
+        {
+          showPilaresCard && (
+            <li>
+              <a href="/pilares/" class="card-soft block hover:border-gold/40" data-stagger-item>
+                <span class="font-display text-lg text-ink">Seis pilares MEV</span>
+                <span class="prose-site mt-2 block text-sm">Alimentação, movimento, sono, estresse, conexões e redução de tóxicos.</span>
+              </a>
+            </li>
+          )
+        }
         <li>
-          <a href="/pilares" class="card-soft block hover:border-gold/40" data-stagger-item>
-            <span class="font-display text-lg text-ink">Seis pilares MEV</span>
-            <span class="prose-site mt-2 block text-sm">Alimentação, movimento, sono, estresse, conexões e redução de tóxicos.</span>
-          </a>
-        </li>
-        <li>
-          <a href="/especialidades" class="card-soft block hover:border-gold/40" data-stagger-item>
+          <a href="/especialidades/" class="card-soft block hover:border-gold/40" data-stagger-item>
             <span class="font-display text-lg text-ink">Todas as especialidades</span>
             <span class="prose-site mt-2 block text-sm">Índice completo das áreas de atuação em Curitiba.</span>
           </a>

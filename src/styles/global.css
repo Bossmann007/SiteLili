@@ -48,8 +48,18 @@
       url('/brand/marble-bg.jpg');
     background-size: cover;
     background-position: center top;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-repeat: no-repeat;
+  }
+
+  @media (min-width: 768px) {
+    body,
+    .marble-bg,
+    .hero-glow,
+    .marble-surface,
+    .section-marble {
+      background-attachment: fixed;
+    }
   }
 
   ::selection {
@@ -116,7 +126,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-surface shadow-sm shadow-gold/25 transition-[transform,opacity,box-shadow] hover:scale-[1.02] hover:opacity-95 hover:shadow-md hover:shadow-gold/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-ink shadow-sm shadow-gold/25 transition-[transform,opacity,box-shadow] hover:scale-[1.02] hover:opacity-95 hover:shadow-md hover:shadow-gold/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
   }
 
   .btn-secondary {
@@ -264,6 +274,15 @@
 
   .motion-track--ltr-slow {
     animation: motion-scroll-ltr 55s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-track--rtl,
+    .motion-track--ltr,
+    .motion-track--ltr-slow {
+      animation: none;
+      animation-play-state: paused;
+    }
   }
 }
 

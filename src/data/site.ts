@@ -4,8 +4,8 @@ export const site = {
   doctor: 'Dra. Ligiana Maffini',
   doctorTitle: 'Doutora',
   fullName: 'Ligiana Maffini Romanus',
-  specialty: 'Médica de Família e Medicina do Estilo de Vida',
-  specialtyShort: 'Medicina de Família · Medicina do Estilo de Vida',
+  specialty: 'Médica de Família e Comunidade, com formação em Medicina do Estilo de Vida',
+  specialtyShort: 'Medicina de Família · abordagem em estilo de vida',
   url: 'https://www.draligianamaffini.com.br',
   phone: '(41) 99510-4424',
   phoneTel: '+5541995104424',
@@ -123,10 +123,10 @@ export const faq = [
 
 export const nav = [
   { href: '/', label: 'Início' },
-  { href: '/sobre', label: 'Sobre' },
-  { href: '/especialidades', label: 'Especialidades' },
-  { href: '/abordagem', label: 'Abordagem' },
-  { href: '/contato', label: 'Contato' },
+  { href: '/sobre/', label: 'Sobre' },
+  { href: '/especialidades/', label: 'Especialidades' },
+  { href: '/abordagem/', label: 'Abordagem' },
+  { href: '/contato/', label: 'Contato' },
 ] as const;
 
 export const services = [

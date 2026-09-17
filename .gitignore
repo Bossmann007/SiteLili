@@ -28,3 +28,6 @@ Logos/
 
 # secrets
 *.pem
+
+# local scratch (video frame extraction)
+.tmp/

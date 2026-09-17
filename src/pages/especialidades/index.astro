@@ -8,7 +8,7 @@ const description =
   'Especialidades da Dra. Ligiana Maffini em Curitiba: medicina de família, estilo de vida, prevenção, saúde da mulher, menopausa, emagrecimento clínico e longevidade. CRM/PR 17731.';
 ---
 
-<BaseLayout title="Especialidades" description={description} path="/especialidades" faqItems={null}>
+<BaseLayout title="Especialidades" description={description} path="/especialidades/" faqItems={null}>
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative py-16 md:py-20">
@@ -28,7 +28,7 @@ const description =
       {
         specialties.map((item) => (
           <li class:list={[specialtyGridItemClass(item.slug)]}>
-            <a href={`/${item.slug}`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
+            <a href={`/${item.slug}/`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
               <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{item.title}</h2>
               <p class="prose-site mt-3">{item.shortDescription}</p>
               <span class="mt-4 inline-block text-sm font-medium text-gold-deep">Ler página completa →</span>
@@ -38,7 +38,7 @@ const description =
       }
     </ul>
     <p class="prose-site mt-10">
-      <a href="/pilares" class="font-medium text-gold-deep hover:underline">Seis pilares da Medicina do Estilo de Vida →</a>
+      <a href="/pilares/" class="font-medium text-gold-deep hover:underline">Seis pilares da Medicina do Estilo de Vida →</a>
     </p>
   </section>
 </BaseLayout>

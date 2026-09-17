@@ -14,7 +14,7 @@ const description =
   'Dra. Ligiana Maffini, médica de família e medicina do estilo de vida em Curitiba (Cristo Rei). CRM/PR 17731. Consultas presenciais e teleconsulta.';
 ---
 
-<BaseLayout title={site.name} description={description} path="/">
+<BaseLayout title="Médica de Família em Curitiba" description={description} path="/">
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24 lg:py-28">
@@ -31,7 +31,7 @@ const description =
           <a href={site.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer" data-magnetic>
             Agendar pelo WhatsApp
           </a>
-          <a href="/abordagem" class="btn-secondary">Conhecer a abordagem</a>
+          <a href="/abordagem/" class="btn-secondary">Conhecer a abordagem</a>
         </div>
       </div>
 
@@ -70,7 +70,6 @@ const description =
               class="service-card group"
               data-service-card
               data-tilt-card
-              data-service-expand
             >
               <span class="service-card-shine" data-service-shine aria-hidden="true"></span>
               <span class="relative font-display text-4xl text-gold/30" data-service-number>
@@ -79,23 +78,12 @@ const description =
               <div class="relative mb-4 mt-4 h-px w-10 origin-left bg-gold" data-line-accent></div>
               <h3 class="relative font-display text-2xl text-ink" data-split-title>{service.title}</h3>
               <p class="relative prose-site mt-3 text-base" data-service-description>{service.description}</p>
-              <button
-                type="button"
-                class="relative mt-5 inline-flex items-center gap-2 text-sm font-medium text-gold-deep"
-                data-service-toggle
-                aria-expanded="false"
-              >
-                Saiba mais
-                <span aria-hidden="true">→</span>
-              </button>
               <a
                 href={site.whatsapp}
-                class="relative mt-3 inline-flex translate-y-2 items-center gap-2 text-sm font-medium text-gold-deep opacity-0 transition-[opacity,transform] duration-300"
+                class="relative mt-5 inline-flex items-center gap-2 text-sm font-medium text-gold-deep"
                 data-service-cta
                 target="_blank"
                 rel="noopener noreferrer"
-                tabindex="-1"
-                hidden
               >
                 Agendar consulta
                 <span aria-hidden="true">→</span>
@@ -134,7 +122,7 @@ const description =
           e uma relação médico-paciente mais próxima. Cada encontro considera rotina, sono,
           alimentação, movimento, saúde emocional e objetivos de longo prazo.
         </p>
-        <a href="/sobre" class="btn-secondary mt-6">Sobre a Dra. Ligiana</a>
+        <a href="/sobre/" class="btn-secondary mt-6">Sobre a Dra. Ligiana</a>
       </div>
     </div>
   </section>

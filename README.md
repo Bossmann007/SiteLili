@@ -83,24 +83,24 @@ Dois caminhos válidos. O site é **100% estático** — não há backend, banco
 | Página      | Rota          |
 |-------------|---------------|
 | Home        | `/`           |
-| Sobre       | `/sobre`      |
-| Abordagem   | `/abordagem`  |
-| Contato     | `/contato`    |
-| Privacidade | `/privacidade`|
-| Especialidades | `/especialidades` |
-| Pilares MEV | `/pilares`    |
+| Sobre       | `/sobre/`     |
+| Abordagem   | `/abordagem/` |
+| Contato     | `/contato/`   |
+| Privacidade | `/privacidade/` |
+| Especialidades | `/especialidades/` |
+| Pilares MEV | `/pilares/`   |
 
 ### Páginas por especialidade (GEO)
 
 | Tema | Rota |
 |------|------|
-| Medicina de família | `/medicina-de-familia` |
-| Medicina do estilo de vida | `/medicina-do-estilo-de-vida` |
-| Prevenção | `/prevencao` |
-| Saúde da mulher 40+ | `/saude-da-mulher` |
-| Menopausa | `/menopausa` |
-| Emagrecimento clínico | `/emagrecimento` |
-| Longevidade | `/longevidade` |
+| Medicina de família | `/medicina-de-familia/` |
+| Medicina do estilo de vida | `/medicina-do-estilo-de-vida/` |
+| Prevenção | `/prevencao/` |
+| Saúde da mulher 40+ | `/saude-da-mulher/` |
+| Menopausa | `/menopausa/` |
+| Emagrecimento clínico | `/emagrecimento/` |
+| Longevidade | `/longevidade/` |
 
 ## Segurança e privacidade
 
@@ -108,7 +108,7 @@ Dois caminhos válidos. O site é **100% estático** — não há backend, banco
 - Política LGPD em `/privacidade`
 - Headers HTTP via `public/_headers` (Cloudflare Pages): CSP, HSTS, X-Frame-Options, etc.
 - Tipografia autohospedada em `public/fonts/` (Cormorant Garamond, Source Sans 3) — sem Google Fonts
-- **CSP `script-src`:** `'self' 'unsafe-inline'` — necessário para JSON-LD inline (`application/ld+json`) e leitura pelo Google; scripts de app vêm de `/_astro/` e `theme-init.js`
+- **CSP `script-src`:** `'self'` only (JSON-LD `application/ld+json` não é script executável; app scripts vêm de `/_astro/` e `theme-init.js`). `style-src` mantém `'unsafe-inline'` por CSS do Astro/Tailwind.
 - Pasta `Logos/` (PDFs de timbrado, cartão, envelope) ignorada no git — não vai para o Pages
 
 ## Conteúdo e conformidade
@@ -135,7 +135,7 @@ As fotos originais ficam em `imagens/` na raiz do projeto. Cópias para o site e
 2. Copie para `src/assets/images/`
 3. Atualize os imports nas páginas (`index.astro`, `sobre.astro`, `abordagem.astro`)
 
-O Astro gera WebP otimizado no build (de ~10 MB para poucos KB por tamanho).
+O componente `Photo.astro` usa `astro:assets` `Image` e gera WebP com `srcset` responsivo no build.
 
 ## Logotipo
 

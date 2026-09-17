@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "verify": "node scripts/verify-dist.mjs",
+    "check": "astro check",
+    "check:site": "npm run check && npm run build && npm run verify"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -20,5 +23,9 @@
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }

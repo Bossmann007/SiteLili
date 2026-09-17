@@ -26,7 +26,7 @@ const {
         specialties.map((item) => (
           <li class:list={[specialtyGridItemClass(item.slug)]}>
             <a
-              href={`/${item.slug}`}
+              href={`/${item.slug}/`}
               class="card-soft group flex h-full flex-col hover:border-gold/40"
               data-stagger-item
             >
@@ -41,7 +41,7 @@ const {
     {
       showAllLink && (
         <p class="mt-8">
-          <a href="/especialidades" class="btn-secondary">Ver índice de especialidades</a>
+          <a href="/especialidades/" class="btn-secondary">Ver índice de especialidades</a>
         </p>
       )
     }

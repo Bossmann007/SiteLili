@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const description =
+  'Página não encontrada no site da Dra. Ligiana Maffini. Volte ao início, veja as especialidades ou fale com a clínica.';
+---
+
+<BaseLayout
+  title="Página não encontrada"
+  description={description}
+  path="/404/"
+  robots="noindex, follow"
+  faqItems={null}
+>
+  <section class="container-site py-16 md:py-24">
+    <p class="eyebrow">Erro 404</p>
+    <h1 class="heading-display mt-3">Página não encontrada</h1>
+    <p class="prose-site mt-4 max-w-xl">
+      Esse endereço não existe neste site. Você pode voltar ao início, ver as especialidades ou ir ao contato.
+    </p>
+    <nav class="mt-8 flex flex-wrap gap-3" aria-label="Atalhos">
+      <a href="/" class="btn-primary">Início</a>
+      <a href="/especialidades/" class="btn-secondary">Especialidades</a>
+      <a href="/contato/" class="btn-secondary">Contato</a>
+    </nav>
+  </section>
+</BaseLayout>

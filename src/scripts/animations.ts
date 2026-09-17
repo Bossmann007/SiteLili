@@ -8,7 +8,15 @@ function revertSplits() {
 }
 
 function initEssentialMotion() {
-  document.querySelectorAll<HTMLElement>('[data-motion-track]').forEach((track) => {
+  const tracks = document.querySelectorAll<HTMLElement>('[data-motion-track]');
+  if (prefersReducedMotion()) {
+    tracks.forEach((track) => {
+      track.style.animationPlayState = 'paused';
+    });
+    return;
+  }
+
+  tracks.forEach((track) => {
     track.addEventListener('pointerenter', () => {
       track.style.animationPlayState = 'paused';
     });
@@ -44,8 +52,8 @@ function initHeroMedia() {
   const media = document.querySelector<HTMLElement>('[data-hero-media]');
   if (!media) return;
 
+  // Keep opacity at 1 so the LCP image is not hidden until JS runs.
   gsap.from(media, {
-    opacity: 0,
     scale: 0.96,
     duration: 1.05,
     ease: 'power3.out',
@@ -256,7 +264,7 @@ function initFormationTimelineInteractive() {
       items.forEach((other) => {
         if (other === item) return;
         const otherTrigger = other.querySelector('[data-formation-trigger]');
-        const otherPanel = other.querySelector('[data-formation-panel]');
+        const otherPanel = other.querySelector<HTMLElement>('[data-formation-panel]');
         if (otherTrigger?.getAttribute('aria-expanded') === 'true' && otherPanel) {
           otherTrigger.setAttribute('aria-expanded', 'false');
           otherPanel.dataset.open = 'false';
@@ -732,7 +740,7 @@ function initMevSegmentToggle() {
   });
 }
 
-function safeSplitText(element: HTMLElement, vars: ConstructorParameters<typeof SplitText.create>[1]) {
+function safeSplitText(element: HTMLElement, vars: { type: string; aria?: 'auto' | 'none' | 'hidden' }) {
   try {
     const split = SplitText.create(element, vars);
     splits.push(split);
@@ -757,7 +765,7 @@ export function initAnimations(): () => void {
       motion: '(prefers-reduced-motion: no-preference)',
     },
     (context) => {
-      const { reduceMotion } = context.conditions;
+      const reduceMotion = Boolean(context.conditions?.reduceMotion);
 
       if (reduceMotion) {
         gsap.set(
@@ -809,6 +817,7 @@ export function initAnimations(): () => void {
 
       initHeroMedia();
       initParallax();
+      initHorizontalScroll();
       initScrollProgress();
       initMagneticButtons();
       initInteractiveCards();

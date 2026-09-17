@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import SeoJsonLd from '../components/SeoJsonLd.astro';
 import { site } from '../data/site';
-import { photos } from '../data/photos';
+import { withTrailingSlash } from '../lib/paths';
 
 type FaqItem = {
   question: string;
@@ -18,13 +18,23 @@ interface Props {
   path?: string;
   faqItems?: readonly FaqItem[] | null;
   includeMedicalWebPage?: boolean;
+  robots?: string;
 }
 
-const { title, description, path = Astro.url.pathname, faqItems, includeMedicalWebPage = false } = Astro.props;
+const {
+  title,
+  description,
+  path = Astro.url.pathname,
+  faqItems,
+  includeMedicalWebPage = false,
+  robots = 'index, follow',
+} = Astro.props;
 const seoFaq = faqItems;
+const pagePath = withTrailingSlash(path);
 const fullTitle = title === site.name ? title : `${title} · ${site.shortName}`;
-const canonical = new URL(path, site.url).href;
-const ogImage = new URL(photos.hero.src, site.url).href;
+const canonical = new URL(pagePath, site.url).href;
+const ogImage = new URL('/og.jpg', site.url).href;
+const ogImageAlt = `${site.doctor} — ${site.specialtyShort} em ${site.address.city}`;
 ---
 
 <!doctype html>
@@ -33,7 +43,7 @@ const ogImage = new URL(photos.hero.src, site.url).href;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
@@ -42,8 +52,12 @@ const ogImage = new URL(photos.hero.src, site.url).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/png" href={site.logo.icon} />
@@ -53,7 +67,7 @@ const ogImage = new URL(photos.hero.src, site.url).href;
     <SeoJsonLd
       title={title}
       description={description}
-      path={path}
+      path={pagePath}
       faqItems={seoFaq}
       includeMedicalWebPage={includeMedicalWebPage}
     />
@@ -69,8 +83,17 @@ const ogImage = new URL(photos.hero.src, site.url).href;
     <Footer />
     <WhatsAppFloat />
     <script>
-      import '../scripts/animations.ts';
       import '../scripts/theme.ts';
+
+      const loadMotion = () => {
+        void import('../scripts/animations.ts');
+      };
+
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(loadMotion, { timeout: 2000 });
+      } else {
+        globalThis.setTimeout(loadMotion, 1);
+      }
     </script>
   </body>
 </html>

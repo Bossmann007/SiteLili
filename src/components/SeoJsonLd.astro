@@ -1,6 +1,6 @@
 ---
 import { site, bio } from '../data/site';
-import { photos } from '../data/photos';
+import { withTrailingSlash } from '../lib/paths';
 
 type FaqItem = {
   question: string;
@@ -17,8 +17,12 @@ interface Props {
 }
 
 const { description, path = '', faqItems, includeMedicalWebPage = false } = Astro.props;
-const pageUrl = new URL(path || '/', site.url).href;
-const imageUrl = new URL(photos.hero.src, site.url).href;
+const pagePath = withTrailingSlash(path);
+const pageUrl = new URL(pagePath, site.url).href;
+const imageUrl = new URL('/og.jpg', site.url).href;
+const physicianId = `${site.url}/#physician`;
+const websiteId = `${site.url}/#website`;
+const orgId = `${site.url}/#organization`;
 
 const postalAddress = {
   '@type': 'PostalAddress',
@@ -29,95 +33,129 @@ const postalAddress = {
   addressCountry: site.address.country,
 };
 
-const physician = {
-  '@context': 'https://schema.org',
-  '@type': 'Physician',
-  name: site.fullName,
-  alternateName: site.doctor,
-  medicalSpecialty: ['Family Medicine', 'Lifestyle Medicine'],
-  description: bio,
-  url: site.url,
-  image: imageUrl,
-  telephone: site.phoneTel,
-  email: site.email,
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Faculdade Evangélica de Medicina do Paraná',
-  },
-  hasCredential: [
-    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'CRM', name: site.crm },
-    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'RQE', name: site.rqe },
-    {
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: 'Título de Especialista',
-      name: 'Medicina de Família e Comunidade, SBMFC (2024)',
+const breadcrumbItems = (() => {
+  const items: { name: string; item: string }[] = [
+    { name: 'Início', item: new URL('/', site.url).href },
+  ];
+  if (pagePath === '/') return items;
+
+  const segments = pagePath.split('/').filter(Boolean);
+  let acc = '';
+  for (const segment of segments) {
+    acc += `/${segment}`;
+    const href = new URL(withTrailingSlash(acc), site.url).href;
+    const label =
+      segment === 'especialidades'
+        ? 'Especialidades'
+        : segment === 'pilares'
+          ? 'Pilares MEV'
+          : segment === 'sobre'
+            ? 'Sobre'
+            : segment === 'abordagem'
+              ? 'Abordagem'
+              : segment === 'contato'
+                ? 'Contato'
+                : segment === 'privacidade'
+                  ? 'Privacidade'
+                  : Astro.props.title;
+    items.push({ name: label, item: href });
+  }
+  return items;
+})();
+
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': 'Physician',
+    '@id': physicianId,
+    name: site.fullName,
+    alternateName: site.doctor,
+    medicalSpecialty: 'Family Medicine',
+    description: bio,
+    url: site.url,
+    image: imageUrl,
+    telephone: site.phoneTel,
+    email: site.email,
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Faculdade Evangélica de Medicina do Paraná',
     },
-  ],
-  address: postalAddress,
-  sameAs: site.sameAs,
-  worksFor: {
-    '@type': 'MedicalClinic',
+    hasCredential: [
+      { '@type': 'EducationalOccupationalCredential', credentialCategory: 'CRM', name: site.crm },
+      { '@type': 'EducationalOccupationalCredential', credentialCategory: 'RQE', name: site.rqe },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Título de Especialista',
+        name: 'Medicina de Família e Comunidade, SBMFC (2024)',
+      },
+    ],
+    address: postalAddress,
+    sameAs: site.sameAs,
+    worksFor: { '@id': orgId },
+  },
+  {
+    '@type': 'Organization',
+    '@id': orgId,
     name: site.name,
     url: site.url,
+    logo: new URL(site.logo.horizontal, site.url).href,
+    image: imageUrl,
+    telephone: site.phoneTel,
+    email: site.email,
+    address: postalAddress,
+    sameAs: site.sameAs,
+    founder: { '@id': physicianId },
   },
-};
-
-const medicalClinic = {
-  '@context': 'https://schema.org',
-  '@type': 'MedicalClinic',
-  name: site.name,
-  description,
-  url: site.url,
-  telephone: site.phoneTel,
-  email: site.email,
-  image: imageUrl,
-  logo: new URL(site.logo.horizontal, site.url).href,
-  address: postalAddress,
-  sameAs: site.sameAs,
-  founder: {
-    '@type': 'Physician',
-    name: site.fullName,
+  {
+    '@type': 'WebSite',
+    '@id': websiteId,
+    name: site.name,
     url: site.url,
+    inLanguage: 'pt-BR',
+    publisher: { '@id': orgId },
   },
-};
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    itemListElement: breadcrumbItems.map((entry, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: entry.name,
+      item: entry.item,
+    })),
+  },
+];
 
-const medicalWebPage = includeMedicalWebPage
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'MedicalWebPage',
-      name: Astro.props.title,
-      description,
-      url: pageUrl,
-      inLanguage: 'pt-BR',
-      isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
-      author: {
-        '@type': 'Physician',
-        name: site.fullName,
-        url: site.url,
-      },
-      lastReviewed: '2026-08-30',
-    }
-  : null;
+if (includeMedicalWebPage) {
+  graph.push({
+    '@type': 'MedicalWebPage',
+    '@id': `${pageUrl}#webpage`,
+    name: Astro.props.title,
+    description,
+    url: pageUrl,
+    inLanguage: 'pt-BR',
+    isPartOf: { '@id': websiteId },
+    author: { '@id': physicianId },
+    about: { '@id': physicianId },
+  });
+}
 
 const resolvedFaq = faqItems === undefined ? null : faqItems;
+if (resolvedFaq && resolvedFaq.length > 0) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    mainEntity: resolvedFaq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  });
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': graph,
+};
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(physician)} />
-<script type="application/ld+json" set:html={JSON.stringify(medicalClinic)} />
-{medicalWebPage && <script type="application/ld+json" set:html={JSON.stringify(medicalWebPage)} />}
-{
-  resolvedFaq && resolvedFaq.length > 0 && (
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: resolvedFaq.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
-        })),
-      })}
-    />
-  )
-}
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
