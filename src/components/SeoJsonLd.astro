@@ -90,7 +90,11 @@ const graph: Record<string, unknown>[] = [
     '@id': physicianId,
     name: site.fullName,
     alternateName: site.doctor,
-    medicalSpecialty: 'Family Medicine',
+    medicalSpecialty: 'https://schema.org/PrimaryCare',
+    knowsAbout: [
+      'Medicina de Família e Comunidade',
+      'Medicina do Estilo de Vida',
+    ],
     knowsLanguage: [...availableLanguages],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -117,6 +121,11 @@ const graph: Record<string, unknown>[] = [
         credentialCategory: 'Título de Especialista',
         name: 'Medicina de Família e Comunidade, SBMFC (2024)',
       },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Formação',
+        name: 'Medicina do Estilo de Vida, MevClinic e MevChange (MEV Brasil)',
+      },
     ],
     address: postalAddress,
     areaServed,
@@ -133,7 +142,7 @@ const graph: Record<string, unknown>[] = [
     image: imageUrl,
     telephone: site.phoneTel,
     email: site.email,
-    medicalSpecialty: 'Family Medicine',
+    medicalSpecialty: 'https://schema.org/PrimaryCare',
     address: postalAddress,
     areaServed,
     hasMap: mapUrl,

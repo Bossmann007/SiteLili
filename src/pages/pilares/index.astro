@@ -2,23 +2,43 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandPattern from '../../components/BrandPattern.astro';
 import MevPillarsBand from '../../components/MevPillarsBand.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
 import { site } from '../../data/site';
 
 const description =
-  'Seis pilares da Medicina do Estilo de Vida com a Dra. Ligiana Maffini em Curitiba: alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos. CRM/PR 17731.';
+  'Seis pilares da medicina do estilo de vida em Curitiba com a Dra. Ligiana Maffini: alimentação, movimento, sono, estresse, conexões e redução de tóxicos. Abordagem MEV, não especialidade CRM. CRM/PR 17731.';
+
+const pilaresFaq = [
+  {
+    question: 'O que são os seis pilares da medicina do estilo de vida?',
+    answer:
+      'Alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos. A Dra. Ligiana Maffini, médica de família em Curitiba, usa esses eixos na consulta. CRM/PR 17731.',
+  },
+  {
+    question: 'Pilares MEV substituem a consulta de medicina de família?',
+    answer:
+      'Não. Os pilares organizam a abordagem de estilo de vida dentro da consulta de família. MEV não é especialidade no CRM. Leia a página de medicina do estilo de vida em Curitiba neste site.',
+  },
+] as const;
 ---
 
-<BaseLayout title="Pilares MEV" description={description} path="/pilares/" faqItems={null}>
+<BaseLayout
+  title="Pilares da medicina do estilo de vida em Curitiba"
+  description={description}
+  path="/pilares/"
+  faqItems={pilaresFaq}
+>
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative py-16 md:py-20">
-      <p class="eyebrow" data-hero-eyebrow>Medicina do Estilo de Vida</p>
+      <p class="eyebrow" data-hero-eyebrow>Medicina do Estilo de Vida · MEV</p>
       <h1 class="heading-display mt-3 max-w-3xl" data-hero-title>
-        Seis pilares da Medicina do Estilo de Vida em Curitiba com a Dra. Ligiana Maffini. {site.crm}.
+        Seis pilares da medicina do estilo de vida em Curitiba com a Dra. Ligiana Maffini. {site.crm}.
       </h1>
       <p class="prose-site mt-4 max-w-2xl" data-hero-subtitle>
         Alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos —
-        integrados à consulta médica no Cristo Rei. {site.fullName}. Agende: WhatsApp {site.phone}.
+        integrados à consulta de família no Cristo Rei, como abordagem (não especialidade CRM).
+        {site.fullName}. Agende: WhatsApp {site.phone}.
       </p>
     </div>
   </section>
@@ -31,6 +51,16 @@ const description =
   />
 
   <section class="section-marble border-t border-line/70 py-16 md:py-20">
+    <div class="container-site max-w-3xl">
+      <p class="eyebrow" data-eyebrow>Perguntas frequentes</p>
+      <h2 class="heading-section mt-3" data-section-title>Pilares e consulta de família</h2>
+      <div class="mt-8">
+        <FaqAccordion items={pilaresFaq} idPrefix="pilares" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-marble border-t border-line/70 py-16 md:py-20">
     <div class="container-site max-w-2xl text-center" data-cta-block>
       <p class="prose-site">
         Conteúdo educativo — não substitui consulta. {site.crm} · {site.rqe}
@@ -38,7 +68,12 @@ const description =
       <a href={site.whatsapp} class="btn-primary mt-6" target="_blank" rel="noopener noreferrer" data-magnetic>
         Agendar pelo WhatsApp
       </a>
-      <p class="mt-6">
+      <p class="mt-6 prose-site">
+        <a href="/medicina-do-estilo-de-vida/" class="font-medium text-gold-deep hover:underline">
+          Medicina do estilo de vida em Curitiba — abordagem da Dra. Ligiana
+        </a>
+      </p>
+      <p class="mt-4">
         <a href="/especialidades/" class="link-nav">Todas as especialidades</a>
       </p>
     </div>

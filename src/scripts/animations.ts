@@ -154,54 +154,53 @@ function animatePanelClose(panel: HTMLElement, icon?: HTMLElement | null) {
 }
 
 function initFaqAccordion() {
-  const accordion = document.querySelector('[data-faq-accordion]');
-  if (!accordion) return;
+  document.querySelectorAll('[data-faq-accordion]').forEach((accordion) => {
+    const triggers = accordion.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]');
 
-  const triggers = accordion.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]');
+    triggers.forEach((trigger) => {
+      const item = trigger.closest('[data-faq-item]');
+      const panel = item?.querySelector<HTMLElement>('[data-faq-panel]');
+      const icon = trigger.querySelector<HTMLElement>('[data-faq-icon]');
+      if (!panel) return;
 
-  triggers.forEach((trigger) => {
-    const item = trigger.closest('[data-faq-item]');
-    const panel = item?.querySelector<HTMLElement>('[data-faq-panel]');
-    const icon = trigger.querySelector<HTMLElement>('[data-faq-icon]');
-    if (!panel) return;
+      const close = () => {
+        trigger.setAttribute('aria-expanded', 'false');
+        animatePanelClose(panel, icon);
+      };
 
-    const close = () => {
-      trigger.setAttribute('aria-expanded', 'false');
-      animatePanelClose(panel, icon);
-    };
+      const open = () => {
+        triggers.forEach((other) => {
+          if (other === trigger) return;
+          if (other.getAttribute('aria-expanded') === 'true') {
+            const otherItem = other.closest('[data-faq-item]');
+            const otherPanel = otherItem?.querySelector<HTMLElement>('[data-faq-panel]');
+            const otherIcon = other.querySelector<HTMLElement>('[data-faq-icon]');
+            other.setAttribute('aria-expanded', 'false');
+            if (otherPanel) animatePanelClose(otherPanel, otherIcon);
+          }
+        });
+        trigger.setAttribute('aria-expanded', 'true');
+        animatePanelOpen(panel, icon);
+      };
 
-    const open = () => {
-      triggers.forEach((other) => {
-        if (other === trigger) return;
-        if (other.getAttribute('aria-expanded') === 'true') {
-          const otherItem = other.closest('[data-faq-item]');
-          const otherPanel = otherItem?.querySelector<HTMLElement>('[data-faq-panel]');
-          const otherIcon = other.querySelector<HTMLElement>('[data-faq-icon]');
-          other.setAttribute('aria-expanded', 'false');
-          if (otherPanel) animatePanelClose(otherPanel, otherIcon);
-        }
+      trigger.addEventListener('click', () => {
+        if (trigger.getAttribute('aria-expanded') === 'true') close();
+        else open();
       });
-      trigger.setAttribute('aria-expanded', 'true');
-      animatePanelOpen(panel, icon);
-    };
 
-    trigger.addEventListener('click', () => {
-      if (trigger.getAttribute('aria-expanded') === 'true') close();
-      else open();
-    });
-
-    trigger.addEventListener('keydown', (event) => {
-      const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
-      if (!keys.includes(event.key)) return;
-      event.preventDefault();
-      const list = Array.from(triggers);
-      const index = list.indexOf(trigger);
-      let next = index;
-      if (event.key === 'ArrowDown') next = (index + 1) % list.length;
-      if (event.key === 'ArrowUp') next = (index - 1 + list.length) % list.length;
-      if (event.key === 'Home') next = 0;
-      if (event.key === 'End') next = list.length - 1;
-      list[next]?.focus();
+      trigger.addEventListener('keydown', (event) => {
+        const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+        if (!keys.includes(event.key)) return;
+        event.preventDefault();
+        const list = Array.from(triggers);
+        const index = list.indexOf(trigger);
+        let next = index;
+        if (event.key === 'ArrowDown') next = (index + 1) % list.length;
+        if (event.key === 'ArrowUp') next = (index - 1 + list.length) % list.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = list.length - 1;
+        list[next]?.focus();
+      });
     });
   });
 }

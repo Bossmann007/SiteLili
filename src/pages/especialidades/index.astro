@@ -1,14 +1,33 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandPattern from '../../components/BrandPattern.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
 import { specialties, specialtyGridItemClass } from '../../data/specialties';
 import { site } from '../../data/site';
 
 const description =
   'Especialidades da Dra. Ligiana Maffini em Curitiba: medicina de família, abordagem em medicina do estilo de vida, prevenção, saúde da mulher, menopausa, emagrecimento clínico e longevidade. CRM/PR 17731.';
+
+const especialidadesFaq = [
+  {
+    question: 'A Dra. Ligiana é especialista em medicina do estilo de vida?',
+    answer:
+      'Não como especialidade no CRM. A especialidade anunciada é Medicina de Família e Comunidade (CRM/PR 17731 · RQE 37637). Medicina do estilo de vida (MEV) é formação e abordagem integrada à consulta de família, no Cristo Rei, em Curitiba.',
+  },
+  {
+    question: 'Onde ler sobre medicina do estilo de vida em Curitiba?',
+    answer:
+      'Na página Medicina do Estilo de Vida deste site: o que é a abordagem, como entra na consulta de família e os seis pilares. Agendamento pelo WhatsApp (41) 99510-4424.',
+  },
+] as const;
 ---
 
-<BaseLayout title="Especialidades em Curitiba" description={description} path="/especialidades/" faqItems={null}>
+<BaseLayout
+  title="Especialidades em Curitiba"
+  description={description}
+  path="/especialidades/"
+  faqItems={especialidadesFaq}
+>
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative py-16 md:py-20">
@@ -31,14 +50,31 @@ const description =
             <a href={`/${item.slug}/`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
               <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{item.title}</h2>
               <p class="prose-site mt-3">{item.shortDescription}</p>
-              <span class="mt-4 inline-block text-sm font-medium text-gold-deep">Ler página completa →</span>
+              <span class="mt-4 inline-block text-sm font-medium text-gold-deep">
+                {item.slug === 'medicina-do-estilo-de-vida'
+                  ? 'Abordagem em medicina do estilo de vida em Curitiba →'
+                  : 'Ler página completa →'}
+              </span>
             </a>
           </li>
         ))
       }
     </ul>
     <p class="prose-site mt-10">
+      Procura <a href="/medicina-do-estilo-de-vida/" class="font-medium text-gold-deep hover:underline">médica de família com abordagem em medicina do estilo de vida em Curitiba</a>?
+      A Dra. Ligiana integra formação MEV à consulta de família — não como segunda especialidade.
+      {' '}
       <a href="/pilares/" class="font-medium text-gold-deep hover:underline">Seis pilares da Medicina do Estilo de Vida →</a>
     </p>
+  </section>
+
+  <section class="section-marble border-t border-line/70 py-16 md:py-24">
+    <div class="container-site max-w-3xl">
+      <p class="eyebrow" data-eyebrow>Perguntas frequentes</p>
+      <h2 class="heading-section mt-3" data-section-title>Especialidade e abordagem MEV</h2>
+      <div class="mt-8">
+        <FaqAccordion items={especialidadesFaq} idPrefix="especialidades" />
+      </div>
+    </div>
   </section>
 </BaseLayout>

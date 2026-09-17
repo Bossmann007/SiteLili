@@ -11,10 +11,10 @@ import { site, services } from '../data/site';
 import { photos, homeGallery } from '../data/photos';
 
 const description =
-  'Dra. Ligiana Maffini, médica de família em Curitiba (Cristo Rei), com abordagem em medicina do estilo de vida. CRM/PR 17731. Consultas presenciais e teleconsulta para a região metropolitana.';
+  'Dra. Ligiana Maffini, médica de família em Curitiba (Cristo Rei), com abordagem em medicina do estilo de vida (MEV). CRM/PR 17731. Consultas presenciais e teleconsulta para a região metropolitana.';
 ---
 
-<BaseLayout title="Médica de Família em Curitiba" description={description} path="/">
+<BaseLayout title="Médica de Família em Curitiba · medicina do estilo de vida" description={description} path="/">
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24 lg:py-28">
@@ -34,6 +34,11 @@ const description =
           </a>
           <a href="/abordagem/" class="btn-secondary">Conhecer a abordagem</a>
         </div>
+        <p class="prose-site mt-5 max-w-xl text-sm">
+          <a href="/medicina-do-estilo-de-vida/" class="font-medium text-gold-deep hover:underline">
+            Medicina do estilo de vida em Curitiba — abordagem da Dra. Ligiana, médica de família
+          </a>
+        </p>
       </div>
 
       <figure class="relative" data-hero-media>

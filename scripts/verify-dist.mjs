@@ -46,6 +46,7 @@ const home = join(root, 'index.html');
 if (existsSync(home)) {
   const html = readFileSync(home, 'utf8');
   if (!html.includes('Médica de Família em Curitiba')) fail('home title intent missing');
+  if (!html.includes('/medicina-do-estilo-de-vida/')) fail('home missing MEV internal link');
   if (!html.includes('og:image:width')) fail('og:image:width missing on home');
   if (!html.includes('/og.jpg')) fail('og.jpg not referenced on home');
   if (!html.includes('og:locale')) fail('og:locale missing on home');
@@ -57,6 +58,9 @@ if (existsSync(home)) {
   if (!html.includes('Região Metropolitana de Curitiba')) fail('home JSON-LD missing RMC areaServed');
   if (html.includes('"areaServed":"BR"')) fail('areaServed must not be country-only BR');
   if (html.includes('"@type":"GeoCoordinates"')) fail('do not invent GeoCoordinates');
+  if (!html.includes('https://schema.org/PrimaryCare')) fail('home JSON-LD missing PrimaryCare medicalSpecialty');
+  if (html.includes('LifestyleMedicine')) fail('home JSON-LD must not invent LifestyleMedicine');
+  if (!html.includes('knowsAbout')) fail('home JSON-LD missing knowsAbout');
 }
 
 if (!existsSync(join(root, 'sitemap-index.xml'))) fail('sitemap-index.xml missing');
@@ -76,6 +80,33 @@ if (existsSync(menopausa)) {
   const html = readFileSync(menopausa, 'utf8');
   const h2 = (html.match(/<h2\b/g) || []).length;
   if (h2 < 3) fail(`menopausa expected ≥3 h2 sections, found ${h2}`);
+}
+
+const mev = join(root, 'medicina-do-estilo-de-vida', 'index.html');
+if (existsSync(mev)) {
+  const html = readFileSync(mev, 'utf8');
+  for (const phrase of [
+    'Medicina do estilo de vida · abordagem em Curitiba',
+    'Médica de família com abordagem em medicina do estilo de vida em Curitiba',
+    'não especialidade CRM',
+    'Quem é a médica com abordagem em medicina do estilo de vida em Curitiba',
+    'Medicina do estilo de vida é uma especialidade no CRM',
+    'Qual a diferença entre médica de família e medicina do estilo de vida',
+  ]) {
+    if (!html.includes(phrase)) fail(`MEV page missing phrase: ${phrase}`);
+  }
+  if (html.includes('LifestyleMedicine')) fail('MEV must not use fake LifestyleMedicine specialty code');
+  if (html.includes('Título de Especialista em Medicina do Estilo de Vida')) {
+    fail('MEV must not be announced as CRM specialist title');
+  }
+} else {
+  fail('dist/medicina-do-estilo-de-vida/index.html missing');
+}
+
+const llms = join(root, 'llms.txt');
+if (existsSync(llms)) {
+  const text = readFileSync(llms, 'utf8');
+  if (!text.includes('médica do estilo de vida')) fail('llms.txt missing MEV search intent line');
 }
 
 const pages = existsSync(root) ? walkHtml(root) : [];

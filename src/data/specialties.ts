@@ -91,12 +91,12 @@ export const specialties = [
     title: 'Medicina do Estilo de Vida',
     shortDescription:
       'Seis pilares — alimentação, movimento, sono, estresse, conexões e redução de tóxicos — integrados ao plano clínico.',
-    h1: 'Medicina do estilo de vida em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731.',
+    h1: 'Médica de família com abordagem em medicina do estilo de vida em Curitiba. Dra. Ligiana Maffini. CRM/PR 17731.',
     lead:
-      'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba com formação em Medicina do Estilo de Vida (MevClinic e MevChange, MEV Brasil). Trabalha os seis pilares do estilo de vida dentro de consultas médicas presenciais no Cristo Rei. Agende pelo WhatsApp (41) 99510-4424.',
-    metaTitle: 'Medicina do estilo de vida em Curitiba',
+      'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba com formação em Medicina do Estilo de Vida (MEV — MevClinic e MevChange, MEV Brasil). Os seis pilares entram na consulta presencial no Cristo Rei como abordagem clínica, não como segunda especialidade no CRM. Agende pelo WhatsApp (41) 99510-4424.',
+    metaTitle: 'Medicina do estilo de vida · abordagem em Curitiba',
     metaDescription:
-      'Abordagem em medicina do estilo de vida com a Dra. Ligiana Maffini em Curitiba. CRM/PR 17731. Formação MevClinic/MevChange integrada à consulta de família no Cristo Rei.',
+      'Medicina do estilo de vida em Curitiba com a Dra. Ligiana Maffini. Abordagem MEV na consulta de família (Cristo Rei), não especialidade CRM. CRM/PR 17731.',
     sections: [
       {
         heading: 'O que é Medicina do Estilo de Vida',
@@ -134,9 +134,24 @@ export const specialties = [
     relatedSlugs: ['medicina-de-familia', 'longevidade', 'prevencao'],
     faq: [
       {
+        question: 'Quem é a médica com abordagem em medicina do estilo de vida em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini Romanus, médica de família e comunidade (CRM/PR 17731 · RQE 37637), atende no Cristo Rei. Integra formação em Medicina do Estilo de Vida (MevClinic e MevChange, MEV Brasil) à consulta de família — abordagem, não segunda especialidade no CRM.',
+      },
+      {
         question: 'O que é Medicina do Estilo de Vida?',
         answer:
-          'Abordagem em medicina do estilo de vida: mudanças de hábitos (alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos) como parte do cuidado clínico, integrada à medicina de família — não uma segunda especialidade no CRM. A Dra. Ligiana Maffini atua em Curitiba. CRM/PR 17731.',
+          'Abordagem clínica que usa mudanças de hábitos — alimentação, movimento, sono, estresse, conexões sociais e redução de tóxicos — como parte do cuidado. Na clínica da Dra. Ligiana, em Curitiba, isso entra na consulta de medicina de família. CRM/PR 17731.',
+      },
+      {
+        question: 'Medicina do estilo de vida é uma especialidade no CRM?',
+        answer:
+          'Não. A especialidade anunciada no CRM é Medicina de Família e Comunidade (título SBMFC 2024). MEV é formação e abordagem integrada a essa consulta, não especialidade CRM.',
+      },
+      {
+        question: 'Qual a diferença entre médica de família e medicina do estilo de vida?',
+        answer:
+          'Medicina de família é a especialidade: cuidado longitudinal da pessoa e da família. Medicina do estilo de vida (MEV) é o modo de trabalhar os seis pilares dentro dessa consulta. A Dra. Ligiana oferece as duas coisas no mesmo atendimento em Curitiba.',
       },
       {
         question: 'Medicina do estilo de vida substitui tratamento convencional?',
@@ -146,7 +161,7 @@ export const specialties = [
       {
         question: 'Quais são os pilares usados na consulta?',
         answer:
-          'Alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos (tabaco, álcool, ultraprocessados em excesso). Detalhes em /pilares.',
+          'Alimentação, movimento, sono, gerenciamento do estresse, conexões sociais e redução de tóxicos (tabaco, álcool, ultraprocessados em excesso). Detalhes na página dos pilares neste site.',
       },
     ],
   },

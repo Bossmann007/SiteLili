@@ -127,6 +127,16 @@ export const faq = [
       'Medicina de Família e Comunidade. Registro: CRM/PR 17731 · RQE 37637. Título de Especialista em Medicina de Família e Comunidade, SBMFC (2024). Abordagem em medicina do estilo de vida (formação MevClinic / MevChange, MEV Brasil).',
   },
   {
+    question: 'Quem é a médica com abordagem em medicina do estilo de vida em Curitiba?',
+    answer:
+      'A Dra. Ligiana Maffini Romanus, médica de família e comunidade (CRM/PR 17731 · RQE 37637), atende no Cristo Rei. Medicina do estilo de vida (MEV) entra como formação e abordagem na consulta de família, não como segunda especialidade no CRM.',
+  },
+  {
+    question: 'Medicina do estilo de vida é especialidade no CRM?',
+    answer:
+      'Não. A especialidade anunciada é Medicina de Família e Comunidade (título SBMFC 2024). MEV é abordagem e formação (MevClinic / MevChange, MEV Brasil) integrada a essa consulta.',
+  },
+  {
     question: 'Onde fica o consultório?',
     answer:
       'Rua Zeila Moura dos Santos, 101, sala 503, Cristo Rei, Curitiba - PR, 80050-605. Atendimento presencial neste endereço.',
