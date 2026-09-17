@@ -48,7 +48,27 @@ if (existsSync(home)) {
   if (!html.includes('Médica de Família em Curitiba')) fail('home title intent missing');
   if (!html.includes('og:image:width')) fail('og:image:width missing on home');
   if (!html.includes('/og.jpg')) fail('og.jpg not referenced on home');
+  if (!html.includes('og:locale')) fail('og:locale missing on home');
   if (html.includes('data-service-expand')) fail('home still has service-expand toggle');
+  if (!html.includes('MedicalBusiness')) fail('home JSON-LD missing MedicalBusiness');
+  if (!html.includes('Physician')) fail('home JSON-LD missing Physician');
+  if (!html.includes('areaServed')) fail('home JSON-LD missing areaServed');
+  if (!html.includes('São José dos Pinhais')) fail('home JSON-LD missing metro city');
+  if (!html.includes('Região Metropolitana de Curitiba')) fail('home JSON-LD missing RMC areaServed');
+  if (html.includes('"areaServed":"BR"')) fail('areaServed must not be country-only BR');
+  if (html.includes('"@type":"GeoCoordinates"')) fail('do not invent GeoCoordinates');
+}
+
+if (!existsSync(join(root, 'sitemap-index.xml'))) fail('sitemap-index.xml missing');
+if (!existsSync(join(root, 'llms.txt'))) fail('llms.txt missing');
+
+const contato = join(root, 'contato', 'index.html');
+if (existsSync(contato)) {
+  const html = readFileSync(contato, 'utf8');
+  if (!html.includes('Rua Zeila Moura dos Santos, 101, sala 503')) fail('contato NAP street missing');
+  if (!html.includes('região metropolitana')) fail('contato missing região metropolitana copy');
+  if (!html.includes('Quem mora na região metropolitana')) fail('contato local FAQ missing');
+  if (!html.includes('A teleconsulta serve para quem está em Curitiba')) fail('contato teleconsulta FAQ missing');
 }
 
 const menopausa = join(root, 'menopausa', 'index.html');

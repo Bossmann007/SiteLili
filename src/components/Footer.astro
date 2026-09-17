@@ -10,6 +10,7 @@ import Logo from './Logo.astro';
       <Logo variant="footer" />
       <p class="mt-4 max-w-md prose-site text-sm">
         {site.fullName} · {site.specialtyShort}. Consultório particular no Cristo Rei, Curitiba.
+        Teleconsulta para continuidade na região metropolitana.
       </p>
       <p class="mt-4 text-sm text-ink-soft">
         {site.crm} · {site.rqe}
@@ -19,7 +20,7 @@ import Logo from './Logo.astro';
     <div class="space-y-4 text-sm text-ink-soft" data-footer-reveal>
       <p>
         <span class="block font-medium text-ink">Endereço</span>
-        {site.address.full}
+        <a href="/contato/" class="hover:text-gold-deep">{site.address.full}</a>
       </p>
       <p>
         <span class="block font-medium text-ink">Contato</span>

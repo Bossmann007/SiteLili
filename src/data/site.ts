@@ -32,6 +32,20 @@ export const site = {
   doctoralia: 'https://www.doctoralia.com.br/ligiana-maffini/medico-clinico-geral/curitiba',
   mapQuery:
     'Rua+Zeila+Moura+dos+Santos,+101,+sala+503,+Cristo+Rei,+Curitiba+-+PR,+80050-605',
+  serviceArea: {
+    administrativeArea: 'Região Metropolitana de Curitiba',
+    cities: [
+      'Curitiba',
+      'São José dos Pinhais',
+      'Colombo',
+      'Pinhais',
+      'Araucária',
+      'Campo Largo',
+      'Almirante Tamandaré',
+      'Fazenda Rio Grande',
+      'Piraquara',
+    ],
+  },
   logo: {
     horizontal: '/logo/logo-horizontal.png',
     icon: '/logo/logo-icon.png',
@@ -48,6 +62,9 @@ export const site = {
 
 export const languagesNote =
   'Consultas e teleconsultas em português. Teleconsulta também pode ser conduzida em inglês, italiano ou alemão, conforme disponibilidade e indicação clínica.';
+
+export const serviceAreaNote =
+  'O consultório presencial fica no Cristo Rei, em Curitiba. Quem mora em São José dos Pinhais, Colombo, Pinhais, Araucária ou em outro município da região metropolitana se consulta nesse endereço. Teleconsulta entra na continuidade do cuidado quando indicada clinicamente. Não há clínicas da Dra. Ligiana em outras cidades.';
 
 export const availableLanguages = ['pt-BR', 'en', 'it', 'de'] as const;
 
@@ -120,6 +137,15 @@ export const faq = [
       `Sim, teleconsulta para continuidade do cuidado quando indicado clinicamente, além de consultas presenciais em Curitiba. ${languagesNote}`,
   },
   {
+    question: 'Quem mora na região metropolitana de Curitiba pode se consultar?',
+    answer: serviceAreaNote,
+  },
+  {
+    question: 'A teleconsulta serve para quem está em Curitiba?',
+    answer:
+      `Sim, quando indicada clinicamente, para continuidade do acompanhamento. A consulta presencial continua no Cristo Rei, em Curitiba. Pacientes da região metropolitana também podem usar teleconsulta nesse mesmo critério. ${languagesNote}`,
+  },
+  {
     question: 'Como agendar?',
     answer:
       'Pelo WhatsApp (41) 99510-4424 — https://wa.me/5541995104424 — ou e-mail draligianamaffini@gmail.com.',
@@ -143,7 +169,7 @@ export const services = [
   {
     title: 'Teleconsulta',
     description:
-      `Acompanhamento à distância com a mesma atenção clínica, para continuidade do cuidado. ${languagesNote}`,
+      `Acompanhamento à distância com a mesma atenção clínica, para continuidade do cuidado, inclusive para quem mora na região metropolitana de Curitiba. ${languagesNote}`,
   },
   {
     title: 'Longevidade e estilo de vida',

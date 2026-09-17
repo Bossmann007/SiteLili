@@ -4,14 +4,14 @@ import Photo from '../components/Photo.astro';
 import BrandPattern from '../components/BrandPattern.astro';
 import FormationTimeline from '../components/FormationTimeline.astro';
 import DoctoraliaReview from '../components/DoctoraliaReview.astro';
-import { site, bio, bioNote, formation, languagesNote } from '../data/site';
+import { site, bio, bioNote, formation, languagesNote, serviceAreaNote } from '../data/site';
 import { photos, aboutGallery } from '../data/photos';
 
 const description =
-  'Ligiana Maffini Romanus, CRM/PR 17731 — médica de família em Curitiba, com abordagem em medicina do estilo de vida. Mais de 25 anos na Atenção Primária à Saúde. Formação e clínica no Cristo Rei.';
+  'Ligiana Maffini Romanus, CRM/PR 17731 — médica de família em Curitiba (Cristo Rei), com abordagem em medicina do estilo de vida. Mais de 25 anos na Atenção Primária à Saúde. Consultas presenciais e teleconsulta para a região metropolitana.';
 ---
 
-<BaseLayout title="Sobre" description={description} path="/sobre/">
+<BaseLayout title="Sobre a clínica em Curitiba" description={description} path="/sobre/">
   <section class="hero-glow relative overflow-hidden border-b border-line/70">
     <BrandPattern />
     <div class="container-site relative py-16 md:py-24">
@@ -44,6 +44,7 @@ const description =
           Consultório particular no bairro Cristo Rei, Curitiba, com consultas longas e
           acompanhamento contínuo em prevenção, saúde da mulher e longevidade.
         </p>
+        <p class="prose-site mt-4">{serviceAreaNote}</p>
 
         <dl class="mt-10 grid gap-4 sm:grid-cols-2">
           <div class="card-soft" data-stagger-item>

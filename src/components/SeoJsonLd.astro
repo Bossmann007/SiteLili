@@ -33,6 +33,27 @@ const postalAddress = {
   addressCountry: site.address.country,
 };
 
+const parana = {
+  '@type': 'State',
+  name: 'Paraná',
+  addressCountry: 'BR',
+};
+
+const areaServed = [
+  {
+    '@type': 'AdministrativeArea',
+    name: site.serviceArea.administrativeArea,
+    containedInPlace: parana,
+  },
+  ...site.serviceArea.cities.map((name) => ({
+    '@type': 'City',
+    name,
+    containedInPlace: parana,
+  })),
+];
+
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${site.mapQuery}`;
+
 const breadcrumbItems = (() => {
   const items: { name: string; item: string }[] = [
     { name: 'Início', item: new URL('/', site.url).href },
@@ -77,7 +98,7 @@ const graph: Record<string, unknown>[] = [
       email: site.email,
       contactType: 'customer service',
       availableLanguage: [...availableLanguages],
-      areaServed: 'BR',
+      areaServed,
     },
     description: bio,
     url: site.url,
@@ -98,11 +119,13 @@ const graph: Record<string, unknown>[] = [
       },
     ],
     address: postalAddress,
+    areaServed,
     sameAs: site.sameAs,
     worksFor: { '@id': orgId },
+    workLocation: { '@id': orgId },
   },
   {
-    '@type': 'Organization',
+    '@type': 'MedicalBusiness',
     '@id': orgId,
     name: site.name,
     url: site.url,
@@ -110,9 +133,13 @@ const graph: Record<string, unknown>[] = [
     image: imageUrl,
     telephone: site.phoneTel,
     email: site.email,
+    medicalSpecialty: 'Family Medicine',
     address: postalAddress,
+    areaServed,
+    hasMap: mapUrl,
     sameAs: site.sameAs,
     founder: { '@id': physicianId },
+    employee: { '@id': physicianId },
   },
   {
     '@type': 'WebSite',

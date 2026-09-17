@@ -11,7 +11,7 @@ import { site, services } from '../data/site';
 import { photos, homeGallery } from '../data/photos';
 
 const description =
-  'Dra. Ligiana Maffini, médica de família em Curitiba (Cristo Rei), com abordagem em medicina do estilo de vida. CRM/PR 17731. Consultas presenciais e teleconsulta.';
+  'Dra. Ligiana Maffini, médica de família em Curitiba (Cristo Rei), com abordagem em medicina do estilo de vida. CRM/PR 17731. Consultas presenciais e teleconsulta para a região metropolitana.';
 ---
 
 <BaseLayout title="Médica de Família em Curitiba" description={description} path="/">
@@ -25,7 +25,8 @@ const description =
         </h1>
         <p class="prose-site mt-6 max-w-xl" data-hero-subtitle>
           {site.specialtyShort}. Consultas longas, longevidade e saúde integral para mulheres 40+,
-          presencialmente em Curitiba e por teleconsulta.
+          presencialmente no Cristo Rei, em Curitiba, e por teleconsulta para continuidade na
+          região metropolitana.
         </p>
         <div class="mt-8 flex flex-wrap gap-3" data-hero-cta>
           <a href={site.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer" data-magnetic>
@@ -135,9 +136,12 @@ const description =
       <p class="prose-site mx-auto mt-4 max-w-lg">
         WhatsApp {site.phone} · {site.instagram.personalHandle} · {site.address.neighborhood}, {site.address.city}
       </p>
-      <a href={site.whatsapp} class="btn-primary mt-8" target="_blank" rel="noopener noreferrer" data-magnetic>
-        Falar no WhatsApp
-      </a>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={site.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer" data-magnetic>
+          Falar no WhatsApp
+        </a>
+        <a href="/contato/" class="btn-secondary">Ver endereço e mapa</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
