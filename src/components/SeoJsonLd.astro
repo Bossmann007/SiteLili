@@ -1,5 +1,6 @@
 ---
 import { site, bio, availableLanguages } from '../data/site';
+import { physicianKnowsAbout } from '../data/specialties';
 import { withTrailingSlash } from '../lib/paths';
 
 type FaqItem = {
@@ -14,9 +15,11 @@ interface Props {
   /** When set, replaces global FAQ schema. Use `null` to omit FAQPage. */
   faqItems?: readonly FaqItem[] | null;
   includeMedicalWebPage?: boolean;
+  /** MedicalWebPage.about topic (tema + Curitiba). Physician.knowsAbout stays global. */
+  aboutTopic?: string;
 }
 
-const { description, path = '', faqItems, includeMedicalWebPage = false } = Astro.props;
+const { description, path = '', faqItems, includeMedicalWebPage = false, aboutTopic } = Astro.props;
 const pagePath = withTrailingSlash(path);
 const pageUrl = new URL(pagePath, site.url).href;
 const imageUrl = new URL('/og.jpg', site.url).href;
@@ -91,10 +94,7 @@ const graph: Record<string, unknown>[] = [
     name: site.fullName,
     alternateName: site.doctor,
     medicalSpecialty: 'https://schema.org/PrimaryCare',
-    knowsAbout: [
-      'Medicina de Família e Comunidade',
-      'Medicina do Estilo de Vida',
-    ],
+    knowsAbout: [...physicianKnowsAbout],
     knowsLanguage: [...availableLanguages],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -180,7 +180,9 @@ if (includeMedicalWebPage) {
     inLanguage: 'pt-BR',
     isPartOf: { '@id': websiteId },
     author: { '@id': physicianId },
-    about: { '@id': physicianId },
+    about: aboutTopic
+      ? [{ '@id': physicianId }, { '@type': 'Thing', name: aboutTopic }]
+      : { '@id': physicianId },
   });
 }
 

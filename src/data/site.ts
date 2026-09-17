@@ -137,6 +137,11 @@ export const faq = [
       'Não. A especialidade anunciada é Medicina de Família e Comunidade (título SBMFC 2024). MEV é abordagem e formação (MevClinic / MevChange, MEV Brasil) integrada a essa consulta.',
   },
   {
+    question: 'Quais temas a Dra. Ligiana atende em Curitiba?',
+    answer:
+      'Medicina de Família e Comunidade (especialidade no CRM). Prevenção, saúde da mulher 40+, menopausa, emagrecimento clínico e longevidade entram como áreas de cuidado nessa consulta. Medicina do estilo de vida é formação e abordagem, não segunda especialidade. Cristo Rei. CRM/PR 17731.',
+  },
+  {
     question: 'Onde fica o consultório?',
     answer:
       'Rua Zeila Moura dos Santos, 101, sala 503, Cristo Rei, Curitiba - PR, 80050-605. Atendimento presencial neste endereço.',

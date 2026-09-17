@@ -18,6 +18,7 @@ interface Props {
   path?: string;
   faqItems?: readonly FaqItem[] | null;
   includeMedicalWebPage?: boolean;
+  aboutTopic?: string;
   robots?: string;
 }
 
@@ -27,6 +28,7 @@ const {
   path = Astro.url.pathname,
   faqItems,
   includeMedicalWebPage = false,
+  aboutTopic,
   robots = 'index, follow',
 } = Astro.props;
 const seoFaq = faqItems;
@@ -70,6 +72,7 @@ const ogImageAlt = `${site.doctor} — ${site.specialtyShort} em ${site.address.
       path={pagePath}
       faqItems={seoFaq}
       includeMedicalWebPage={includeMedicalWebPage}
+      aboutTopic={aboutTopic}
     />
   </head>
   <body class="min-h-dvh">

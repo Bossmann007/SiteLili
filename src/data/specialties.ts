@@ -14,8 +14,13 @@ export type Specialty = {
   shortDescription: string;
   h1: string;
   lead: string;
+  /** SERP title is `${metaTitle} · Dra. Ligiana Maffini` via BaseLayout. */
   metaTitle: string;
   metaDescription: string;
+  /** Anchor text on especialidades index and home cards. */
+  cardCta: string;
+  /** Physician.knowsAbout topic — care area + Curitiba, not extra CRM specialty. */
+  schemaTopic: string;
   sections: readonly SpecialtySection[];
   relatedSlugs: readonly string[];
   faq: readonly SpecialtyFaq[];
@@ -32,7 +37,9 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família e comunidade em Curitiba, com título pela SBMFC (2024) e mais de 25 anos na Atenção Primária à Saúde. Atende presencialmente no bairro Cristo Rei e por teleconsulta quando indicado. Agendamento pelo WhatsApp (41) 99510-4424.',
     metaTitle: 'Medicina de família em Curitiba',
     metaDescription:
-      'Medicina de Família e Comunidade com a Dra. Ligiana Maffini em Curitiba (Cristo Rei). CRM/PR 17731 · RQE 37637. Consultas longas e acompanhamento contínuo.',
+      'Medicina de família em Curitiba com a Dra. Ligiana Maffini. CRM/PR 17731 · RQE 37637. Consultas longas no Cristo Rei — especialidade SBMFC.',
+    cardCta: 'Medicina de família em Curitiba →',
+    schemaTopic: 'Medicina de Família e Comunidade em Curitiba',
     sections: [
       {
         heading: 'O que é medicina de família e comunidade',
@@ -70,6 +77,11 @@ export const specialties = [
     relatedSlugs: ['medicina-do-estilo-de-vida', 'prevencao'],
     faq: [
       {
+        question: 'Quem é a médica de família em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini Romanus (CRM/PR 17731 · RQE 37637) atende no Cristo Rei. Título de especialista em Medicina de Família e Comunidade (SBMFC, 2024), com consultas longas e acompanhamento contínuo.',
+      },
+      {
         question: 'O que faz uma médica de família em Curitiba?',
         answer:
           'Coordena o cuidado de saúde ao longo do tempo: consultas, prevenção, condições crônicas, orientação de estilo de vida e encaminhamentos quando necessário. A Dra. Ligiana Maffini atende no Cristo Rei, Curitiba. CRM/PR 17731.',
@@ -97,6 +109,8 @@ export const specialties = [
     metaTitle: 'Medicina do estilo de vida · abordagem em Curitiba',
     metaDescription:
       'Medicina do estilo de vida em Curitiba com a Dra. Ligiana Maffini. Abordagem MEV na consulta de família (Cristo Rei), não especialidade CRM. CRM/PR 17731.',
+    cardCta: 'Abordagem em medicina do estilo de vida em Curitiba →',
+    schemaTopic: 'Medicina do Estilo de Vida em Curitiba',
     sections: [
       {
         heading: 'O que é Medicina do Estilo de Vida',
@@ -175,7 +189,9 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba com mais de 25 anos na Atenção Primária à Saúde. Oferece prevenção, rastreamento e promoção da saúde no consultório do Cristo Rei. Agendamento: WhatsApp (41) 99510-4424.',
     metaTitle: 'Prevenção e atenção primária em Curitiba',
     metaDescription:
-      'Atenção primária e prevenção em Curitiba com a Dra. Ligiana Maffini. CRM/PR 17731. Rastreamento e hábitos de vida no Cristo Rei.',
+      'Prevenção e atenção primária em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731. Rastreamento e hábitos de vida no Cristo Rei.',
+    cardCta: 'Prevenção e atenção primária em Curitiba →',
+    schemaTopic: 'Prevenção e atenção primária em Curitiba',
     sections: [
       {
         heading: 'O que é prevenção na atenção primária',
@@ -213,6 +229,11 @@ export const specialties = [
     relatedSlugs: ['medicina-de-familia', 'longevidade', 'saude-da-mulher'],
     faq: [
       {
+        question: 'Quem faz prevenção e atenção primária em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini, médica de família (CRM/PR 17731), oferece rastreamento, promoção da saúde e plano preventivo contínuo no Cristo Rei — não triagem online nem check-up sem avaliação clínica.',
+      },
+      {
         question: 'O que inclui prevenção na consulta médica?',
         answer:
           'Rastreamento conforme idade e risco, revisão de exames, orientação de estilo de vida, vacinação adulta e plano de retorno. Atendimento em Curitiba (Cristo Rei) com a Dra. Ligiana Maffini. CRM/PR 17731.',
@@ -239,7 +260,9 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba, com foco em saúde da mulher a partir dos 40 anos — transições hormonais, metabolismo, sono e estilo de vida. Consultório no Cristo Rei. WhatsApp: (41) 99510-4424.',
     metaTitle: 'Saúde da mulher 40+ em Curitiba',
     metaDescription:
-      'Saúde da mulher 40+ em Curitiba com a Dra. Ligiana Maffini. CRM/PR 17731. Consultas longas no Cristo Rei — hormônios, metabolismo e prevenção.',
+      'Saúde da mulher 40+ em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731. Consultas longas no Cristo Rei — transições da meia-idade, metabolismo e prevenção.',
+    cardCta: 'Saúde da mulher 40+ em Curitiba →',
+    schemaTopic: 'Saúde da mulher 40+ em Curitiba',
     sections: [
       {
         heading: 'Quando procurar',
@@ -277,6 +300,11 @@ export const specialties = [
     relatedSlugs: ['menopausa', 'emagrecimento', 'medicina-de-familia'],
     faq: [
       {
+        question: 'Quem atende saúde da mulher 40+ em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini, médica de família e comunidade (CRM/PR 17731), acompanha saúde da mulher a partir dos 40 anos no Cristo Rei — energia, hormônios, metabolismo, sono e bem-estar emocional. Encaminha a outro especialista quando a avaliação indicar.',
+      },
+      {
         question: 'A partir de que idade procurar saúde da mulher 40+?',
         answer:
           'Muitas mulheres iniciam acompanhamento entre 40 e 55 anos, mas cada caso é individual. A Dra. Ligiana Maffini atende em Curitiba (Cristo Rei). CRM/PR 17731.',
@@ -303,7 +331,9 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba e acompanha perimenopausa e menopausa com consultas longas, integrando estilo de vida e indicações clínicas quando necessário. Cristo Rei. WhatsApp (41) 99510-4424.',
     metaTitle: 'Menopausa em Curitiba',
     metaDescription:
-      'Acompanhamento de menopausa em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731. Consultas no Cristo Rei — sem diagnóstico online.',
+      'Menopausa em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731. Acompanhamento de perimenopausa no Cristo Rei — sem diagnóstico online.',
+    cardCta: 'Menopausa em Curitiba →',
+    schemaTopic: 'Menopausa em Curitiba',
     sections: [
       {
         heading: 'O que é menopausa e perimenopausa',
@@ -341,6 +371,11 @@ export const specialties = [
     relatedSlugs: ['saude-da-mulher', 'emagrecimento', 'longevidade'],
     faq: [
       {
+        question: 'Quem acompanha menopausa em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini, médica de família (CRM/PR 17731), acompanha perimenopausa e menopausa no Cristo Rei, com estilo de vida e decisões terapêuticas em consulta — sem prescrição por este site.',
+      },
+      {
         question: 'Quando procurar médica para menopausa em Curitiba?',
         answer:
           'Quando sintomas como fogachos, insônia, alterações de ciclo ou humor passam a afetar a rotina, ou quando você deseja orientação preventiva na transição. Dra. Ligiana Maffini, CRM/PR 17731, Cristo Rei.',
@@ -367,7 +402,9 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba e oferece acompanhamento clínico de emagrecimento — avaliação médica, hábitos e metas realistas, sem promessas milagrosas (CFM). Cristo Rei. WhatsApp (41) 99510-4424.',
     metaTitle: 'Emagrecimento clínico em Curitiba',
     metaDescription:
-      'Emagrecimento com acompanhamento médico em Curitiba. Dra. Ligiana Maffini, CRM/PR 17731. Sem promessa milagrosa — consulta no Cristo Rei.',
+      'Emagrecimento clínico em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731. Sem promessa milagrosa — consulta no Cristo Rei.',
+    cardCta: 'Emagrecimento clínico em Curitiba →',
+    schemaTopic: 'Emagrecimento clínico em Curitiba',
     sections: [
       {
         heading: 'O que é emagrecimento clínico',
@@ -405,6 +442,11 @@ export const specialties = [
     relatedSlugs: ['menopausa', 'medicina-do-estilo-de-vida', 'saude-da-mulher'],
     faq: [
       {
+        question: 'Quem faz acompanhamento de emagrecimento em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini, médica de família (CRM/PR 17731), oferece acompanhamento clínico de peso e metabolismo no Cristo Rei — sem promessa de resultado milagroso (CFM).',
+      },
+      {
         question: 'A Dra. Ligiana promete emagrecimento rápido?',
         answer:
           'Não. O acompanhamento é clínico, baseado em evidências e orientações do CFM — sem promessa de resultado milagroso. CRM/PR 17731, Curitiba.',
@@ -431,7 +473,9 @@ export const specialties = [
       'A Dra. Ligiana Maffini Romanus é médica de família em Curitiba e trabalha longevidade como envelhecimento saudável — prevenção, estilo de vida e acompanhamento contínuo. Consultório Cristo Rei. WhatsApp (41) 99510-4424.',
     metaTitle: 'Longevidade em Curitiba',
     metaDescription:
-      'Longevidade e envelhecimento saudável em Curitiba com a Dra. Ligiana Maffini. CRM/PR 17731. Medicina de família, com abordagem em estilo de vida, no Cristo Rei.',
+      'Longevidade em Curitiba com a Dra. Ligiana Maffini, médica de família. CRM/PR 17731. Envelhecimento saudável no Cristo Rei — ciência, não modismo.',
+    cardCta: 'Longevidade em Curitiba →',
+    schemaTopic: 'Longevidade e envelhecimento saudável em Curitiba',
     sections: [
       {
         heading: 'O que é longevidade na clínica',
@@ -469,6 +513,11 @@ export const specialties = [
     relatedSlugs: ['prevencao', 'medicina-do-estilo-de-vida', 'medicina-de-familia'],
     faq: [
       {
+        question: 'Quem atende longevidade em Curitiba?',
+        answer:
+          'A Dra. Ligiana Maffini, médica de família (CRM/PR 17731), trabalha longevidade como envelhecimento saudável — prevenção e estilo de vida no Cristo Rei, não protocolos da moda.',
+      },
+      {
         question: 'O que é longevidade na medicina de família?',
         answer:
           'Envelhecimento saudável com prevenção, estilo de vida e acompanhamento contínuo — não promessas de rejuvenescimento. Dra. Ligiana Maffini, Curitiba. CRM/PR 17731.',
@@ -486,6 +535,9 @@ export const specialties = [
     ],
   },
 ] as const satisfies readonly Specialty[];
+
+/** Physician.knowsAbout — care topics + Curitiba. medicalSpecialty stays PrimaryCare. */
+export const physicianKnowsAbout = specialties.map((item) => item.schemaTopic);
 
 export type SpecialtySlug = (typeof specialties)[number]['slug'];
 

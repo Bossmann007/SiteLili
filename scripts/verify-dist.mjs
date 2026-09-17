@@ -61,6 +61,28 @@ if (existsSync(home)) {
   if (!html.includes('https://schema.org/PrimaryCare')) fail('home JSON-LD missing PrimaryCare medicalSpecialty');
   if (html.includes('LifestyleMedicine')) fail('home JSON-LD must not invent LifestyleMedicine');
   if (!html.includes('knowsAbout')) fail('home JSON-LD missing knowsAbout');
+  for (const topic of [
+    'Medicina de Família e Comunidade em Curitiba',
+    'Medicina do Estilo de Vida em Curitiba',
+    'Prevenção e atenção primária em Curitiba',
+    'Saúde da mulher 40+ em Curitiba',
+    'Menopausa em Curitiba',
+    'Emagrecimento clínico em Curitiba',
+    'Longevidade e envelhecimento saudável em Curitiba',
+  ]) {
+    if (!html.includes(topic)) fail(`home JSON-LD knowsAbout missing: ${topic}`);
+  }
+  for (const cta of [
+    'Medicina de família em Curitiba →',
+    'Abordagem em medicina do estilo de vida em Curitiba →',
+    'Prevenção e atenção primária em Curitiba →',
+    'Saúde da mulher 40+ em Curitiba →',
+    'Menopausa em Curitiba →',
+    'Emagrecimento clínico em Curitiba →',
+    'Longevidade em Curitiba →',
+  ]) {
+    if (!html.includes(cta)) fail(`home missing specialty card CTA: ${cta}`);
+  }
 }
 
 if (!existsSync(join(root, 'sitemap-index.xml'))) fail('sitemap-index.xml missing');
@@ -73,6 +95,7 @@ if (existsSync(contato)) {
   if (!html.includes('região metropolitana')) fail('contato missing região metropolitana copy');
   if (!html.includes('Quem mora na região metropolitana')) fail('contato local FAQ missing');
   if (!html.includes('A teleconsulta serve para quem está em Curitiba')) fail('contato teleconsulta FAQ missing');
+  if (!html.includes('Quais temas a Dra. Ligiana atende em Curitiba')) fail('contato specialty FAQ missing');
 }
 
 const menopausa = join(root, 'menopausa', 'index.html');
@@ -103,10 +126,89 @@ if (existsSync(mev)) {
   fail('dist/medicina-do-estilo-de-vida/index.html missing');
 }
 
+const specialtySeo = [
+  {
+    slug: 'medicina-de-familia',
+    core: 'Medicina de família em Curitiba',
+    intent: 'Quem é a médica de família em Curitiba',
+  },
+  {
+    slug: 'medicina-do-estilo-de-vida',
+    core: 'medicina do estilo de vida em Curitiba',
+    intent: 'Quem é a médica com abordagem em medicina do estilo de vida em Curitiba',
+  },
+  {
+    slug: 'prevencao',
+    core: 'Prevenção e atenção primária em Curitiba',
+    intent: 'Quem faz prevenção e atenção primária em Curitiba',
+  },
+  {
+    slug: 'saude-da-mulher',
+    core: 'Saúde da mulher 40+ em Curitiba',
+    intent: 'Quem atende saúde da mulher 40+ em Curitiba',
+  },
+  {
+    slug: 'menopausa',
+    core: 'Menopausa em Curitiba',
+    intent: 'Quem acompanha menopausa em Curitiba',
+  },
+  {
+    slug: 'emagrecimento',
+    core: 'Emagrecimento clínico em Curitiba',
+    intent: 'Quem faz acompanhamento de emagrecimento em Curitiba',
+  },
+  {
+    slug: 'longevidade',
+    core: 'Longevidade em Curitiba',
+    intent: 'Quem atende longevidade em Curitiba',
+  },
+];
+
+for (const { slug, core, intent } of specialtySeo) {
+  const file = join(root, slug, 'index.html');
+  if (!existsSync(file)) {
+    fail(`dist/${slug}/index.html missing`);
+    continue;
+  }
+  const html = readFileSync(file, 'utf8');
+  for (const phrase of ['Dra. Ligiana', 'Curitiba', core, intent]) {
+    if (!html.includes(phrase)) fail(`${slug} missing phrase: ${phrase}`);
+  }
+}
+
+const especialidades = join(root, 'especialidades', 'index.html');
+if (existsSync(especialidades)) {
+  const html = readFileSync(especialidades, 'utf8');
+  for (const phrase of [
+    'Medicina de família em Curitiba',
+    'Abordagem em medicina do estilo de vida em Curitiba',
+    'Prevenção e atenção primária em Curitiba',
+    'Saúde da mulher 40+ em Curitiba',
+    'Menopausa em Curitiba',
+    'Emagrecimento clínico em Curitiba',
+    'Longevidade em Curitiba',
+    'Quais áreas a Dra. Ligiana atende em Curitiba',
+  ]) {
+    if (!html.includes(phrase)) fail(`especialidades missing phrase: ${phrase}`);
+  }
+} else {
+  fail('dist/especialidades/index.html missing');
+}
+
 const llms = join(root, 'llms.txt');
 if (existsSync(llms)) {
   const text = readFileSync(llms, 'utf8');
   if (!text.includes('médica do estilo de vida')) fail('llms.txt missing MEV search intent line');
+  for (const phrase of [
+    'médica de família Curitiba',
+    'prevenção em Curitiba',
+    'saúde da mulher 40+ Curitiba',
+    'menopausa em Curitiba',
+    'emagrecimento clínico Curitiba',
+    'longevidade em Curitiba',
+  ]) {
+    if (!text.includes(phrase)) fail(`llms.txt missing search intent: ${phrase}`);
+  }
 }
 
 const pages = existsSync(root) ? walkHtml(root) : [];

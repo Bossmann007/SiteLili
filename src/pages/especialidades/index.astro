@@ -10,6 +10,11 @@ const description =
 
 const especialidadesFaq = [
   {
+    question: 'Quais áreas a Dra. Ligiana atende em Curitiba?',
+    answer:
+      'A especialidade no CRM é Medicina de Família e Comunidade. Áreas de cuidado no Cristo Rei: prevenção, saúde da mulher 40+, menopausa, emagrecimento clínico e longevidade. Medicina do estilo de vida entra como formação e abordagem, não como segunda especialidade. CRM/PR 17731.',
+  },
+  {
     question: 'A Dra. Ligiana é especialista em medicina do estilo de vida?',
     answer:
       'Não como especialidade no CRM. A especialidade anunciada é Medicina de Família e Comunidade (CRM/PR 17731 · RQE 37637). Medicina do estilo de vida (MEV) é formação e abordagem integrada à consulta de família, no Cristo Rei, em Curitiba.',
@@ -18,6 +23,11 @@ const especialidadesFaq = [
     question: 'Onde ler sobre medicina do estilo de vida em Curitiba?',
     answer:
       'Na página Medicina do Estilo de Vida deste site: o que é a abordagem, como entra na consulta de família e os seis pilares. Agendamento pelo WhatsApp (41) 99510-4424.',
+  },
+  {
+    question: 'Onde ler sobre menopausa, emagrecimento ou longevidade em Curitiba?',
+    answer:
+      'Cada tema tem página neste site, sempre com a Dra. Ligiana Maffini, médica de família no Cristo Rei: menopausa, emagrecimento clínico, longevidade, saúde da mulher 40+ e prevenção. CRM/PR 17731.',
   },
 ] as const;
 ---
@@ -37,6 +47,7 @@ const especialidadesFaq = [
       </h1>
       <p class="prose-site mt-4 max-w-2xl" data-hero-subtitle>
         {site.fullName} · medicina de família, com abordagem em medicina do estilo de vida · consultório no Cristo Rei.
+        Páginas de prevenção, saúde da mulher 40+, menopausa, emagrecimento clínico e longevidade.
         Agende pelo WhatsApp {site.phone}.
       </p>
     </div>
@@ -50,11 +61,7 @@ const especialidadesFaq = [
             <a href={`/${item.slug}/`} class="card-soft group block h-full hover:border-gold/40" data-stagger-item>
               <h2 class="font-display text-2xl text-ink group-hover:text-gold-deep">{item.title}</h2>
               <p class="prose-site mt-3">{item.shortDescription}</p>
-              <span class="mt-4 inline-block text-sm font-medium text-gold-deep">
-                {item.slug === 'medicina-do-estilo-de-vida'
-                  ? 'Abordagem em medicina do estilo de vida em Curitiba →'
-                  : 'Ler página completa →'}
-              </span>
+              <span class="mt-4 inline-block text-sm font-medium text-gold-deep">{item.cardCta}</span>
             </a>
           </li>
         ))
@@ -66,12 +73,23 @@ const especialidadesFaq = [
       {' '}
       <a href="/pilares/" class="font-medium text-gold-deep hover:underline">Seis pilares da Medicina do Estilo de Vida →</a>
     </p>
+    <p class="prose-site mt-4">
+      Também:
+      <a href="/medicina-de-familia/" class="font-medium text-gold-deep hover:underline">medicina de família em Curitiba</a>,
+      <a href="/prevencao/" class="font-medium text-gold-deep hover:underline">prevenção e atenção primária em Curitiba</a>,
+      <a href="/saude-da-mulher/" class="font-medium text-gold-deep hover:underline">saúde da mulher 40+ em Curitiba</a>,
+      <a href="/menopausa/" class="font-medium text-gold-deep hover:underline">menopausa em Curitiba</a>,
+      <a href="/emagrecimento/" class="font-medium text-gold-deep hover:underline">emagrecimento clínico em Curitiba</a>
+      e
+      <a href="/longevidade/" class="font-medium text-gold-deep hover:underline">longevidade em Curitiba</a>
+      — sempre com a Dra. Ligiana Maffini, médica de família.
+    </p>
   </section>
 
   <section class="section-marble border-t border-line/70 py-16 md:py-24">
     <div class="container-site max-w-3xl">
       <p class="eyebrow" data-eyebrow>Perguntas frequentes</p>
-      <h2 class="heading-section mt-3" data-section-title>Especialidade e abordagem MEV</h2>
+      <h2 class="heading-section mt-3" data-section-title>Especialidade CRM e áreas de cuidado</h2>
       <div class="mt-8">
         <FaqAccordion items={especialidadesFaq} idPrefix="especialidades" />
       </div>
